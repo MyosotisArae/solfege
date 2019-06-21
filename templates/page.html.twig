@@ -1,0 +1,34 @@
+{% extends "base.html.twig" %}
+
+{% block entete %}
+  {{ parent() }}
+  <link rel="stylesheet" href="{{css_path}}toolTip.css">
+  <link rel="stylesheet" href="{{css_path}}page.css">
+{% endblock %}
+
+{% block corps %}
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-1">
+          <a href='main'>
+          <img class="miniBtn cadreRouge" src="{{img_path}}conservatoire.jpg">
+          </a>
+          <div class='tool-tip right'>Retour</div>
+        </div>
+        <div class="col-10">
+          <h1>{% block titre %}{% endblock %}</h1>
+        </div>
+        <div class="col-1">
+          <a href='apprendre_{{session.exercice}}'>
+            <div class='tool-tip left'>Explications</div>
+            <div class="positionFixe miniBtn cadreRouge">
+              <img class="positionRelative" src="{{img_path}}apprendre.gif">
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+{% block page %}
+{% endblock %}
+
+{% endblock %}

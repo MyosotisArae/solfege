@@ -1,0 +1,55 @@
+{% extends "page.html.twig" %}
+
+{% block entete %}
+  {{ parent() }}
+{% endblock %}
+
+{% block corps %}
+  {{ parent() }}
+{% endblock %}
+
+{% block titre %}
+Mes scores
+{% endblock %}
+
+{% block page %}
+  {{ parent() }}
+
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="offset-1 col-5">
+      {% include '_discipline.html.twig' with {'lignes' : scores.italien, 'image' : 'italien.gif', 'titre' : 'Termes italiens'} %}
+      {% include '_discipline.html.twig' with {'lignes' : scores.instrument, 'image' : 'tambour.gif', 'titre' : 'Instruments'} %}
+      {% include '_discipline.html.twig' with {'lignes' : scores.tonalite, 'image' : 'notes.gif', 'titre' : 'Tonalités'} %}
+      {% include '_discipline.html.twig' with {'lignes' : scores.rythme, 'image' : 'rythme2.gif', 'titre' : 'Rythme'} %}
+    </div>
+
+    <div class="offset-1 col-4 cadreNoir">
+      <div>
+        <table class="sousTitre">
+          <tr>
+            <td><img class="micro" src="{{img_path}}trophees/logo.jpg"></td>
+            <td><h2>Trophées</h2></td>
+          </tr>
+        </table>
+      </div>
+      <table>
+      {% for trophee in trophees %}
+        <tr>
+          <td class="doubleImage">
+            <img class="micro" src="{{img_path}}trophees/{{trophee.image}}">
+            <img class="micro2" src="{{img_path}}trophees/{{trophee.image}}">
+          </td>
+          <td><h3>{{trophee.nom}}</h3></td>
+        </tr>
+      {% else %}
+      <tr><td><br><h3>Tu n'as aucun trophee, pour l'instant.</h3></td></tr>
+      {% endfor %}
+      </table>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

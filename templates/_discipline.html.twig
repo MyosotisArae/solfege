@@ -1,0 +1,12 @@
+      <div class="cadreNoir">
+        <table class="sousTitre">
+          <tr>
+            <td><img class="micro" src="{{img_path}}{{image}}"></td>
+            <td><h2>{{titre}}</h2></td>
+          </tr>
+        </table>
+        {% for score in lignes %}
+        {% else %}
+        <h3><br>Tu n'as pas encore joué dans ce niveau.</h3>
+        {% endfor %}
+      </div>

@@ -1,0 +1,37 @@
+{% extends "apprendre.html.twig" %}
+
+{% block entete %}
+  {{ parent() }}
+  <link rel="stylesheet" href="{{css_path}}apprendre_score.css">
+{% endblock %}
+
+
+{% block titre %}Les trophées{% endblock %}
+
+{% block corps %}
+  {{ parent() }}
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="offset-1 col-11">
+      <table>
+      {% for trophee in trophees %}
+        <tr{{ trophee.obtenu ? ' class="griser"' : ''}}>
+          <td class="doubleImage">
+            <img class="micro" src="{{img_path}}trophees/{{trophee.image}}">
+            <img class="micro2" src="{{img_path}}trophees/{{trophee.image}}">
+          </td>
+          <td>
+            <dl>
+              <dt>{{trophee.nom}}</dt>
+              <dd>{{trophee.description}}</dd>
+            </dl>
+          </td>
+        </tr>
+      {% endfor %}
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
