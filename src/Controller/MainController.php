@@ -12,7 +12,8 @@ class MainController extends ParentController
    */
   public function main()
   {
-    return $this->render('/main.html.twig',["session" => $_SESSION]);
+    $this->session->set('question', 0);
+    return $this->render('/main.html.twig');
   }
 }
 

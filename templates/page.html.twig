@@ -17,9 +17,10 @@
         </div>
         <div class="col-10">
           <h1>{% block titre %}{% endblock %}</h1>
+          {% if niveau is defined %}<h2>Niveau {{niveau+1}}</h2>{% endif %}
         </div>
         <div class="col-1">
-          <a href='apprendre_{{session.exercice}}'>
+          <a href="apprendre_{{app.session.get('exercice')}}">
             <div class='tool-tip left'>Explications</div>
             <div class="positionFixe miniBtn cadreRouge">
               <img class="positionRelative" src="{{img_path}}apprendre.gif">

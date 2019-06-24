@@ -12,8 +12,8 @@ class TonaliteController extends ParentController
    */
   public function main()
   {
-    $_SESSION['exercice'] = 'tonalite';
-    return $this->render('/tonalite.html.twig',["session" => $_SESSION]);
+    $this->session->set('exercice', 'tonalite');
+    return $this->render('/tonalite.html.twig');
   }
 }
 

@@ -12,6 +12,15 @@ class ScoreRepository extends ServiceEntityRepository
         parent::__construct($registry, Score::class);
         $this->disciplines = array("italien","instrument","tonalite","rythme");
     }
+    
+    ///////////////////////////////////////////////////////////////////////////////
+    //                              Mes fonctions                                //
+    ///////////////////////////////////////////////////////////////////////////////
+
+    private function getIndiceDiscipline($discipline)
+    {
+      return array_search($discipline, $this->disciplines);
+    }
 
     ///////////////////////////////////////////////////////////////////////////////
     //                              Mes requetes                                 //
@@ -39,7 +48,7 @@ class ScoreRepository extends ServiceEntityRepository
       }
       foreach ($listeComplete as $sc)
       {
-        $liste[$disciplines[$sc.discipline]] = $sc;
+        $liste[$this->disciplines[$sc.discipline]][] = $sc;
       }
 
       return $liste;
@@ -49,24 +58,14 @@ class ScoreRepository extends ServiceEntityRepository
     {
       $qb = $this->createQueryBuilder('s')
                  ->select('MAX(s.niveau)')
-                 ->where('s.discippline = :d')
-                 ->setParameter('d',array_search($discipline, $this->$discipline));
+                 ->where('s.discipline = :d')
+                 ->setParameter('d', $this->getIndiceDiscipline($discipline));
 
-      $listeComplete = $qb
-                       ->getQuery()
-                       ->getResult();
+      $niveau = $qb->getQuery()
+                   ->getSingleScalarResult();
 
-      // Classer ces objets par discipline
-      $liste = array();
-      foreach ($this->disciplines as $dis)
-      {
-        $liste[$dis] = array();
-      }
-      foreach ($listeComplete as $sc)
-      {
-        $liste[$disciplines[$sc.discipline]] = $sc;
-      }
+      if ($niveau == null) $niveau = 0;
 
-      return $liste;
+      return $niveau;
     }
 }

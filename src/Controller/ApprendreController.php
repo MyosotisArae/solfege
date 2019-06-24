@@ -12,8 +12,8 @@ class ApprendreController extends ParentController
    */
   public function main()
   {
-    $_SESSION['exercice'] = 'score';
-    return $this->render('/apprendre.html.twig',["session" => $_SESSION]);
+    $this->session->set('exercice', 'score');
+    return $this->render('/apprendre.html.twig');
   }
 }
 

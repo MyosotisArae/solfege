@@ -12,8 +12,8 @@ class RythmeController extends ParentController
    */
   public function main()
   {
-    $_SESSION['exercice'] = 'rythme';
-    return $this->render('/rythme.html.twig',["session" => $_SESSION]);
+    $this->session->set('exercice', 'rythme');
+    return $this->render('/rythme.html.twig');
   }
 }
 

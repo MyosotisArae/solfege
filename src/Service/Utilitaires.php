@@ -3,19 +3,6 @@ namespace App\Service;
 
 class Utilitaires
 {
-    /**
-      Retourne True si la variable de session portant ce nom existe et est renseignée.
-      S'utilise comme ceci dans les Controlleurs :
-      $util = $this->get("utilitaires");
-      if ($util->estRenseigneSESSION("userPseudo")) { ... }
-    */
-    public function estRenseigneSESSION($NomDeVariableDeSession)
-    {
-    	if (!isset($_SESSION)) return False;
-    	if (!isset($_SESSION[$NomDeVariableDeSession])) return False;
-    	return !is_null($_SESSION[$NomDeVariableDeSession]);
-    }
-
     public function estRenseignePOST($NomDeVariablePostee)
     {
     	if (!isset($_POST)) return false;

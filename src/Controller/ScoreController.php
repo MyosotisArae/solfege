@@ -13,11 +13,10 @@ class ScoreController extends ParentController
    */
   public function main()
   {
-    $_SESSION['exercice'] = 'score';
+    $this->session->set('exercice', 'score');
     $listeTrophees = $this->getTrophees(true);
     $listeScores = $this->getScores();
-    return $this->render('/score.html.twig',["session" => $_SESSION,
-                                             "scores" => $listeScores,
+    return $this->render('/score.html.twig',["scores" => $listeScores,
                                              "trophees" => $listeTrophees]);
   }
   /**
@@ -25,10 +24,9 @@ class ScoreController extends ParentController
    */
   public function apprendre()
   {
-    $_SESSION['exercice'] = 'score';
+    $this->session->set('exercice', 'score');
     $listeTrophees = $this->getTrophees(false);
-    return $this->render('/apprendre_score.html.twig',["session" => $_SESSION,
-                                                       "trophees" => $listeTrophees]);
+    return $this->render('/apprendre_score.html.twig',["trophees" => $listeTrophees]);
   }
   
   /* Donne la liste de tous les trophées si $obtenus vaut false,

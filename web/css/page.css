@@ -53,3 +53,11 @@ h2 { text-align : center; }
   margin-left: auto;
   margin-right: auto;
 }
+.souligne
+{
+  border-bottom : 1px solid red;
+}
+.imgSymbole
+{
+  height : 2em;
+}

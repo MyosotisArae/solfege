@@ -12,8 +12,8 @@ class InstrumentController extends ParentController
    */
   public function main()
   {
-    $_SESSION['exercice'] = 'instrument';
-    return $this->render('/instrument.html.twig',["session" => $_SESSION]);
+    $this->session->set('exercice', 'instrument');
+    return $this->render('/instrument.html.twig');
   }
 }
 
