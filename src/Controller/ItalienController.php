@@ -56,15 +56,6 @@ class ItalienController extends ExerciceController
     parent::initNiveau();
     switch ($this->getSss('niveau'))
     {
-      case 1 :
-      case 2 :
-      case 3 :
-      case 4 :
-      case 5 :
-      case 6 : $this->typeDeQuestion = 1; break;
-    }
-    switch ($this->getSss('niveau'))
-    {
       case 1 : $this->setSss('modele', 'QCM_symbole'); break;
       case 2 :
       case 3 :

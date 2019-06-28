@@ -13,23 +13,33 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="offset-1 col-11">
-      <table>
-      {% for trophee in trophees %}
-        <tr{{ trophee.obtenu ? ' class="griser"' : ''}}>
-          <td class="doubleImage">
-            <img class="micro" src="{{img_path}}trophees/{{trophee.image}}">
-            <img class="micro2" src="{{img_path}}trophees/{{trophee.image}}">
-          </td>
-          <td>
-            <dl>
-              <dt><b>{{trophee.nom}}</b></dt>
-              <dd>{{trophee.description}}</dd>
-            </dl>
-          </td>
-        </tr>
-      {% endfor %}
-      </table>
+    <div class="col-12">
+      <div class="listeDeroulante">
+
+        <div class="container-fluid">
+          <div class="row">
+            <div class="offset-1 col-11">
+              <table>
+              {% for trophee in trophees %}
+                <tr{{ trophee.obtenu ? ' class="griser"' : ''}}>
+                  <td class="doubleImage">
+                    <img class="micro" src="{{img_path}}trophees/{{trophee.image}}">
+                    <img class="micro2" src="{{img_path}}trophees/{{trophee.image}}">
+                  </td>
+                  <td>
+                    <dl>
+                      <dt><b>{{trophee.nom}}</b></dt>
+                      <dd>{{trophee.description}}</dd>
+                    </dl>
+                  </td>
+                </tr>
+              {% endfor %}
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </div>
