@@ -1,55 +1,101 @@
 <?php
 namespace App\Controller;
 
-use App\Objet\Vocabulaire;
+use App\Entity\Vocabulaire;
+use App\Objet\Question;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ItalienController extends ParentController
+class ItalienController extends ExerciceController
 {
   /**
    * @Route("/italien", name="italien")
    */
-  public function main()
+  public function main1()
   {
-    $this->session->set('exercice', 'italien');
-    $q = $this->session->get('question');
-    if ($q>0) { $this->session->set('question', $q+1); }
-    else { $this->session->set('question', 1); }
-    $this->initVocab();
-    return $this->render('/italien.html.twig',["niveau" => $this->getNiveau(), "question" => $this->getQuestion()]);
+    $this->setSss('titreExo', 'termes italiens' );
+    return $this->question('italien');
   }
 
-  private function getNiveau()
+  /**
+   * @Route("/italienCorrection{numRep}", name="italienCorrection", requirements={"numRep" = "\d+"})
+   */
+  public function main2($numRep)
   {
-    return $this->getDoctrine()
-                ->getManager()
-                ->getRepository('App:Score')
-                ->getNiveau($this->session->get('exercice'));
+    return $this->correction('italien', $numRep);
   }
 
-  private function initVocab()
+  /**
+   * @Route("/apprendre_italien", name="apprendre_italien")
+   */
+  public function main3()
   {
-    $this->Vocab = array
-    (
-      new Vocabulaire("pianississimo","très très doux","pianississimo","son particulièrement faible, à la limite d'exécution pour les instruments à vent"),
-      new Vocabulaire("pianissimo","très doux","pianissimo","son très faible, difficile à exécuter, surtout dans les aigus"),
-      new Vocabulaire("piano","doux","piano","son faible"),
-      new Vocabulaire("mezzo piano","moyennement doux","mezzo_piano","niveau sonore légèrement relâché"),
-      new Vocabulaire("mezzo forte","moyennement fort","mezzo_forte","nuance naturelle pour tous les instruments"),
-      new Vocabulaire("forte","fort","forte","le son demande un peu d'énergie"),
-      new Vocabulaire("fortissimo","très fort","fortissimo","exécuté avec violence, sans pour autant dénaturer le son"),
-      new Vocabulaire("fortississimo","très très fort","fortississimo", "utilisé exceptionnellement pour un effet d'orchestre")
-    );
+    $this->getCategorie('nuance');
+    $this->getCategorie('tempo');
+    $this->getCategorie('expression');
+    return $this->apprentissage('italien');
   }
 
-  private function getQuestion()
+  protected function initVocab()
   {
-    if ($this->session->get('question') < count($this->Vocab))
+    switch ($this->getSss('niveau'))
     {
-      return $this->Vocab[$this->session->get('question')];
+      case 1:
+      case 4: $this->setSss('vocabulaire', $this->getCategorie('nuance') ); break;
+      case 2:
+      case 5: $this->setSss('vocabulaire', $this->getCategorie('tempo') ); break;
+      case 3:
+      case 6: $this->setSss('vocabulaire', $this->getCategorie('expression') ); break;
     }
+    $this->setSss('listeIndices',$this->getIndices());
+  }
+
+  protected function initNiveau()
+  {
+    parent::initNiveau();
+    switch ($this->getSss('niveau'))
+    {
+      case 1 :
+      case 2 :
+      case 3 :
+      case 4 :
+      case 5 :
+      case 6 : $this->typeDeQuestion = 1; break;
+    }
+    switch ($this->getSss('niveau'))
+    {
+      case 1 : $this->setSss('modele', 'QCM_symbole'); break;
+      case 2 :
+      case 3 :
+      case 5 :
+      case 6 : $this->setSss('modele', 'QCM_nom'); break;
+      case 4 : $this->setSss('modele', 'QCM_description'); break;
+    }
+  }
+
+  protected function complementCorrection(Vocabulaire $bonneReponse)
+  {
+    $msg = $this->getSss('correction');
+    $suite = "";
+    switch ($this->getSss('niveau'))
+    {
+      case 2 :
+      case 5 : $suite = ' Tempo '.$bonneReponse->getCommentaire().'.'; break;
+    }
+    switch ($this->getSss('niveau'))
+    {
+      case 1 : $msg .= $bonneReponse->getNom().'" qui signifie "'.$bonneReponse->getDescription().'".';
+               break;
+      case 4 : $msg .= $bonneReponse->getnom().'", '."c'est à dire ".'"';
+      case 2 :
+      case 5 :
+      case 3 :
+      case 6 : $msg .= $bonneReponse->getDescription().'".';
+    }
+    $msg .= $suite;
+
+    $this->setSss('correction', $msg);
   }
 }
 

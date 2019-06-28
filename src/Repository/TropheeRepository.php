@@ -20,17 +20,16 @@ class TropheeRepository extends ServiceEntityRepository
     /**
       * @return Trophee[]
       */
-    public function getListe($obtenus)
+    public function getListe()
     {
-      $qb = $this->createQueryBuilder('t')
-                 ->orderBy('t.id');
-      
-      if ($obtenus) { $qb->andWhere('t.obtenu = true'); }
-
-      return $qb
-        ->getQuery()
-        ->getResult()
-      ;
-
+      return $this->createQueryBuilder('t')
+                  ->orderBy('t.id')
+                  ->getQuery()
+                  ->getResult();
     }
+    
+    ///////////////////////////////////////////////////////////////////////////////
+    //                              Mes fonctions                                //
+    ///////////////////////////////////////////////////////////////////////////////
+
 }

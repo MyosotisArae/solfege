@@ -1,3 +1,9 @@
+.debug
+{
+  position : absolute;
+  top : 50vh;
+  left : 1em;
+}
 .positionFixe { position : fixed; }
 .miniBtn
 {
@@ -47,17 +53,34 @@ h2 { text-align : center; }
   border : 1px solid black;
   border-radius : 1em;
   margin-top : 1em;
+  padding-left : 2em;
 }
 .sousTitre
 {
   margin-left: auto;
   margin-right: auto;
 }
+b { font-size : 2em; }
 .souligne
 {
   border-bottom : 1px solid red;
 }
 .imgSymbole
 {
-  height : 2em;
+  height : 12em;
+  padding : 2em;
 }
+.cadreReponse
+{
+  border : 2px solid black;
+  border-shadow : 1px 1px 3px black;
+  border-radius : 0.8em;
+  text-align : center;
+  margin-top : 1em;
+}
+.cadreReponse a
+{
+  font-size : 1.5em;
+  color : black;
+}
+.cadreReponse a:hover { font-weight : bold; }

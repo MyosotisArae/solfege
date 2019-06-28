@@ -13,31 +13,32 @@ class ScoreController extends ParentController
    */
   public function main()
   {
-    $this->session->set('exercice', 'score');
-    $listeTrophees = $this->getTrophees(true);
+    $this->setSss('exercice', 'score');
+    $this->setSss('niveau', 0);
+    $listeTrophees = $this->getTrophees();
     $listeScores = $this->getScores();
     return $this->render('/score.html.twig',["scores" => $listeScores,
                                              "trophees" => $listeTrophees]);
   }
+
   /**
    * @Route("/apprendre_score", name="apprendre_score")
    */
   public function apprendre()
   {
-    $this->session->set('exercice', 'score');
-    $listeTrophees = $this->getTrophees(false);
+    $this->setSss('exercice', 'score');
+    $listeTrophees = $this->getTrophees();
     return $this->render('/apprendre_score.html.twig',["trophees" => $listeTrophees]);
   }
   
-  /* Donne la liste de tous les trophées si $obtenus vaut false,
-   * et seulement de ceux obtenus si $obtenus vaut true.
+  /* Donne la liste de tous les trophées .
    */
-  private function getTrophees($obtenus)
+  private function getTrophees()
   {
     $liste = $this->getDoctrine()
-        ->getManager()
-        ->getRepository('App:Trophee')
-        ->getListe($obtenus);
+                  ->getManager()
+                  ->getRepository('App:Trophee')
+                  ->getListe();
     
     return $liste;
   }
@@ -47,9 +48,9 @@ class ScoreController extends ParentController
   private function getScores()
   {
     $liste = $this->getDoctrine()
-        ->getManager()
-        ->getRepository('App:Score')
-        ->getListe();
+                  ->getManager()
+                  ->getRepository('App:Score')
+                  ->getListe();
     
     return $liste;
   }

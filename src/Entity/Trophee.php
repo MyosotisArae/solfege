@@ -12,6 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Trophee
 {
+    public function __construct(int $id)
+    {
+      $this->id = $id;
+    }
+
     /**
      * @var int
      *
@@ -78,4 +83,13 @@ class Trophee
         return $this->obtenu;
     }
 
+    ///////////////////////////////////////////////////////////////////////////////
+    //                              Getteurs                                     //
+    ///////////////////////////////////////////////////////////////////////////////
+
+    public function setObtenu(boolean $obtenu)
+    {
+        $this->obtenu = $obtenu;
+        return $this;
+    }
 }

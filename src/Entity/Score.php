@@ -12,8 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Score
 {
-    public function __construct()
+    public function __construct(int $n, int $d, int $s)
     {
+      $this->niveau = $n;
+      $this->discipline = $d;
+      $this->score = $s;
     }
 
     /**
@@ -69,4 +72,15 @@ class Score
     {
         return $this->score;
     }
+
+    ///////////////////////////////////////////////////////////////////////////////
+    //                              Getteurs                                     //
+    ///////////////////////////////////////////////////////////////////////////////
+
+    public function setScore(int $s)
+    {
+        $this->score = $s;
+        return $this;
+    }
+
 }

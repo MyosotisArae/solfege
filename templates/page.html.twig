@@ -17,7 +17,7 @@
         </div>
         <div class="col-10">
           <h1>{% block titre %}{% endblock %}</h1>
-          {% if niveau is defined %}<h2>Niveau {{niveau+1}}</h2>{% endif %}
+          {% if app.session.get('niveau') > 0 %}<h2>Niveau {{app.session.get('niveau')}}</h2>{% endif %}
         </div>
         <div class="col-1">
           <a href="apprendre_{{app.session.get('exercice')}}">

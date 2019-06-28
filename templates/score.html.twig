@@ -36,6 +36,7 @@ Mes scores
       </div>
       <table>
       {% for trophee in trophees %}
+        {% if trophee.obtenu %}
         <tr>
           <td class="doubleImage">
             <img class="micro" src="{{img_path}}trophees/{{trophee.image}}">
@@ -43,6 +44,7 @@ Mes scores
           </td>
           <td><h3>{{trophee.nom}}</h3></td>
         </tr>
+        {% endif %}
       {% else %}
       <tr><td><br><h3>Tu n'as aucun trophee, pour l'instant.</h3></td></tr>
       {% endfor %}

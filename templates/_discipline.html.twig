@@ -5,8 +5,9 @@
             <td><h2>{{titre}}</h2></td>
           </tr>
         </table>
+        <br>
         {% for score in lignes %}
-        {% else %}
-        <h3><br>Tu n'as pas encore joué dans ce niveau.</h3>
+          <h3>Niveau {{score.niveau}} : {{score.score}}/5</h3>
+        {% else %}<h3>Tu n'as pas encore joué dans ce niveau.</h3>
         {% endfor %}
       </div>

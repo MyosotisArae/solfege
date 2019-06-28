@@ -4,7 +4,7 @@ dt
 {
   font-size : 1.1em;
   float: left;
-  width: 200px;
+  width: 20vw;
   overflow: hidden;
   white-space: nowrap;
 }
@@ -12,7 +12,8 @@ dd
 {
   font-size : 1.1em;
   float: left;
-  width: 1100px;
+  width: 50vw;
   overflow: hidden;
 }
 dt:after { content: " .................................................................................."; }
+b { font-size : 1.1em; }
