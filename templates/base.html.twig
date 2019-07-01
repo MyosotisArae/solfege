@@ -22,5 +22,19 @@
   <body>
 {% block corps %}
 {% endblock %}
+
+{% block trophee %}
+  {% include '_trophee.html.twig' %}
+{% endblock %}
+
+{% block debug %}
+  {#
+  <div class='debug'>
+    <h4>Trophée : {{app.session.get('nomTrophee')}}</h4>
+    <h4>> {{app.session.get('debugData')}}</h4>
+  </div>
+  #}
+{% endblock %}
+
   </body>
 </html>

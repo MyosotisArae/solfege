@@ -11,6 +11,8 @@ class ParentController extends AbstractController
   public function __construct(SessionInterface $session)
   {
     $this->session = $session;
+    $this->setSss('nomTrophee', '');
+    $this->setSss('imageTrophee', '');
     //$this->util = $this->get("utilitaires");
   }
 
@@ -20,7 +22,7 @@ class ParentController extends AbstractController
           'utilitaires' => 'App\Service\Utilitaires'
       ]);
   }
-
+  
   protected function getNiveau()
   {
     return $this->getDoctrine()
@@ -29,31 +31,19 @@ class ParentController extends AbstractController
                 ->getNiveau($this->session->get('exercice'));
   }
 
-  protected function saveScore(int $niveau, int $score)
-  {
-      $em = $this->getDoctrine()
-                 ->getManager();
-      // Comparaison avec le meilleur score enregistré.
-      $maxScore = $em->getRepository('App:Score')
-                     ->getScoreDuNiveau($niveau, $this->session->get('exercice'));
-      if ($maxScore->getScore() >= $score) return false;
-
-      $maxScore->setScore($score);
-      $em->persist($maxScore);
-      $em->flush();
-
-      return true;
-  }
-
   protected function obtentionTrophee(int $id)
   {
     $trophee = $this->getTrophee($id);
-    if ($trophee->obtenu) return false;
+    if ($trophee->dejaObtenu()) return false;
 
+    // Enregistrer l'obtention de ce trophée.
+    $trophee->setObtenu(1);
     $em = $this->getDoctrine()->getManager();
-    $trophee->setObtenu(true);
-    $em->persist($trophee);
     $em->flush();
+
+    // Afficher le trophée.
+    $this->setSss('nomTrophee', $trophee->getNom());
+    $this->setSss('imageTrophee', $trophee->getImage());
 
     return true;
   }
@@ -62,8 +52,13 @@ class ParentController extends AbstractController
   {
     foreach ($this->getSss('listeTrophees') as $trophee)
     {
-      if ($trophee->id == $id) return $trophee;
+      if ($trophee->getId() == $id)
+      {
+        if ($trophee->dejaObtenu()) return $trophee;
+      }
     }
+    $em = $this->getDoctrine()->getManager();
+    return $em->getRepository('App:Trophee')->find($id);
   }
   
   ////////////////////////////////////////////////////////////////////

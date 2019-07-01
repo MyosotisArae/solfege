@@ -76,7 +76,7 @@ class ItalienController extends ExerciceController
     }
     switch ($this->getSss('niveau'))
     {
-      case 1 : $msg .= $bonneReponse->getNom().'" qui signifie "'.$bonneReponse->getDescription().'".';
+      case 1 : $msg .= $bonneReponse->getNom().'" qui signifie "'.$bonneReponse->getDescription().'". '.$bonneReponse->getCommentaire();
                break;
       case 4 : $msg .= $bonneReponse->getnom().'", '."c'est à dire ".'"';
       case 2 :

@@ -41,11 +41,11 @@ class Trophee
     private $description;
 
     /**
-     * @var bool
+     * @var int
      *
-     * @ORM\Column(name="obtenu", type="boolean", nullable=false)
+     * @ORM\Column(name="obtenu", type="integer", nullable=false)
      */
-    private $obtenu = false;
+    private $obtenu;
 
     /**
      * @var \string
@@ -78,18 +78,28 @@ class Trophee
         return $this->image;
     }
 
-    public function getObtenu(): ?bool
+    public function getObtenu()
     {
         return $this->obtenu;
     }
 
     ///////////////////////////////////////////////////////////////////////////////
-    //                              Getteurs                                     //
+    //                              Setteurs                                     //
     ///////////////////////////////////////////////////////////////////////////////
 
-    public function setObtenu(boolean $obtenu)
+    public function setObtenu($obtenu)
     {
         $this->obtenu = $obtenu;
         return $this;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////
+    //                              Fonctions                                    //
+    ///////////////////////////////////////////////////////////////////////////////
+
+    public function dejaObtenu()
+    {
+      if ($this->obtenu == 0) return false;
+      return true;
     }
 }
