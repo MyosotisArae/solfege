@@ -1,0 +1,52 @@
+{% extends "page.html.twig" %}
+
+{% block entete %}
+  {{ parent() }}
+  <style>
+.imgSymbole
+{
+  height : 3em;
+  padding : 0.5em;
+}
+.espacer { margin-right : 1em; }
+  </style>
+{% endblock %}
+
+{% block corps %}
+  {{ parent() }}
+{% endblock %}
+
+{% block titre %}
+  {{ app.session.get('titreExo') | capitalize }}
+{% endblock %}
+
+{% block page %}
+  {{ parent() }}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <b class="souligne">Question {{app.session.get('numQuestion')}} :</b>&nbsp;
+      <b>Lis la définition donnée ci-dessous et trouve à quel symbole elle correspond.</b>
+    </div>
+    <div class="col-12">
+      <h2>"{{app.session.get('question').reponses[0].commentaire}}"</h2>
+    </div>
+    <div class="col-12"></div>
+    {% if app.session.get('correction')|length > 0 %}
+      {% include '_correction.html.twig' %}
+    {% else %}
+      {% for p in app.session.get('question').propositions %}
+    <div class="col-2">
+      <div class="espacer">
+        <div class="cadreReponse">
+      <a href="{{app.session.get('exercice')}}Correction{{loop.index0}}">
+        <img class="imgSymbole" src="{{symb_path}}{{p.symbole}}.gif">
+      </a>
+        </div>
+      </div>
+    </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

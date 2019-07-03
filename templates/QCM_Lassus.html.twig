@@ -1,0 +1,68 @@
+{% extends "page.html.twig" %}
+
+{% block entete %}
+  {{ parent() }}
+<style>
+.cadrePreDimensionne
+{
+  min-width  : 10em;
+  max-height : 8em;
+}
+.lassus
+{
+  top : -13vh;
+  font-family : "Lassus";
+  font-size : 20em;
+}
+.lassusPetit
+{
+  top : -3.8vh;
+  left : 1vw;
+  font-family : "Lassus";
+  font-size : 4em;
+}
+.segoe
+{
+  top : -2vh;
+  font-family : "Segoe UI Symbol";
+  font-size : 10em;
+}
+</style>
+{% endblock %}
+
+{% block corps %}
+  {{ parent() }}
+{% endblock %}
+
+{% block titre %}
+  {{ app.session.get('titreExo') | capitalize }}
+{% endblock %}
+
+{% block page %}
+  {{ parent() }}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <b class="souligne">Question {{app.session.get('numQuestion')}} :</b>&nbsp;
+      <b>A quelle durée correspond ce silence ?</b>
+    </div>
+    <div class="col-12">
+      <div class="fonteInvisible">-</div>
+      <div class="lassus positionAbsolue">{{app.session.get('question').reponses[0].symbole}}</div>
+    </div>
+    {% if app.session.get('correction')|length > 0 %}
+      {% include '_correction.html.twig' %}
+    {% else %}
+      {% for p in app.session.get('question').propositions %}
+    <div class="col-2 contenantCadreReponse">
+      <div class="cadreReponse cadrePreDimensionne">
+        <a href="{{app.session.get('exercice')}}Correction{{loop.index0}}">
+          <div class="lassusPetit">{{p.description}}</div>
+        </a>
+      </div>
+    </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

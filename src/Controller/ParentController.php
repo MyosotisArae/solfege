@@ -10,7 +10,7 @@ class ParentController extends AbstractController
 {
   public function __construct(SessionInterface $session)
   {
-    $this->session = $session;
+    if (!isset($this->session)) { $this->session = $session; }
     $this->setSss('nomTrophee', '');
     $this->setSss('imageTrophee', '');
     //$this->util = $this->get("utilitaires");

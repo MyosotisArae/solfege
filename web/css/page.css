@@ -64,6 +64,7 @@ b { font-size : 2em; }
   height : 12em;
   padding : 2em;
 }
+.contenantCadreReponse { padding-right : 1em; }
 .cadreReponse
 {
   border : 2px solid black;
@@ -78,3 +79,5 @@ b { font-size : 2em; }
   color : black;
 }
 .cadreReponse a:hover { font-weight : bold; }
+.fonteInvisible { color : transparent; min-height : 25vh; }
+.positionAbsolue { position : absolute; }

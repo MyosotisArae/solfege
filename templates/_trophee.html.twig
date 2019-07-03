@@ -1,0 +1,42 @@
+{% if app.session.get('nomTrophee') is defined %}
+{% if app.session.get('nomTrophee')|length > 1 %}
+
+<style>
+
+.montrerTrophee
+{
+  position : absolute;
+  top : -100vh;
+  left : 35vw;
+  width : 30vw;
+  text-align : center;
+  border : 4px solid black;
+  border-radius : 1em;
+  background : #FFF;
+  animation-timing-function: ease-in;
+
+  -webkit-animation: fadeinout 10s; /* Safari, Chrome and Opera > 12.1 */
+     -moz-animation: fadeinout 10s; /* Firefox < 16 */
+      -ms-animation: fadeinout 10s; /* Internet Explorer */
+       -o-animation: fadeinout 10s; /* Opera < 12.1 */
+          animation: fadeinout 10s;
+}
+@keyframes fadeinout
+{
+    from { opacity: 0; top : -40vh;  left : 35vw; }
+    40%  { opacity: 1; top : 40vh;   left : 35vw; }
+    to   { opacity: 0; top : -100vh; left : 35vw; }
+}
+
+</style>
+
+      <div class="montrerTrophee">
+        <h2>Tu obtiens le trophée</h2>
+        <h2>"{{app.session.get('nomTrophee')}}"</h2>
+        <img class="symbole" src="{{tro_path}}{{app.session.get('imageTrophee')}}">
+        <br><br>
+        <h2>Bien joué, Maël !</h2>
+      </div>
+
+{% endif %}
+{% endif %}
