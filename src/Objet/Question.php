@@ -23,7 +23,7 @@ class Question
     /**
      * @var array
      */
-    private $reponses; // Indices des bonnes réponses dans le tableau propositions
+    private $reponses; // La/les bonnes réponses dans le tableau propositions
 
     ///////////////////////////////////////////////////////////////////////////////
     //                              Getteurs                                     //
@@ -62,6 +62,12 @@ class Question
     public function setReponses(array $a)
     {
         $this->reponses = $a;
+        return $this;
+    }
+
+    public function setReponse(Vocabulaire $a)
+    {
+        $this->reponses[0] = $a;
         return $this;
     }
 

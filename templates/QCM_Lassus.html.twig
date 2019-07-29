@@ -5,7 +5,9 @@
 <style>
 .cadrePreDimensionne
 {
-  min-width  : 10em;
+  width: fit-content;
+  min-width  : 3em;
+  max-width  : 13em;
   max-height : 8em;
 }
 .lassus
@@ -54,7 +56,14 @@
       {% include '_correction.html.twig' %}
     {% else %}
       {% for p in app.session.get('question').propositions %}
-    <div class="col-2 contenantCadreReponse">
+        {% set nbColonnes = 2 %}
+        {% if p.description|length == 1 %}
+          {% set nbColonnes = 1 %}
+        {%endif%}
+        {% if p.description|length > 4 %}
+          {% set nbColonnes = 3 %}
+        {%endif%}
+    <div class="col-{{nbColonnes}} contenantCadreReponse">
       <div class="cadreReponse cadrePreDimensionne">
         <a href="{{app.session.get('exercice')}}Correction{{loop.index0}}">
           <div class="lassusPetit">{{p.description}}</div>

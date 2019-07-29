@@ -104,7 +104,7 @@ abstract class ExerciceController extends ParentController
   
   protected function getIndices()
   {
-    $liste = range(0, count($this->getSss('vocabulaire')) - 1);
+    $liste = array_keys($this->getSss('vocabulaire'));
     shuffle($liste);
     return $liste;
   }
@@ -135,7 +135,7 @@ abstract class ExerciceController extends ParentController
   protected function addFaussesReponses(Question $question, int $reponse)
   {
     $propositions = array($reponse);
-    // Nombre total de réponses à proposer (dont la bonne) :
+    // Nombre total de réponses à proposer (dont la bonne) : 6
     $indices = $this->getIndices();
     while (count($propositions) < 6)
     {
@@ -143,6 +143,8 @@ abstract class ExerciceController extends ParentController
       if (in_array($num,$propositions)) continue;
       $propositions[] = $num; 
     }
+    print_r("propositions :");
+    print_r($propositions);
     foreach ($propositions as $p) { $question->addProposition($this->getSss('vocabulaire')[$p]); }
     $question->melangerPropositions();
   }
