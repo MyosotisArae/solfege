@@ -143,8 +143,6 @@ abstract class ExerciceController extends ParentController
       if (in_array($num,$propositions)) continue;
       $propositions[] = $num; 
     }
-    print_r("propositions :");
-    print_r($propositions);
     foreach ($propositions as $p) { $question->addProposition($this->getSss('vocabulaire')[$p]); }
     $question->melangerPropositions();
   }
