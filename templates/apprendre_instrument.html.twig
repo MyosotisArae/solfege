@@ -1,0 +1,75 @@
+{% extends "apprendre.html.twig" %}
+
+{% block entete %}
+  {{ parent() }}
+  <link rel="stylesheet" href="{{css_path}}apprendre.css">
+{% endblock %}
+
+
+{% block titre %}Les termes italiens{% endblock %}
+
+{% block corps %}
+  {{ parent() }}
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+    <div class="listeDeroulante">
+      <div class="cadreNoir">
+        <h2 class="souligne">Les nuances</h2>
+        Les mots qui suivent indiquent une intensité, c'est à dire le volume sonore à utiliser pour jouer les notes. Un mot italien et un symbole désigne chacune d'elles. Les voici, classées dans l'ordre du son le plus faible au son le plus fort :
+        <table>
+        {% for mot in app.session.get('categorie_nuance') %}
+          <tr>
+            <td><img class="imgSymbole" src="{{symb_path}}{{mot.symbole}}.gif"></td>
+            <td>se lit {{mot.nom}} et signifie {{mot.description}}.</td>
+            <td>{{mot.commentaire}}</td>
+          </tr>
+        {% endfor %}
+        </table>
+        <br>
+        Parfois, on veut indiquer que la nuance change pour certaines notes. Il peut dans ce cas y avoir un accent sur ces notes, ce qui veut dire qu'il faut les jouer plus fort que les autres.<br>
+        On peut aussi indiquer qu'il faut jouer de plus en plus fort. Pour cela, on utilise le symbole :
+        <table>
+          <tr>
+            <td><img class="imgSymbole" src="{{symb_path}}crescendo.gif"></td>
+            <td>crescendo</td>
+            <td> (prononcer cré-chaine-do)</td>
+          </tr>
+        </table>
+        A l'inverse, pour baisser l'intensité, on utilise :
+        <table>
+          <tr>
+            <td><img class="imgSymbole" src="{{symb_path}}decrescendo.gif"></td>
+            <td>decrescendo</td>
+            <td> (prononcer dé-cré-chaine-do)</td>
+          </tr>
+        </table>
+      </div>
+      <div class="cadreNoir">
+        <h2 class="souligne">Le tempo</h2>
+        Là, on ne parle plus du volume sonore mais de la vitesse à laquelle le morceau doit être joué. Le tempo est généralement appliqué à la totalité du morceau.
+        Les principaux tempos, ci-dessous, sont classés du plus lent au plus rapide:
+        {% for mot in app.session.get('categorie_tempo') %}
+        <li><b>{{mot.nom}} = {{mot.description}}&nbsp;&nbsp;&nbsp;</b>(tempo {{mot.commentaire}}).</li>
+        {% endfor %}
+      </div>
+      <div class="cadreNoir">
+        <h2 class="souligne">L'expression</h2>
+        Cette indication, qui s'applique elle aussi à l'ensemble du morceau, indique au musicien de quelle façon il doit l'interpréter.
+        Voici une liste des expressions que l'on retrouve le plus souvent :
+        {% for mot in app.session.get('categorie_expression') %}
+        <li><b>{{mot.nom}} : {{mot.description}}</b></li>
+        {% endfor %}
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+
+{% block pied %}
+  {{ parent() }}
+{% endblock %}
