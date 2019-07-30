@@ -3,10 +3,29 @@
 {% block entete %}
   {{ parent() }}
   <link rel="stylesheet" href="{{css_path}}apprendre.css">
+  
+  <style>
+    .enumNiv1
+    {
+      font-size : 2em;
+      text-decoration : underline;
+    }
+    .enumNiv2
+    {
+      font-size : 1.5em;
+      text-decoration : underline;
+      padding-left : 1em;
+    }
+    .enumNiv3
+    {
+      font-size : 1.1em;
+      padding-left : 2.5em;
+    }
+  </style>
 {% endblock %}
 
 
-{% block titre %}Les termes italiens{% endblock %}
+{% block titre %}Les instruments{% endblock %}
 
 {% block corps %}
   {{ parent() }}
@@ -16,51 +35,194 @@
     <div class="col-12">
     <div class="listeDeroulante">
       <div class="cadreNoir">
-        <h2 class="souligne">Les nuances</h2>
-        Les mots qui suivent indiquent une intensité, c'est à dire le volume sonore à utiliser pour jouer les notes. Un mot italien et un symbole désigne chacune d'elles. Les voici, classées dans l'ordre du son le plus faible au son le plus fort :
+        <h2 class="souligne">Les familles d'instruments</h2>
+        Les orchestres symphoniques et philharmoniques se composent de trois familles d'instruments : les cordes, les vents et les percussions.<br>
+        Les instruments à vent sont répartis en 2 catégories : les bois et les cuivres, ceci en raison du matériau dans lequel ils étaient fabriqués à l'origine, même si ce n'est plus le cas aujourd'hui.<br>
+        Voici la liste des familles et sous familles d'instruments, et quelques exemples d'instruments appartenant à ces catégories :<br>
         <table>
-        {% for mot in app.session.get('categorie_nuance') %}
-          <tr>
-            <td><img class="imgSymbole" src="{{symb_path}}{{mot.symbole}}.gif"></td>
-            <td>se lit {{mot.nom}} et signifie {{mot.description}}.</td>
-            <td>{{mot.commentaire}}</td>
-          </tr>
-        {% endfor %}
+            <tr><td class="enumNiv1">Les instruments à cordes :</td></tr>
+              <tr><td class="enumNiv2">Les cordes frottées :</td></tr>
+                <tr><td class="enumNiv3">le violon</td></tr>
+                <tr><td class="enumNiv3">le violoncelle</td></tr>
+                <tr><td class="enumNiv3">l'alto</td></tr>
+                <tr><td class="enumNiv3">la contrebasse</td></tr>
+              <tr><td class="enumNiv2">Les cordes pincées ou grattées :</td></tr>
+                <tr><td class="enumNiv3">la guitare</td></tr>
+                <tr><td class="enumNiv3">la harpe</td></tr>
+                <tr><td class="enumNiv3">le clavecin (le son est produit par des sautereaux qui pincent les cordes)</td></tr>
+                <tr><td class="enumNiv3">l'épinette (même principe de fonctionnement que le clavecin)</td></tr>
+                <tr><td class="enumNiv3">le luth</td></tr>
+              <tr><td class="enumNiv2">Les cordes frappées :</td></tr>
+                <tr><td class="enumNiv3">le clavicorde</td></tr>
+                <tr><td class="enumNiv3">le piano (les touches actionnent de petits marteaux qui frappent les cordes)</td></tr>
+                <tr><td class="enumNiv3">le piano-forte</td></tr>
+                <tr><td class="enumNiv3">le pianola (instrument mécanique à rouleau de musique perforé)</td></tr>
+            <tr><td class="enumNiv1">Les instruments à vent :</td></tr>
+              <tr><td class="enumNiv2">Les bois </td></tr>
+                <tr><td class="enumNiv3">la flûte (flûte à bec, flûte traversière, piccolo, flûte alto en sol, ...)</td></tr>
+                <tr><td class="enumNiv3">la clarinette</td></tr>
+                <tr><td class="enumNiv3">le saxophone (soprano, alto, ténor, baryton), constitué de cuivre, mais utilisé avec une anche en bois</td></tr>
+                <tr><td class="enumNiv3">le hautbois (instrument à anche double)</td></tr>
+                <tr><td class="enumNiv3">le cor anglais (similaire au hautbois, mais de sonorité plus douce)</td></tr>
+                <tr><td class="enumNiv3">le basson (instrument à anche double)</td></tr>
+                <tr><td class="enumNiv3">le contrebasson (deux fois plus grave que le basson)</td></tr>
+              <tr><td class="enumNiv2">Les cuivres :</td></tr>
+                <tr><td class="enumNiv3">le trombone</td></tr>
+                <tr><td class="enumNiv3">le tuba (euphorium, saxhorn, hélicon, soubassophone, ...)</td></tr>
+                <tr><td class="enumNiv3">le cor</td></tr>
+                <tr><td class="enumNiv3">la trompette</td></tr>
+            <tr><td class="enumNiv1">Les percussions :</td></tr>
+              <tr><td class="enumNiv2">Instruments à son déterminé (c'est à dire qui jouent des notes précises) :</td></tr>
+                <tr><td class="enumNiv3">les timbales (la note jouée dépend de la tension de la peau)</td></tr>
+                <tr><td class="enumNiv3">le glockenspiel (clavier métallique)</td></tr>
+                <tr><td class="enumNiv3">les cloches tubulaires (ou tubular bells ; ce sont des cloches suspendues à un portique)</td></tr>
+                <tr><td class="enumNiv3">le xylophone</td></tr>
+                <tr><td class="enumNiv3">le marimba</td></tr>
+                <tr><td class="enumNiv3">le vibraphone</td></tr>
+              <tr><td class="enumNiv2">Instruments à son indéterminé :</td></tr>
+                <tr><td class="enumNiv3">les tambours en peau (tambour militaire, caisse claire, grosse caisse, bongos, tambourin, ...)</td></tr>
+                <tr><td class="enumNiv3">le triangle</td></tr>
+                <tr><td class="enumNiv3">la cymbale</td></tr>
+                <tr><td class="enumNiv3">le gong</td></tr>
+                <tr><td class="enumNiv3">les maracas</td></tr>
+                <tr><td class="enumNiv3">les castagnettes</td></tr>
+                <tr><td class="enumNiv3">les claves</td></tr>
+                <tr><td class="enumNiv3">la batterie (puisque c'est un ensemble de percussions)</td></tr>
+            <tr><td class="enumNiv1">Autres instruments :</td></tr>
+                <tr><td class="enumNiv3">l'accordéon (instrument portatif muni d'un clavier et d'un soufflet mettant des anches en vibration)</td></tr>
+                <tr><td class="enumNiv3">la cornemuse (instrument à vent constitué de plusieurs tuyaux à anches fixés à une peau ou à un sac enfermant un réservoir d'air)</td></tr>
+                <tr><td class="enumNiv3">l'harmonica (instrument à vent et à anches libres métalliques)</td></tr>
+                <tr><td class="enumNiv3">l'orgue (instrument constitué de plusieurs claviers superposés et d'un clavier à pédales ; le son provient de l'air qui passe à travers des tuyaux de longueur et de largeur différentes)</td></tr>
+                <tr><td class="enumNiv3">les instruments électriques ou électroniques (piano électrique, synthétiseur, ondes Martenot, ...)</td></tr>
         </table>
         <br>
-        Parfois, on veut indiquer que la nuance change pour certaines notes. Il peut dans ce cas y avoir un accent sur ces notes, ce qui veut dire qu'il faut les jouer plus fort que les autres.<br>
-        On peut aussi indiquer qu'il faut jouer de plus en plus fort. Pour cela, on utilise le symbole :
-        <table>
-          <tr>
-            <td><img class="imgSymbole" src="{{symb_path}}crescendo.gif"></td>
-            <td>crescendo</td>
-            <td> (prononcer cré-chaine-do)</td>
-          </tr>
-        </table>
-        A l'inverse, pour baisser l'intensité, on utilise :
-        <table>
-          <tr>
-            <td><img class="imgSymbole" src="{{symb_path}}decrescendo.gif"></td>
-            <td>decrescendo</td>
-            <td> (prononcer dé-cré-chaine-do)</td>
-          </tr>
-        </table>
       </div>
       <div class="cadreNoir">
-        <h2 class="souligne">Le tempo</h2>
-        Là, on ne parle plus du volume sonore mais de la vitesse à laquelle le morceau doit être joué. Le tempo est généralement appliqué à la totalité du morceau.
-        Les principaux tempos, ci-dessous, sont classés du plus lent au plus rapide:
-        {% for mot in app.session.get('categorie_tempo') %}
-        <li><b>{{mot.nom}} = {{mot.description}}&nbsp;&nbsp;&nbsp;</b>(tempo {{mot.commentaire}}).</li>
-        {% endfor %}
-      </div>
-      <div class="cadreNoir">
-        <h2 class="souligne">L'expression</h2>
-        Cette indication, qui s'applique elle aussi à l'ensemble du morceau, indique au musicien de quelle façon il doit l'interpréter.
-        Voici une liste des expressions que l'on retrouve le plus souvent :
-        {% for mot in app.session.get('categorie_expression') %}
-        <li><b>{{mot.nom}} : {{mot.description}}</b></li>
-        {% endfor %}
+        <h2 class="souligne">Les sons des principaux instruments</h2>
+        <div class="container-fluid">
+          <div class="row">
+            {% include '_instrument.html.twig' with {'image':'violon.jpg', 'son':'violon.mp3','legende':"le violon"} %}
+            {% include '_instrument.html.twig' with {'image':'violon-alto.jpg', 'son':'alto.mp3','legende':"l'alto"} %}
+            {% include '_instrument.html.twig' with {'image':'guitare.jpg', 'son':'guitare.mp3','legende':"la guitare"} %}
+            {% include '_instrument.html.twig' with {'image':'contrebasse.jpg', 'son':'contrebasse.mp3','legende':"la contrebasse"} %}
+            {% include '_instrument.html.twig' with {'image':'violoncelle.jpg', 'son':'violoncelle.mp3','legende':"le violoncelle"} %}
+            {% include '_instrument.html.twig' with {'image':'harpe.jpg', 'son':'harpe.mp3','legende':"la harpe"} %}
+            {% include '_instrument.html.twig' with {'image':'piano.jpg', 'son':'piano.mp3','legende':"le piano"} %}
+            {% include '_instrument.html.twig' with {'image':'clavecin.jpg', 'son':'clavecin.mp3','legende':"le clavecin"} %}
+            {% include '_instrument.html.twig' with {'image':'epinette.jpg', 'son':'epinette.mp3','legende':"l'epinette"} %}
+            {% include '_instrument.html.twig' with {'image':'flutes-a-bec.jpg', 'son':'flute-a-bec.mp3','legende':"la flûte à bec"} %}
+            {% include '_instrument.html.twig' with {'image':'flute-piccolo.jpg', 'son':'flute-piccolo.mp3','legende':"le piccolo"} %}
+
+            {# Les 2 images qui suivent seront disposées en colonne : elles sont petites, et la seconde n'a pas d'audio. #}
+            {% set listeInstruments = [
+              {
+                'image'  : 'flute-de-pan.jpg',
+                'son'    : 'flute-de-pan.mp3',
+                'legende': "la flûte de pan"
+              },
+              {
+                'image'  : 'flute-alto-en-sol.jpg',
+                'son'    : '',
+                'legende': "la flûte alto"
+              }
+            ] %}
+
+            {% include '_colonne_d_instruments.html.twig' with {'listeInstruments': listeInstruments} only %}
+
+            {% include '_instrument.html.twig' with {'image':'hautbois.jpg', 'son':'hautbois.mp3','legende':"le hautbois"} %}
+            {% include '_instrument.html.twig' with {'image':'famille-des-clarinettes.jpg', 'son':'clarinette.mp3','legende':"la clarinette"} %}
+            {% include '_instrument.html.twig' with {'image':'flute-traversiere.jpg', 'son':'flute-traversiere.mp3','legende':"la flûte-traversiere"} %}
+            {% include '_instrument.html.twig' with {'image':'basson.jpg', 'son':'basson.mp3','legende':"le basson"} %}
+            {% include '_instrument.html.twig' with {'image':'contrebasson.jpg', 'son':'contrebasson.mp3','legende':"le contrebasson"} %}
+            {% include '_instrument.html.twig' with {'image':'cor-anglais.jpg', 'son':'cor-anglais.mp3','legende':"le cor anglais"} %}
+            {% include '_instrument.html.twig' with {'image':'triangle.jpg', 'son':'triangle.mp3','legende':"le triangle"} %}
+            {% include '_instrument.html.twig' with {'image':'maracas.jpg', 'son':'maracas.wav','legende':"les maracas"} %}
+            {% include '_instrument.html.twig' with {'image':'castagnettes.jpg', 'son':'castagnettes.mp3','legende':"les castagnettes"} %}
+            {% include '_instrument.html.twig' with {'image':'saxophone.png', 'son':'saxophone.mp3','legende':"le saxophone"} %}
+            {% include '_instrument.html.twig' with {'image':'trompette.jpg', 'son':'trompette.mp3','legende':"la trompette"} %}
+            {% include '_instrument.html.twig' with {'image':'accordeon.jpg', 'son':'accordeon.mp3','legende':"l'accordeon"} %}
+            {% include '_instrument.html.twig' with {'image':'orgue.jpg', 'son':'orgue.mp3','legende':"l'orgue"} %}
+            {% include '_instrument.html.twig' with {'image':'piano-forte.jpg', 'son':'piano_forte.mp3','legende':"le piano-forte"} %}
+            {% include '_instrument.html.twig' with {'image':'pianola.jpg', 'son':'','legende':"le pianola"} %}
+            {% include '_instrument.html.twig' with {'image':'trombone.jpg', 'son':'trombone.mp3','legende':"le trombone"} %}
+            {% include '_instrument.html.twig' with {'image':'tuba.jpg', 'son':'tuba.mp3','legende':"le tuba"} %}
+            {% include '_instrument.html.twig' with {'image':'euphonium.jpg', 'son':'','legende':"l'euphonium"} %}
+            {% include '_instrument.html.twig' with {'image':'xylophone.jpg', 'son':'xylophone.mp3','legende':"le xylophone"} %}
+            {% include '_instrument.html.twig' with {'image':'marimba.jpg', 'son':'marimba.mp3','legende':"le marimba"} %}
+            {% include '_instrument.html.twig' with {'image':'vibraphone.jpg', 'son':'vibraphone.mp3','legende':"le vibraphone"} %}
+            {% include '_instrument.html.twig' with {'image':'caisse-claire.jpg', 'son':'','legende':"la caisse claire"} %}
+
+            {% set listeInstruments = [
+              {
+                'image'  : 'toms.jpg',
+                'son'    : '',
+                'legende': "les toms"
+              },
+              {
+                'image'  : 'grosse-caisse.jpg',
+                'son'    : '',
+                'legende': "la grosse caisse"
+              }
+            ] %}
+
+            {% include '_colonne_d_instruments.html.twig' with {'listeInstruments': listeInstruments} only %}
+
+
+            {% set listeInstruments = [
+              {
+                'image'  : 'cymbales.jpg',
+                'son'    : '',
+                'legende': "les cymbales"
+              },
+              {
+                'image'  : 'batterie.jpg',
+                'son'    : '',
+                'legende': "la batterie"
+              }
+            ] %}
+
+            {% include '_colonne_d_instruments.html.twig' with {'listeInstruments': listeInstruments} only %}
+
+            {% set listeInstruments = [
+              {
+                'image'  : 'glockenspiel.jpg',
+                'son'    : 'glockenspiel.mp3',
+                'legende': "le glockenspiel"
+              },
+              {
+                'image'  : 'timbales.jpg',
+                'son'    : 'timbales.mp3',
+                'legende': "les timbales"
+              }
+            ] %}
+
+            {% include '_colonne_d_instruments.html.twig' with {'listeInstruments': listeInstruments} only %}
+
+            {% include '_instrument.html.twig' with {'image':'claves.jpg', 'son':'claves.mp3','legende':"les claves"} %}
+            {% include '_instrument.html.twig' with {'image':'gong.jpg', 'son':'gong.mp3','legende':"le gong"} %}
+            {% include '_instrument.html.twig' with {'image':'tubular_bells.png', 'son':'tubular_bells.mp3','legende':"les cloches tubulaires"} %}
+            {% include '_instrument.html.twig' with {'image':'luth.jpg', 'son':'luth.mp3','legende':"le luth"} %}
+            {% include '_instrument.html.twig' with {'image':'cornemuse.jpg', 'son':'cornemuse.mp3','legende':"la cornemuse"} %}
+
+            {% set listeInstruments = [
+              {
+                'image'  : 'chimes.jpg',
+                'son'    : 'chimes.mp3',
+                'legende': "le chimes"
+              },
+              {
+                'image'  : 'harmonica.jpg',
+                'son'    : 'harmonica.mp3',
+                'legende': "l'harmonica"
+              }
+            ] %}
+
+            {% include '_colonne_d_instruments.html.twig' with {'listeInstruments': listeInstruments} only %}
+
+            {% include '_instrument.html.twig' with {'image':'cor.jpg', 'son':'cor.mp3','legende':"le cor"} %}
+            {% include '_instrument.html.twig' with {'image':'bongos.jpg', 'son':'bongos.mp3','legende':"les bongos"} %}
+          </div>
+        </div>
       </div>
     </div>
     </div>
