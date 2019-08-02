@@ -233,7 +233,24 @@
             {% include '_colonne_d_instruments.html.twig' with {'listeInstruments': listeInstruments} only %}
 
             {% include '_instrument.html.twig' with {'image':'cor.jpg', 'son':'cor.mp3','legende':"le cor"} %}
-            {% include '_instrument.html.twig' with {'image':'bongos.jpg', 'son':'bongos.mp3','legende':"les bongos"} %}
+
+
+            {% set listeInstruments = [
+              {
+                'image'  : 'bongos.jpg',
+                'son'    : 'bongos.mp3',
+                'legende': "les bongos"
+              },
+              {
+                'image'  : 'fifre.jpg',
+                'son'    : 'fifre.mp3',
+                'legende': "le fifre"
+              }
+            ] %}
+
+            {% include '_colonne_d_instruments.html.twig' with {'listeInstruments': listeInstruments} only %}
+
+
           </div>
         </div>
       </div>
