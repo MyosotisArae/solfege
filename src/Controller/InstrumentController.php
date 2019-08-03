@@ -63,8 +63,8 @@ class InstrumentController extends ExerciceController
     }
   }
 
-  protected function addFaussesReponses(Question $question, int $reponse)
-  {
+  protected function addFaussesReponses(Question $question, Vocabulaire $reponse)
+  {/*
     $bonneReponse = $this->getSss('vocabulaire')[$reponse];
     $question->addProposition($bonneReponse);
     // Nombre total de réponses à proposer (dont la bonne) : 4
@@ -76,7 +76,7 @@ class InstrumentController extends ExerciceController
         $question->addProposition(new Vocabulaire("","","",$f));
       }
     }
-    $question->melangerPropositions();
+    $question->melangerPropositions();*/
   }
 
   protected function complementCorrection(Vocabulaire $bonneReponse)

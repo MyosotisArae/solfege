@@ -23,6 +23,13 @@ class Portee
     private $cst;
 
     /**
+     * 
+     * @var float
+     */
+    private $echelle;
+
+
+    /**
      * @var P_Clef
      */
     private $clef; // P_Clef utilisée pour cette portée, null s'il n'y a pas besoin de clé.

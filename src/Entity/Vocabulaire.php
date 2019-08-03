@@ -20,6 +20,8 @@ class Vocabulaire
       $this->commentaire = $c;
       $this->categorie = '';
       $this->ordre = 0;
+
+      $this->mauvaisesReponses = array();
     }
 
     /**
@@ -73,6 +75,12 @@ class Vocabulaire
      */
     private $ordre;
 
+    /**
+     * Relation pour trouver les "mauvaises réponses" à associer à chaque élément.
+     * @ORM\ManyToMany(targetEntity="App\Entity\Vocabulaire")
+     */
+    private $mauvaisesReponses; // Tableau d'éléments de Vocabulaire
+
     ///////////////////////////////////////////////////////////////////////////////
     //                              Getteurs                                     //
     ///////////////////////////////////////////////////////////////////////////////
@@ -107,6 +115,10 @@ class Vocabulaire
         return $this->ordre;
     }
 
+    public function getMauvaisesReponses(): ?array
+    {
+      return $this->mauvaisesReponses->slice(0);
+    }
     ///////////////////////////////////////////////////////////////////////////////
     //                              Setteurs                                     //
     ///////////////////////////////////////////////////////////////////////////////

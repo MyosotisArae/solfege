@@ -121,29 +121,27 @@ abstract class ExerciceController extends ParentController
     // demandées pendant ce niveau), on utilise le premier (la liste a déjà
     // été mélangée) comme réponse, et on l'enlève de la liste.
     $listeIndices = $this->getSss('listeIndices');
+    // Indice de la bonne reponse dans Vocalulaire :
     $reponse = array_shift($listeIndices);
+    // Onjet Vocabulaire associé à la bonne réponse :
+    $bonneReponse = $this->getSss('vocabulaire')[$reponse];
     $question = new Question();
-    $question->addReponse($this->getSss('vocabulaire')[$reponse]);
+    $question->addReponse($bonneReponse);
     $this->setSss('listeIndices',$listeIndices);
 
     // Niveau 7 et plus : plus besoin de liste de fausses réponses.
-    if ($this->getSss('niveau') < 7) $this->addFaussesReponses($question, $reponse);
+    if ($this->getSss('niveau') < 7) $this->addFaussesReponses($question, $bonneReponse);
     
     $this->setSss('question',$question);
   }
 
-  protected function addFaussesReponses(Question $question, int $reponse)
+  protected function addFaussesReponses(Question $question, Vocabulaire $bonneReponse)
   {
-    $propositions = array($reponse);
-    // Nombre total de réponses à proposer (dont la bonne) : 6
-    $indices = $this->getIndices();
-    while (count($propositions) < 6)
-    {
-      $num = array_shift($indices);
-      if (in_array($num,$propositions)) continue;
-      $propositions[] = $num; 
-    }
-    foreach ($propositions as $p) { $question->addProposition($this->getSss('vocabulaire')[$p]); }
+    // Aller chercher les réponses fausses qui ont été choisies pour cette réponse.
+    $question->setPropositions($bonneReponse->getMauvaisesReponses());
+    // Ajouter la bonne réponse à cette liste,
+    $question->addProposition($bonneReponse);
+    // et mélanger le tout.
     $question->melangerPropositions();
   }
 

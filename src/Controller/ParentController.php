@@ -97,14 +97,15 @@ class ParentController extends AbstractController
 
   protected function getCategorie(string $cat)
   {
-    if (!$this->isSetSss('categorie_'.$cat))
+    //if (!$this->isSetSss('categorie_'.$cat))
+    if (true)
     {
       $this->setSss('categorie_'.$cat,
         $this->getDoctrine()
              ->getManager()
              ->getRepository('App:Vocabulaire')
              ->getCategorie($cat) );
-    }
+    } 
     return $this->getSss('categorie_'.$cat);
   }
 }
