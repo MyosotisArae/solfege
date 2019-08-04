@@ -67,6 +67,10 @@ b { font-size : 2em; }
   height : 12em;
   padding : 2em;
 }
+.imgSymboleEtroit
+{
+  max-width : 150px;
+}
 .contenantCadreReponse { padding-right : 0.4m; display : inline-block; }
 .cadreReponse
 {

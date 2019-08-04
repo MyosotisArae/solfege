@@ -18,7 +18,8 @@
   <div class="row">
     <div class="col-12">
       <b class="souligne">Question {{app.session.get('numQuestion')}} :</b>
-      <b>Indique à quelle famille cet instrument appartient : {{app.session.get('question').reponses[0].nom}}</b><br><br>
+      <b>Indique à quelle famille cet instrument appartient :</b><br>
+      <h1>{{app.session.get('question').reponses[0].nom}}</h1><br><br>
     </div>
     {% if app.session.get('correction')|length > 0 %}
       {% include '_correction.html.twig' %}

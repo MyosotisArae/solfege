@@ -17,14 +17,16 @@
     <div class="listeDeroulante">
       <div class="cadreNoir">
         <h2 class="souligne">Les nuances</h2>
-        Les mots qui suivent indiquent une intensité, c'est à dire le volume sonore à utiliser pour jouer les notes. Un mot italien et un symbole désigne chacune d'elles. Les voici, classées dans l'ordre du son le plus faible au son le plus fort :
+        Les mots qui suivent indiquent une intensité, c'est à dire le volume sonore à utiliser pour jouer les notes. Un mot italien ainsi qu'un symbole désigne chacune d'elles. Les voici, classées dans l'ordre du son le plus faible au son le plus fort :
         <table>
-        {% for mot in app.session.get('categorie_nuance') %}
+        {% for mot in categorie_nuance %}
+          {% if mot.ordre > 0 %} {# Ceci sert à exclure crescendo et decrescendo des nuances ordonnées. #}
           <tr>
             <td><img class="imgSymbole" src="{{symb_path}}{{mot.symbole}}.gif"></td>
             <td>se lit {{mot.nom}} et signifie {{mot.description}}.</td>
             <td>{{mot.commentaire}}</td>
           </tr>
+          {% endif %}
         {% endfor %}
         </table>
         <br>
@@ -50,7 +52,7 @@
         <h2 class="souligne">Le tempo</h2>
         Là, on ne parle plus du volume sonore mais de la vitesse à laquelle le morceau doit être joué. Le tempo est généralement appliqué à la totalité du morceau.
         Les principaux tempos, ci-dessous, sont classés du plus lent au plus rapide:
-        {% for mot in app.session.get('categorie_tempo') %}
+        {% for mot in categorie_tempo %}
         <li><b>{{mot.nom}} = {{mot.description}}&nbsp;&nbsp;&nbsp;</b>(tempo {{mot.commentaire}}).</li>
         {% endfor %}
       </div>
@@ -58,7 +60,7 @@
         <h2 class="souligne">L'expression</h2>
         Cette indication, qui s'applique elle aussi à l'ensemble du morceau, indique au musicien de quelle façon il doit l'interpréter.
         Voici une liste des expressions que l'on retrouve le plus souvent :
-        {% for mot in app.session.get('categorie_expression') %}
+        {% for mot in categorie_expression %}
         <li><b>{{mot.nom}} : {{mot.description}}</b></li>
         {% endfor %}
       </div>

@@ -34,12 +34,11 @@ class ExerciceController extends ParentController
     return $this->render('/'.$this->getSss('modele').'.html.twig');
   }
   
-  public function apprentissage(string $exercice)
+  public function apprentissage(string $exercice, $parametres=array())
   {
     $this->setSss('exercice', $exercice);
-    $this->setSss('numQuestion', 0);
-    $this->setSss('nbBonnesRep', 0);
-    return $this->render('/apprendre_'.$exercice.'.html.twig');
+    $this->reinitNiveau();
+    return $this->render('/apprendre_'.$exercice.'.html.twig', $parametres);
   }
   
   protected function corriger(int $numRep)

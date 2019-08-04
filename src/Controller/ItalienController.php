@@ -31,11 +31,13 @@ class ItalienController extends ExerciceController
    */
   public function main3()
   {
-    $this->getCategorie('nuance');
-    $this->getCategorie('tempo');
-    $this->getCategorie('expression');
     $this->reinitNiveau();
-    return $this->apprentissage('italien');
+    return $this->apprentissage('italien',
+                                [
+                                  'categorie_nuance' => $this->getCategorie('nuance'),
+                                  'categorie_tempo' => $this->getCategorie('tempo'),
+                                  'categorie_expression' => $this->getCategorie('expression')
+                                ]);
   }
 
   /**
@@ -80,7 +82,7 @@ class ItalienController extends ExerciceController
     }
     switch ($this->getSss('niveau'))
     {
-      case 1 : $msg .= $bonneReponse->getNom().'" qui signifie "'.$bonneReponse->getDescription().'". '.$bonneReponse->getCommentaire();
+      case 1 : $msg .= $bonneReponse->getNom().'" qui signifie "'.$bonneReponse->getDescription().'". '.ucfirst($bonneReponse->getCommentaire());
                break;
       case 4 : $msg .= $bonneReponse->getnom().'", '."c'est à dire ".'"';
       case 2 :

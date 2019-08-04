@@ -69,12 +69,12 @@ class TonaliteController extends ExerciceController
   protected function complementCorrection(Vocabulaire $bonneReponse)
   {
     $msg = $this->getSss('correction');
-    /*
     if (substr($msg,0,3) == 'Oui') { $msg = "Oui, en effet, "; }
     else  { $msg = "Non. En fait,  "; }
+    $msg .= "c'est un ";
     switch ($this->getSss('niveau'))
     {
-      case 1 : $msg .= "ce silence équivaut à ".$bonneReponse->getOrdre()." croches.";
+      case 1 : $msg .= $bonneReponse->getnom().".";
                break;
       case 2 : 
       case 3 :
@@ -82,8 +82,7 @@ class TonaliteController extends ExerciceController
       case 5 :
       case 6 : $msg = "";
     }
-    $msg .= " Donc, " . $bonneReponse->getCommentaire();
-    */
+    $msg .= " " . $bonneReponse->getDescription()." " . $bonneReponse->getCommentaire();
 
     $this->setSss('correction', $msg);
   }
