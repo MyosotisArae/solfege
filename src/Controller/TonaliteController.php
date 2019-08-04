@@ -31,60 +31,25 @@ class TonaliteController extends ExerciceController
    */
   public function main3()
   {
-    $this->getCategorie('nuance');
+    $this->reinitNiveau();
     return $this->apprentissage('tonalite');
   }
 
-  protected function initVocab()
+  /**
+   * Cette fonction récupère la catégorie du niveau en cours dans la table Vocabulaire.
+   * @return array d'objets Vocabulaire
+   */
+  protected function getVocalulaire()
   {
     switch ($this->getSss('niveau'))
     {
-      case 1: $this->constructionDesReponsesNiv1(); break;
-      case 4: 
+      case 1: return $this->getCategorie('ton');
+      case 4:
       case 2:
-      case 5: $this->setSss('vocabulaire', $this->getCategorie('tempo') ); break;
+      case 5: return $this->getCategorie('tempo');
       case 3:
-      case 6: $this->setSss('vocabulaire', $this->getCategorie('expression') ); break;
+      case 6: return $this->getCategorie('expression');
     }
-    $this->setSss('listeIndices',$this->getIndices());
-  }
-
-  /* Cette fonction crée une liste de questions et réponses pour le niveau 1
-   */
-  private function constructionDesReponsesNiv1()
-  {
-    $listeDeReponses = array();
-    // En premier, la bonne reponse :
-    $reponse = new Vocabulaire("dièse","Hausse la note d'un demi ton","diese","Hausse la note d'un demi ton");
-    $listeDeReponses[] = $reponse;
-    // Ensuite, les fausses reponses :
-    $reponse = new Vocabulaire("bémol","Baisse la note d'un demi ton","","Baisse la note d'un demi ton");
-    $listeDeReponses[] = $reponse;
-    $reponse = new Vocabulaire("bécarre","Supprime toute altération sur cette note","","Supprime toute altération sur cette note");
-    $listeDeReponses[] = $reponse;
-    $reponse = new Vocabulaire("accent","Indique qu'il faut jouer cette note plus fort","","Indique qu'il faut jouer cette note plus fort");
-    $listeDeReponses[] = $reponse;
-    $reponse = new Vocabulaire("point d'orgue","Indique que cette note doit être prolongée","","Indique que cette note doit être prolongée");
-    $listeDeReponses[] = $reponse;
-    $reponse = new Vocabulaire("presto","Indique qu'il faut jouer cette note rapidement","","Indique qu'il faut jouer cette note rapidement");
-    $listeDeReponses[] = $reponse;
-    $this->setSss('vocabulaire', $listeDeReponses);
-    $this->setSss('listeIndices', range(0,count($listeDeReponses) - 1));
-  }
-
-  protected function getQuestion()
-  {
-    $this->constructionDesReponsesNiv1();
-    $listeIndices = $this->getSss('listeIndices');
-    $reponse = array_shift($listeIndices);
-    $question = new Question();
-    $question->addReponse($this->getSss('vocabulaire')[$reponse]);
-    $this->setSss('listeIndices',$listeIndices);
-
-    // Niveau 7 et plus : plus besoin de liste de fausses réponses.
-    //if ($this->getSss('niveau') < 7) $this->addFaussesReponses($question, $reponse);
-    
-    $this->setSss('question',$question);
   }
 
   protected function initNiveau()

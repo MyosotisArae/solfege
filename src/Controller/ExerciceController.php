@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
  
-abstract class ExerciceController extends ParentController
+class ExerciceController extends ParentController
 {
   /******************************************************************************
   *                           Types de questions :                              *
@@ -77,15 +77,9 @@ abstract class ExerciceController extends ParentController
     $this->getQuestion();
   }
 
-  // Cette fonction est appelée juste avant la première question du niveau.
-  protected function init()
-  {
-    $this->initVocab();
-  }
-  
-  protected function initVocab() {}
-  
-  abstract protected function complementCorrection(Vocabulaire $bonneReponse);
+  /* Fonction à surcharger
+  */
+  protected function complementCorrection(Vocabulaire $bonneReponse) { return array(); }
 
   /* Cette fonction est appelée avant chaque question.
    * Elle calcule le niveau (seulement avant la 1ère question) et,
@@ -98,17 +92,9 @@ abstract class ExerciceController extends ParentController
     {
       // On ne calcule le niveau qu'au moment de la première question.
       $this->setSss('niveau', $this->getNiveau()+1);
-      $this->init();
     }
   }
   
-  protected function getIndices()
-  {
-    $liste = array_keys($this->getSss('vocabulaire'));
-    shuffle($liste);
-    return $liste;
-  }
-
   /* Pour les termes italiens, la tonalité et le rythme, les premiers niveaux
    * sont des QCM à une seule réponse, et ces réponses proviennent directement
    * de la table Vocabulaire.
@@ -117,23 +103,42 @@ abstract class ExerciceController extends ParentController
    */
   protected function getQuestion()
   {
-    // Parmi les indices restants (càd les réponses qui n'ont pas encore été
-    // demandées pendant ce niveau), on utilise le premier (la liste a déjà
-    // été mélangée) comme réponse, et on l'enlève de la liste.
-    $listeIndices = $this->getSss('listeIndices');
-    // Indice de la bonne reponse dans Vocalulaire :
-    $reponse = array_shift($listeIndices);
-    // Onjet Vocabulaire associé à la bonne réponse :
-    $bonneReponse = $this->getSss('vocabulaire')[$reponse];
+    // Récupérer les réponses possibles pour ce niveau.
+    $possibilites = $this->getVocalulaire();
+    shuffle($possibilites);
+    // Les réponses ci-dessous ont déjà été utilisées dans ce niveau. Elles
+    // ne doivent plus être posées pour le niveau en cours.
+    // Ce tableau est une liste de Vocabulaire.id
+    $dejaDemande = $this->getSss('dejaDemande');
+    // Sélectionner une réponse qui n'a pas déjà été demandée pour le niveau en cours.
+    $chercher = true;
+    $bonneReponse = null;
+    while ($chercher)
+    {
+      $bonneReponse = array_shift($possibilites);
+      if (!(in_array($bonneReponse->getId(), $dejaDemande)))
+      {
+        $chercher = false;
+        $dejaDemande[] = $bonneReponse->getId();
+      }
+    }
+    $this->setSss('dejaDemande', $dejaDemande);
+    
     $question = new Question();
     $question->addReponse($bonneReponse);
-    $this->setSss('listeIndices',$listeIndices);
 
     // Niveau 7 et plus : plus besoin de liste de fausses réponses.
     if ($this->getSss('niveau') < 7) $this->addFaussesReponses($question, $bonneReponse);
     
     $this->setSss('question',$question);
   }
+  
+  /**
+   * Cette fonction doit être surchargée.
+   * Elle récupère la catégorie du niveau en cours dans la table Vocabulaire.
+   * @return array d'objets Vocabulaire
+   */
+  protected function getVocalulaire() { return array(); }
 
   protected function addFaussesReponses(Question $question, Vocabulaire $bonneReponse)
   {

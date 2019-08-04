@@ -22,6 +22,13 @@ class ParentController extends AbstractController
           'utilitaires' => 'App\Service\Utilitaires'
       ]);
   }
+
+  protected function reinitNiveau()
+  {
+    $this->setSss('dejaDemande', array());
+    $this->setSss('numQuestion', 0);
+    $this->setSss('nbBonnesRep', 0);
+  }
   
   protected function getNiveau()
   {
@@ -67,16 +74,41 @@ class ParentController extends AbstractController
   // - lire une variable de session                                 //
   ////////////////////////////////////////////////////////////////////
   
+  /**
+   * Cette fonction détermine s'il existe ou non un objet valide nommé nomVar
+   * dans une variable de session.
+   * Correction du 04/08/2019 :
+   * - un objet de type int valant 0 n'est pas null
+   * - un objet de type array qui est vide n'est pas null
+   * - un objet de type string qui est vide n'est pas null
+   *
+   * @return false si l'objet est null ou n'existe pas, true sinon
+   */
   public function isSetSss(string $nomVar)
   {
     if ($this->session)
     {
-      if ($this->session->get($nomVar))
+      $x = $this->session->get($nomVar);
+      if (is_int($x))
       {
-        if ($this->session->get($nomVar) == null) return false;
-        if ($this->session->get($nomVar) == '') return false;
+        if ($x == 0) return true;
+        else if ($x == null) return false;
         return true;
       }
+      if (is_array($x))
+      {
+        if ($x == array()) return true;
+        else if ($x == null) return false;
+        return true;
+      }
+      if (is_string($x))
+      {
+        if ($x == '') return true;
+        else if ($x == null) return false;
+        return true;
+      }
+      if ($this->session->get($nomVar) == null) return false;
+      return true;
     }
     return false;
   }
@@ -97,16 +129,10 @@ class ParentController extends AbstractController
 
   protected function getCategorie(string $cat)
   {
-    //if (!$this->isSetSss('categorie_'.$cat))
-    if (true)
-    {
-      $this->setSss('categorie_'.$cat,
-        $this->getDoctrine()
-             ->getManager()
-             ->getRepository('App:Vocabulaire')
-             ->getCategorie($cat) );
-    } 
-    return $this->getSss('categorie_'.$cat);
+    return $this->getDoctrine()
+                ->getManager()
+                ->getRepository('App:Vocabulaire')
+                ->getCategorie($cat);
   }
 }
 ?>

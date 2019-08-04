@@ -13,8 +13,7 @@ class MainController extends ParentController
   public function main()
   {
     $this->setSss('exercice', 'main');
-    $this->setSss('numQuestion', 0);
-    $this->setSss('nbBonnesRep', 0);
+    $this->reinitNiveau();
     $this->getTrophees();
     return $this->render('/main.html.twig');
   }

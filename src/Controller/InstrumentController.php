@@ -32,21 +32,25 @@ class InstrumentController extends ExerciceController
   public function main3()
   {
     //$this->getCategorie('nuance');
+    $this->reinitNiveau();
     return $this->apprentissage('instrument');
   }
 
-  protected function initVocab()
+  /**
+   * Cette fonction récupère la catégorie du niveau en cours dans la table Vocabulaire.
+   * @return array d'objets Vocabulaire
+   */
+  protected function getVocalulaire()
   {
     switch ($this->getSss('niveau'))
     {
-      case 1: $this->setSss('vocabulaire', $this->getCategorie('instrument') ); break;
+      case 1: return $this->getCategorie('instrument');
       case 4: 
       case 2:
-      case 5: $this->setSss('vocabulaire', $this->getCategorie('tempo') ); break;
+      case 5: return $this->getCategorie('tempo');
       case 3:
-      case 6: $this->setSss('vocabulaire', $this->getCategorie('expression') ); break;
+      case 6: return $this->getCategorie('expression');
     }
-    $this->setSss('listeIndices',$this->getIndices());
   }
 
   protected function initNiveau()
@@ -63,9 +67,8 @@ class InstrumentController extends ExerciceController
     }
   }
 
-  protected function addFaussesReponses(Question $question, Vocabulaire $reponse)
-  {/*
-    $bonneReponse = $this->getSss('vocabulaire')[$reponse];
+  protected function addFaussesReponses(Question $question, Vocabulaire $bonneReponse)
+  {
     $question->addProposition($bonneReponse);
     // Nombre total de réponses à proposer (dont la bonne) : 4
     $familles = array("corde","bois","cuivre","percussion");
@@ -76,7 +79,7 @@ class InstrumentController extends ExerciceController
         $question->addProposition(new Vocabulaire("","","",$f));
       }
     }
-    $question->melangerPropositions();*/
+    $question->melangerPropositions();
   }
 
   protected function complementCorrection(Vocabulaire $bonneReponse)

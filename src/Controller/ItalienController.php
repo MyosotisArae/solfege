@@ -34,21 +34,25 @@ class ItalienController extends ExerciceController
     $this->getCategorie('nuance');
     $this->getCategorie('tempo');
     $this->getCategorie('expression');
+    $this->reinitNiveau();
     return $this->apprentissage('italien');
   }
 
-  protected function initVocab()
+  /**
+   * Cette fonction récupère la catégorie du niveau en cours dans la table Vocabulaire.
+   * @return array d'objets Vocabulaire
+   */
+  protected function getVocalulaire()
   {
     switch ($this->getSss('niveau'))
     {
       case 1:
-      case 4: $this->setSss('vocabulaire', $this->getCategorie('nuance') ); break;
+      case 4: return $this->getCategorie('nuance'); 
       case 2:
-      case 5: $this->setSss('vocabulaire', $this->getCategorie('tempo') ); break;
+      case 5: return $this->getCategorie('tempo');
       case 3:
-      case 6: $this->setSss('vocabulaire', $this->getCategorie('expression') ); break;
+      case 6: return $this->getCategorie('expression');
     }
-    $this->setSss('listeIndices',$this->getIndices());
   }
 
   protected function initNiveau()

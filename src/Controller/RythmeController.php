@@ -31,26 +31,39 @@ class RythmeController extends ExerciceController
    */
   public function main3()
   {
+    $this->reinitNiveau();
     return $this->apprentissage('rythme');
   }
 
-  protected function initVocab()
+  /**
+   * Cette fonction récupère la catégorie du niveau en cours dans la table Vocabulaire.
+   * @return array d'objets Vocabulaire
+   */
+  protected function getVocalulaire()
   {
     switch ($this->getSss('niveau'))
     {
-      case 1: $this->constructionDesReponsesNiv1(); break;
-      case 4: 
+      case 1: return $this->constructionDesReponsesNiv1();
+      case 4:
       case 2:
-      case 5: $this->setSss('vocabulaire', $this->getCategorie('tempo') ); break;
+      case 5: return $this->getCategorie('tempo');
       case 3:
-      case 6: $this->setSss('vocabulaire', $this->getCategorie('expression') ); break;
+      case 6: return $this->getCategorie('expression');
     }
-    $this->setSss('listeIndices',$this->getIndices());
   }
   
   /* Cette fonction récupère en base la liste des silences
    * et remplit le champ description avec une valeur exprimée
    * en figures de notes (croches, noires...)
+   * A CORRIGER :
+   * - utiliser Portee
+   * - retourner à chaque fois les 6 reponses :
+   *   - croche
+   *   - noire
+   *   - noire pointée
+   *   - blanche
+   *   - blanche pointée
+   *   - ronde
    */
   private function constructionDesReponsesNiv1()
   {
@@ -177,7 +190,7 @@ class RythmeController extends ExerciceController
     //$question->setReponse($bonneReponse);
     $listeDeReponses[$i] = $silence;
     $i += 1;
-    $this->setSss('vocabulaire', $listeDeReponses);
+    return $listeDeReponses;
   }
   
   /* Retourne un texte retournant la durée du temps fourni.
