@@ -1,0 +1,44 @@
+{% extends "page.html.twig" %}
+
+{% block entete %}
+  {{ parent() }}
+{% endblock %}
+
+{% block corps %}
+  {{ parent() }}
+{% endblock %}
+
+{% block titre %}
+  {{ app.session.get('titreExo') | capitalize }}
+{% endblock %}
+
+{% block page %}
+  {{ parent() }}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <b class="souligne">Question {{app.session.get('numQuestion')}} :</b>
+      <b>Ecoute et trouve le nom de cet instrument: </b><br><br>
+      <audio controls controlsList="nodownload" src="{{son_path}}{{app.session.get('question').reponse.symbole}}.mp3"></audio>
+      <br><br><br>
+    </div>
+    {% if app.session.get('correction')|length > 0 %}
+      {% include '_correction.html.twig' %}
+    {% else %}
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+      {% for p in app.session.get('question').propositions %}
+    <div class="offset-1 col-1 contenantCadreReponse">
+      <div class="cadreReponse">
+        <a href="{{app.session.get('exercice')}}Correction{{loop.index0}}">
+          {{p.nom}}
+        </a>
+      </div>
+    </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

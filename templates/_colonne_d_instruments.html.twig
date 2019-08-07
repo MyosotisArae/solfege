@@ -1,0 +1,13 @@
+            <div class="col-4">
+              <div class="container-fluid">
+                <div class="row">
+                  {% for instrument in listeInstruments %}
+                  <div class="col-12">
+                    <div class="positionRelative" style="left : -2em;">
+                      {% include '_instrument.html.twig' with {'image':instrument.image, 'son':instrument.son,'legende':instrument.legende} only %}
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>

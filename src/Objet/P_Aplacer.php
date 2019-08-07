@@ -32,7 +32,7 @@ class P_Aplacer extends P_Figure
       * altérations et points dans les fichiers image (premier interligne).
       * @var int
       */
-    private $niveau;
+    protected $niveau;
 
     ///////////////////////////////////////////////////////////////////////////////
     //                              Getteurs                                     //

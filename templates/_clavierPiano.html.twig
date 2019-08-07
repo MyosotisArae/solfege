@@ -1,0 +1,42 @@
+{# Calculer la largeur du clavier #}
+{% set largeur = ((nbTouches + 1)*72)+50 %}
+<div class="ligne positionRelative" style="width:{{largeur}}px;">
+  {% set xFleche = lesFleches|default([]) %}
+  {% set xPastille = lesPastilles|default([]) %}
+  {% set numTouche = 0 %}
+  {% for i in range(0,nbTouches) %}
+    {% set x = 72*i %}
+  <img class="positionAbsolue" style="left : {{x}}px;" src="{{img_path}}portee/toucheBlanchePiano.gif">
+    {% if numTouche in xPastille %}
+  <img class="positionAbsolue" style="left : {{x}}px;" src="{{img_path}}portee/pastille_blanche.gif">
+    {% endif %}
+    {% set numTouche = numTouche+2 %}
+  {% endfor %}
+  <img src="{{img_path}}portee/ecart_double.gif">
+  {# Superposer les touches noires #}
+  {% set x = 57 %}
+  {% set vide = 0 %}
+  {% set nextVide = 2 %}
+  {% set numTouche = 1 %}
+  {% for i in range(0,nbTouches) %}
+    {% if (i==nextVide) %}
+      {% set vide = 1-vide %}
+      {% set demi = "demi_" %}
+      {% set nextVide = nextVide+3+vide %}
+    {% else %}
+    {% set demi = "" %}
+  <img class="positionAbsolue" style="left : {{x}}px;" src="{{img_path}}portee/toucheNoirePiano.gif">
+      {% if numTouche in xPastille %}
+  <img class="positionAbsolue" style="left : {{x}}px;" src="{{img_path}}portee/pastille_noire.gif">
+      {% endif %}
+    {% endif %}
+    {% if (avecTon or (i in xFleche)) %}
+  <img class="positionAbsolue" style="left : {{x-25}}px; top:220px;" src="{{img_path}}portee/un_{{demi}}ton.gif">
+    {% endif %}
+    {% set x = x+72 %}
+    {% set numTouche = numTouche+2 %}
+  {% endfor %}
+</div>
+<br>
+<img src="{{img_path}}portee/ecart_vertical.gif">
+<br>

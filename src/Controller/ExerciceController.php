@@ -34,8 +34,15 @@ class ExerciceController extends ParentController
     return $this->render('/'.$this->getSss('modele').'.html.twig');
   }
   
+  /**
+   * apprentissage est appelée pour ouvrir une page leçon. Afin d'éviter que
+   * la leçon soit consultée entre chaque question, le niveau est réinitialisé.
+   * De plus, l'ouverture d'une page Leçon est récompensée par un trophée.
+   */
   public function apprentissage(string $exercice, $parametres=array())
   {
+    $this->reinitNiveau();
+    $this->obtentionTrophee(1);
     $this->setSss('exercice', $exercice);
     $this->reinitNiveau();
     return $this->render('/apprendre_'.$exercice.'.html.twig', $parametres);
@@ -47,7 +54,7 @@ class ExerciceController extends ParentController
     $bonneReponse = $question->getReponse();
     $reponseFournie = $question->getProposition($numRep);
     $msg = "";
-    if ($bonneReponse->getNom() == $reponseFournie->getNom())
+    if ($bonneReponse->getId() == $reponseFournie->getId())
     {
       $msg = 'Oui, la bonne réponse est bien "';
       $this->setSss('nbBonnesRep', 1 + $this->getSss('nbBonnesRep'));
@@ -105,19 +112,27 @@ class ExerciceController extends ParentController
     // Récupérer les réponses possibles pour ce niveau.
     $possibilites = $this->getVocalulaire();
     shuffle($possibilites);
-    // Les réponses ci-dessous ont déjà été utilisées dans ce niveau. Elles
+    // Les questions ci-dessous ont déjà été utilisées dans ce niveau. Elles
     // ne doivent plus être posées pour le niveau en cours.
     // Ce tableau est une liste de Vocabulaire.id
     $dejaDemande = $this->getSss('dejaDemande');
+    if ($dejaDemande == null) $dejaDemande = array();
     // Sélectionner une réponse qui n'a pas déjà été demandée pour le niveau en cours.
     $chercher = true;
     $bonneReponse = null;
+    $bonId = null;
     while ($chercher)
     {
-      $bonneReponse = array_shift($possibilites);
-      if (!(in_array($bonneReponse->getId(), $dejaDemande)))
+      // Tirer une de ces propositions au hazard.
+      $i = random_int(0, count($possibilites)-1);
+      // A-t-elle déjà été proposée comme question ?
+      if (!(in_array($possibilites[$i]->getId(), $dejaDemande)))
       {
+        // Non. Donc on la choisit comme question.
         $chercher = false;
+        $bonneReponse = $possibilites[$i];
+        unset($possibilites[$i]);
+        // Mémoriser son id afin de ne plus l'utiliser pendant ce niveau.
         $dejaDemande[] = $bonneReponse->getId();
       }
     }
@@ -127,7 +142,10 @@ class ExerciceController extends ParentController
     $question->addReponse($bonneReponse);
 
     // Niveau 7 et plus : plus besoin de liste de fausses réponses.
-    if ($this->getSss('niveau') < 7) $this->addFaussesReponses($question, $bonneReponse);
+    if ($this->getSss('niveau') < 7)
+    {
+      $this->addFaussesReponses($question, $bonneReponse, $possibilites);
+    }
     
     $this->setSss('question',$question);
   }
@@ -135,18 +153,32 @@ class ExerciceController extends ParentController
   /**
    * Cette fonction doit être surchargée.
    * Elle récupère la catégorie du niveau en cours dans la table Vocabulaire.
+   * $question La question, qui a déjà sa bonne réponse, mais pas ses propositions
+   * $bonneReponse La bonne réponse, à ajouter aux propositions
+   * $tableau contient toutes les réponses sauf la bonne. On ne l'utilise que
+   *          si l'objet $bonneReponse n'a pas ses propres propositions.
+   *
    * @return array d'objets Vocabulaire
    */
   protected function getVocalulaire() { return array(); }
 
-  protected function addFaussesReponses(Question $question, Vocabulaire $bonneReponse)
+  protected function addFaussesReponses(Question $question, Vocabulaire $bonneReponse, array $tableau = null)
   {
     // Aller chercher les réponses fausses qui ont été choisies pour cette réponse.
-    $question->setPropositions($bonneReponse->getMauvaisesReponses());
+    // Utiliser le tableau s'il n'y en a pas assez (moins de 3).
+    $mr = $bonneReponse->getMauvaisesReponses();
+    if ($mr == null || count($mr) < 3) $question->setPropositions($tableau);
+    else $question->setPropositions($mr);
     // Ajouter la bonne réponse à cette liste,
     $question->addProposition($bonneReponse);
     // et mélanger le tout.
     $question->melangerPropositions();
+    // DEBUG
+    // Il doit y avoir 6 propositions
+    if (count($question->getPropositions()) != 6)
+    {
+      throw new Exception("Erreur. ".count($question->getPropositions())." propositions au lieu de 6.");
+    }
   }
 
   protected function getNiveau()

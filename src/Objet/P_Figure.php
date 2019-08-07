@@ -26,14 +26,14 @@ class P_Figure
     }
 
     // Cette propriété permet d'accéder aux constantes dans P_image.
-    private $cst;
+    protected $cst;
 
     /**
      * Nom du fichier image (sans l'extension : ce seront tous des .gif)
      * Utiliser uniquement les constantes présentes dans la classe P_Image
      * @var string
      */
-    private $image;
+    protected $image;
 
     ///////////////////////////////////////////////////////////////////////////////
     //                              Getteurs                                     //
@@ -45,6 +45,11 @@ class P_Figure
         // Cette fonction doit être surchargée pour les éléments à placer :
         // notes, points, altérations (classe P_Aplacer)
         return 0;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
     }
 
     ///////////////////////////////////////////////////////////////////////////////

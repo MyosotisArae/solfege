@@ -16,7 +16,7 @@ class Portee
       // Récupérer l'instance du singleton qui fournit les noms de fichiers image.
       $this->cst = P_image::getInstance();
       $this->elements = array();
-      $this->addCle(nomCle);
+      $this->addCle($nomCle);
     }
 
     // Cette propriété permet d'accéder aux constantes dans P_image.
@@ -43,6 +43,11 @@ class Portee
     //                              Getteurs                                     //
     ///////////////////////////////////////////////////////////////////////////////
 
+    public function getCle(): ?array
+    {
+        return $this->clef;
+    }
+
     public function getElements(): ?array
     {
         return $this->elements;
@@ -57,13 +62,14 @@ class Portee
       */
     public function addCle(string $nomCle)
     {
-      $this->clef = $this->cst->getCle(nomCle);
-      if ($this->clef != null)
+      $this->clef = new P_Clef($nomCle);
+      if (strlen($nomCle) > 1)
       {
         // La portée a bien une clé. On l'ajoute aux figures à afficher.
         $elt = new P_Elt($this->clef); // Ceci définit la clé du P_Elt.
         // Le P_Elt est lui-même une clé, donc on ajoute cette figure à sa liste :
         $elt->addFigure($this->clef);
+
         $this->elements[] = $elt;
       }
     }
@@ -89,13 +95,40 @@ class Portee
       $elt = new P_Elt($this->clef); // Ceci définit la clé du P_Elt.
 
       // Ajouter la note et récupérer son niveau :
-      $niveau = $elt->addNote($nom);
+      $niveau = $elt->addNote($nom, $duree);
 
       // Ajouter l'altération éventuelle :
       $elt->addAlteration($alteration, $niveau);
 
       // Ajouter le point éventuel :
       $elt->addPoint($duree, $niveau);
+
+      // Ajouter les barres éventuelles :
+      $elt->addBarres($niveau);
+
+      $this->elements[] = $elt;
+    }
+
+    public function addSilence(string $nomImage, int $duree)
+    {
+      $elt = new P_Elt($this->clef); // Ceci définit la clé du P_Elt.
+
+      $elt->addSigne($nomImage);
+
+      $elt->addPoint($duree, $this->getNiveauSilence($duree));
+
+      $this->elements[] = $elt;
+    }
+
+    private function getNiveauSilence(int $duree)
+    {
+      // Soupir pointé. Le point est le LA.
+      if ($duree == 3) return $this->cst->getNiveau("A2");
+      
+      // demie pause pointée. Le point est le SI.
+      if ($duree == 6) return $this->cst->getNiveau("B2");
+      
+      return 0;
     }
 
 }

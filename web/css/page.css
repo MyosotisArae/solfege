@@ -87,15 +87,3 @@ b { font-size : 2em; }
 }
 .cadreReponse a:hover { font-weight : bold; }
 .fonteInvisible { color : transparent; min-height : 25vh; }
-
-/* Pour masquer le menu contextuel du composant audio : */
-.styleAudio
-{
-  border-radius : 2.8em;
-  background : #f2f2F2;
-  position : absolute;
-  top : 0;
-  right : 0;
-  width : 4.8em;
-  height : 3.4em;
-}

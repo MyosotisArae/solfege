@@ -14,22 +14,7 @@ class MainController extends ParentController
   {
     $this->setSss('exercice', 'main');
     $this->reinitNiveau();
-    $this->getTrophees();
     return $this->render('/main.html.twig');
-  }
-  
-  /* Obtiens la liste de tous les trophées (Uniquement lors du premier appel)
-   * et la met dans la variable de session listeTrophees.
-   */
-  private function getTrophees()
-  {
-    if ($this->isSetSss('listeTrophees')) return false;
-
-    $this->setSss('listeTrophees',
-      $this->getDoctrine()
-           ->getManager()
-           ->getRepository('App:Trophee')
-           ->getListe() );
   }
 }
 

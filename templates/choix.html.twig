@@ -1,0 +1,97 @@
+{% extends "base.html.twig" %}
+
+{% block entete %}
+  
+  {{ parent() }}
+  <link rel="stylesheet" href="{{css_path}}general.css">
+<style>
+.cadreChoix_img
+{
+  border-radius : 1em;
+}
+.cadreChoix_div
+{
+  border : 3px solid black;
+  border-radius : 2em;
+  background : rgba(255,255,255,0.5);
+  position : relative;
+}
+.cadreChoix_1
+{
+  color : white;
+  font-size : 5em;
+  text-shadow : 1px 0px 1px black, -1px 0px 1px black, 0px 1px 1px black, 0px -1px 1px black, 2px 0px 1px black, -2px 0px 1px black, 0px 2px 1px black, 0px -2px 1px black;
+  text-align : center;
+}
+.cadreChoix_2
+{
+  font-size : 3em;
+}
+h1
+{
+  color : white;
+  font-size : 1em;
+  text-shadow : 1px 0px 1px black, -1px 0px 1px black, 0px 1px 1px black, 0px -1px 1px black, 2px 0px 1px black, -2px 0px 1px black, 0px 2px 1px black, 0px -2px 1px black;
+  text-align : center;
+}
+h2
+{
+  color : white;
+  font-size : 0.5em;
+  text-shadow : 1px 0px 1px black, -1px 0px 1px black, 0px 1px 1px black, 0px -1px 1px black, 2px 0px 1px black, -2px 0px 1px black, 0px 2px 1px black, 0px -2px 1px black;
+  text-align : center;
+}
+</style>
+{% endblock %}
+
+{% block corps %}
+  <body class="fondCouvrant" style="background-image : url('{{img_path}}fondChoix.jpg')">
+
+    <br><br><br>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="offset-1 col-4 fondEntier cadreChoix_div">
+          <a class="cadreChoix_1" href="main">
+            <img class="cadreChoix_img" src="{{img_path}}conservatoire.jpg">
+            <h1>Retour à la page d'accueil</h1>
+          </a>
+        </div>
+        <div class="offset-1 col-5">
+          <div class="fondEntier cadreChoix_div">
+            <a href="{{nom}}">
+              <table>
+                <tr>
+                  <td>
+                    <img class="cadreChoix_img" src="{{img_path}}retourExercice.gif">
+                  </td>
+                  <td>
+                    <h1 class="cadreChoix_1">Exercice</h1>
+                    <h2 class="cadreChoix_1 cadreChoix_2">sur {{titre|replace({'_':' '})}}</h2>
+                  </td>
+                </tr>
+              </table>
+            </a>
+          </div>
+          <br><br>
+          <div class="fondEntier cadreChoix_div">
+            <a href="apprendre_{{nom}}">
+              <table>
+                <tr>
+                  <td>
+                    <img class="cadreChoix_img" src="{{img_path}}apprendre.gif">
+                  </td>
+                  <td>
+                    <h1 class="cadreChoix_1">Leçon</h1>
+                    <h2 class="cadreChoix_1 cadreChoix_2">sur {{titre|replace({'_':' '})}}</h2>
+                  </td>
+                </tr>
+              </table>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+
+{% endblock %}

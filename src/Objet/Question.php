@@ -12,18 +12,18 @@ class Question
     public function __construct()
     {
       $this->propositions = array();
-      $this->reponses = array();
+      $this->reponse = null;
     }
 
     /**
      * @var array
      */
-    private $propositions; // Liste des choix proposés (bonnes et mauvaises réponses)
+    private $propositions; // Liste des choix proposés (bonne et mauvaises réponses)
 
     /**
      * @var array
      */
-    private $reponses; // La/les bonnes réponses dans le tableau propositions
+    private $reponse; // L'id de la bonne réponse dans le tableau propositions
 
     ///////////////////////////////////////////////////////////////////////////////
     //                              Getteurs                                     //
@@ -39,35 +39,38 @@ class Question
         return $this->propositions[$i];
     }
 
-    public function getReponses(): ?array
-    {
-        return $this->reponses;
-    }
-
     public function getReponse(): ?Vocabulaire
     {
-        return $this->reponses[0];
+        return $this->reponse;
     }
 
     ///////////////////////////////////////////////////////////////////////////////
     //                              Setteurs                                     //
     ///////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Ajoute au maximum 5 propossitions à $this->propositions
+     * Prend les 5 premières s'il y en a trop dans $a
+     *
+     * $a Le tableau des propositions
+     */
     public function setPropositions(array $a)
     {
-        $this->propositions = $a;
-        return $this;
-    }
-
-    public function setReponses(array $a)
-    {
-        $this->reponses = $a;
+        if (count($a) > 6)
+        {
+          $this->propositions = array();
+          foreach (range(1,5) as $i)
+          {
+            $this->propositions[] = array_shift($a);
+          }
+        }
+        else $this->propositions = $a;
         return $this;
     }
 
     public function setReponse(Vocabulaire $a)
     {
-        $this->reponses[0] = $a;
+        $this->reponse = $a;
         return $this;
     }
 
@@ -87,7 +90,7 @@ class Question
 
     public function addReponse(Vocabulaire $v)
     {
-        $this->reponses[] = $v;
+        $this->reponse = $v;
     }
 }
 ?>

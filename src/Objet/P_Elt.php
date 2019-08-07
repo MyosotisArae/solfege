@@ -26,7 +26,8 @@ class P_Elt
       $this->cst = P_image::getInstance();
       // Liste des P_Figure à afficher pour cet élément.
       $this->figures = array();
-      $this->clef = $clef;
+      if ($clef != null) $this->clef = $clef;
+      else $this->clef = new P_Clef("cle_sol");
 
       // Lors de la création d'un P_Elt, on précise d'abord la clé, puis
       // l'altération et la note ("F2" par exemple), et . Chacune des 3
@@ -47,8 +48,8 @@ class P_Elt
     // La hauteur permettra donc compter les tons entre deux notes.
     private $hauteur;
 
-    // Durée en croches
-    private $duree;
+    // Durée en croches (doit être accessible par P_Figure, pour le twig _figure)
+    protected $duree;
 
     ///////////////////////////////////////////////////////////////////////////////
     //                              Getteurs                                     //
@@ -77,18 +78,18 @@ class P_Elt
       */
     public function addNote(string $nomNote, int $duree)
     {
-      $niveau += $this->cst->getNiveau($nomNote);
+      $niveau = $this->cst->getNiveau($nomNote);
       $this->duree = $duree;
       $this->hauteur += $this->cst->getHauteur($nomNote, $this->clef->getModificateur());
       $n = new P_Aplacer($this->cst->getImageNote($duree), $niveau);
       $this->figures[] = $n;
-      
+
       return $niveau;
     }
 
     public function addAlteration(string $nomImage, int $niveau)
     {
-        if (count($nomImage) < 1) return; // Aucune altération
+        if (strlen($nomImage) < 1) return; // Aucune altération
         $a = new P_Aplacer($nomImage, $niveau);
         $this->figures[] = $a;
         $this->hauteur  += $this->getModificateurAlteration();
@@ -102,6 +103,40 @@ class P_Elt
     }
 
     /**
+      * Ajoute autant de barres que nécessaire pour aller jusqu'à la note.
+      */
+    public function addBarres(int $niveau)
+    {
+      // Verifier si la note est hors de la portee
+      $increment = 0;
+      $limite = 0;
+      if ($niveau >= 3)
+      {
+        $increment = -1;
+        $limite = 3;
+      }
+      if ($niveau <= -9)
+      {
+        $increment = 1;
+        $limite = -9;
+      }
+      if ($increment == 0) return;
+      $niv = $niveau;
+      // Les barres sont sur les niveaux impairs. $niv doit correspondre
+      // au prochain niveau impair proche de $niveau.
+      if ($niv%2 == 0) { $niv += $increment; }
+      // On va aller de 2 en 2 afin de ne s'occuper que des lignes.
+      $increment *= 2;
+      $CPasFini = true;
+      while ($CPasFini)
+      {
+        $this->figures[] = new P_Aplacer($this->cst->get_barre(), $niv);
+        $CPasFini = ($niv != $limite);
+        $niv += $increment;
+      }
+    }
+
+    /**
       * Ajoute un point après la figure si cela est nécessaire.
       */
     public function addPoint(int $duree, int $niveau)
@@ -112,9 +147,15 @@ class P_Elt
         // Le nom de l'image n'est pas le même si le point est dans un interligne
         // ou sur une ligne (c'est à dire juste un peu au-dessus de la ligne).
         // C'est la classe P_Image qui va calculer quelle image utiliser.
-        $p = new P_Aplacer($this->cst->getPoint($niveau), $niveau);
+        $p = new P_Aplacer($this->cst->get_point($niveau), $niveau);
         $this->figures[] = $p;
       }
+      $this->duree = $duree;
+    }
+
+    public function addSigne(string $nomImage)
+    {
+      $this->figures[] = new P_Figure($nomImage);
     }
 }
 ?>

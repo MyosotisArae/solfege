@@ -1,0 +1,19 @@
+<div style="display : inline-block;">
+  {# Calculer la largeur de la portee #}
+  {% set largeur = (elements|length)*100 %}
+  <div class="positionRelative" style="width:{{largeur}}px;">
+    <div class="positionAbsolue" style="top:{{y|default(-5)}}em;">
+      {% set x=0 %}
+      {% for element in elements %}
+      {% set figures = element %}
+      {% if element.figures is defined %}
+      {%   set figures = element.figures %}
+      {% endif %}
+      <div class="positionAbsolue" style="top : 0; left : {{x}}px;">
+        {% include "_figure.html.twig" with {"figures":figures} only %}
+      </div>
+      {% set x = x + 100 %}
+      {% endfor %}
+    </div>
+  </div>
+</div>

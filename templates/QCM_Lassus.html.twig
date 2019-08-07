@@ -50,7 +50,7 @@
     </div>
     <div class="col-12">
       <div class="fonteInvisible">-</div>
-      <div class="lassus positionAbsolue">{{app.session.get('question').reponses[0].symbole}}</div>
+      <div class="lassus positionAbsolue">{{app.session.get('question').reponse.symbole}}</div>
     </div>
     {% if app.session.get('correction')|length > 0 %}
       {% include '_correction.html.twig' %}

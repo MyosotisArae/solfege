@@ -45,12 +45,31 @@ class InstrumentController extends ExerciceController
     switch ($this->getSss('niveau'))
     {
       case 1: return $this->getCategorie('instrument');
-      case 4: 
-      case 2:
-      case 5: return $this->getCategorie('tempo');
+      case 2: return $this->getInstrumentsAvecSon();
       case 3:
+      case 4: return $this->getInstrumentsAvecSon();
+      case 5: return $this->getCategorie('tempo');
       case 6: return $this->getCategorie('expression');
     }
+  }
+
+  protected function getInstrumentsAvecSon()
+  {
+    $liste = $this->getCategorie('instrument');
+    $i = count($liste);
+    while ($i > 0)
+    {
+      $i -= 1;
+      if ($liste[$i]->getSymbole() == null) { unset($liste[$i]); }
+      else if (strlen($liste[$i]->getSymbole()) < 1) { unset($liste[$i]); }
+    }
+    return $liste;
+    /*
+    return $this->getDoctrine()
+                ->getManager()
+                ->getRepository('App:Vocabulaire')
+                ->getInstrumentsAvecSon();
+    */
   }
 
   protected function initNiveau()
@@ -59,24 +78,33 @@ class InstrumentController extends ExerciceController
     switch ($this->getSss('niveau'))
     {
       case 1 : $this->setSss('modele', 'QCM_commentaire'); break;
-      case 2 :
+      case 2 : $this->setSss('modele', 'QCM_son_famille'); break;
       case 3 : $this->setSss('modele', 'ecoute'); break;
+      case 4 : $this->setSss('modele', 'QCM_son_nom'); break;
       case 5 :
       case 6 : $this->setSss('modele', 'QCM_nom'); break;
-      case 4 : $this->setSss('modele', 'QCM_description'); break;
     }
   }
 
-  protected function addFaussesReponses(Question $question, Vocabulaire $bonneReponse)
+  protected function addFaussesReponses(Question $question, Vocabulaire $bonneReponse, array $tableau = null)
   {
     $question->addProposition($bonneReponse);
     // Nombre total de réponses à proposer (dont la bonne) : 4
-    $familles = array("corde","bois","cuivre","percussion");
-    foreach ($familles as $f)
+    $familles = array("cordes","bois","cuivres","percussions");
+    $i = array_search($bonneReponse->getCommentaire(), $familles);
+    unset($familles[$i]);
+    // $familles ne contient plus que les types d'instruments à mettre comme "fausse réponse".
+    // On les cherche. Quand on en trouve un, on le retire de $familles, et on continue
+    // jusqu'à ce qu'on ait vidé le tableau $familles.
+    foreach ($tableau as $instrument)
     {
-      if ($f != $bonneReponse->getCommentaire())
+      if (in_array($instrument->getCommentaire(), $familles))
       {
-        $question->addProposition(new Vocabulaire("","","",$f));
+        $question->addProposition($instrument);
+        $i = array_search($instrument->getCommentaire(), $familles);
+        unset($familles[$i]);
+        // Est-ce qu'on a toutes nos réponses ?
+        if (count($familles) == 0) break;
       }
     }
     $question->melangerPropositions();
@@ -85,28 +113,28 @@ class InstrumentController extends ExerciceController
   protected function complementCorrection(Vocabulaire $bonneReponse)
   {
     $msg = $this->getSss('correction');
+    if (substr($msg,0,3) == 'Oui') { $msg = "Tu as vu juste, "; }
+    else  { $msg = "Eh non, "; }
+    $complement = "";
+    // Article devant le nom de l'instrument : à adapter s'il commence par une voyelle.
+    $article = "de ";
+    if (in_array($bonneReponse->getNom()[0],['a','e','i','o','u','y'])) $article = "d'";
     switch ($this->getSss('niveau'))
     {
-      case 1 : $msg .= $bonneReponse->getCommentaire() . '"';
-               if ($bonneReponse->getDescription() != "")
-               {
-                 $msg .= ", car " . $bonneReponse->getDescription();
-               }
+      case 1 : $msg .= 'la réponse était "'.$bonneReponse->getCommentaire().'"';
+               if (strlen($bonneReponse->getDescription()) > 0)
+                 $complement =", car ".$bonneReponse->getDescription();
                break;
-      case 2 : 
+      case 2 : $msg .= "ça vient d'un morceau ".$article.$bonneReponse->getNom()." (famille des " . $bonneReponse->getCommentaire().")";
+               break; 
+      case 3 :
       case 4 :
       case 5 :
-      case 6 : $msg .= $bonneReponse->getDescription().'".';
+      case 6 : $msg = "";
     }
-    $msg .= '.';
+    $msg .= $complement.".";
 
     $this->setSss('correction', $msg);
-  }
-  
-  function jouerMorceau()
-  {
-    $snd = new Audio("musiques/test.wav"); // buffers automatically when created
-    $snd.play();
   }
 }
 

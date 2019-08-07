@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Objet\Portee;
 
 /**
  * Score
@@ -22,6 +23,11 @@ class Vocabulaire
       $this->ordre = 0;
 
       $this->mauvaisesReponses = array();
+
+      // Utilisé pour stocker une liste d'images dans certains exercices,
+      // comme dans rythme niveau 1 par exemple.
+      $this->porteeSilence = null;
+      $this->porteeNote = null;
     }
 
     /**
@@ -80,10 +86,23 @@ class Vocabulaire
      * @ORM\ManyToMany(targetEntity="App\Entity\Vocabulaire")
      */
     private $mauvaisesReponses; // Tableau d'éléments de Vocabulaire
+    
+    private $porteeSilence;
+    private $porteeNote;
 
     ///////////////////////////////////////////////////////////////////////////////
     //                              Getteurs                                     //
     ///////////////////////////////////////////////////////////////////////////////
+
+    public function getPorteeSilence(): ?Portee
+    {
+        return $this->porteeSilence;
+    }
+
+    public function getPorteeNote(): ?Portee
+    {
+        return $this->porteeNote;
+    }
 
     public function getId(): ?int
     {
@@ -127,6 +146,18 @@ class Vocabulaire
     ///////////////////////////////////////////////////////////////////////////////
     //                              Setteurs                                     //
     ///////////////////////////////////////////////////////////////////////////////
+
+    public function setPorteeSilence(Portee $p)
+    {
+        $this->porteeSilence = $p;
+        return $this;
+    }
+
+    public function setPorteeNote(Portee $p)
+    {
+        $this->porteeNote = $p;
+        return $this;
+    }
 
     public function setNom(string $n)
     {

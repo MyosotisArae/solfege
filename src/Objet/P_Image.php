@@ -35,6 +35,7 @@ class P_image {
     $this->pause = "pause";
     $this->point_interligne = "point_interligne";
     $this->point_ligne = "point_ligne";
+    $this->barre = "barre";
     $this->portee = "portee";
     $this->ronde = "ronde";
     $this->soupir = "soupir";
@@ -46,6 +47,7 @@ class P_image {
     // au niveau de base : 0. Le placement des notes nécessite de
     // retrancher à leur niveau celui de F2 pour que leur image
     // soit à la bonne hauteur par rapport à la portée.
+    $this->decalageGraphique = 0;
     $this->decalageGraphique = $this->getNiveau("F2");
   }
  
@@ -76,6 +78,7 @@ class P_image {
   private $pause;
   private $point_interligne;
   private $point_ligne;
+  private $barre;
   private $portee;
   private $ronde;
   private $soupir;
@@ -101,10 +104,21 @@ class P_image {
   // Nombre de demi tons EN CLE DE SOL de C à C, puis de C à D, puis de C à E... et de C à B
   private $demiTons;
 
+  public function getLettreRandom()
+  {
+    $i = random_int(0, count($this->lettres)-1);
+    return $this->lettres[$i];
+  }
+
   public function get_point(int $niveau)
   {
     if ($niveau % 2 == 0) return $this->point_interligne;
     return $this->point_ligne;
+  }
+
+  public function get_barre()
+  {
+    return $this->barre;
   }
 
   /**
@@ -124,25 +138,33 @@ class P_image {
     if ($lettre < 0) $lettre += 7;
 
     $octave= intval($nomNote[1]);
-    return ($this->demiTons($lettre) + (12 * $octave));
+    $indiceLettre = array_search($lettre, $this->lettres);
+    return ($this->demiTons[$indiceLettre] + (12 * $octave));
   }
 
   /**
     * Niveau "graphique" (bien qu'on ne soit pas encore à des coordonnées en pixels
-    * mais juste à une numérotation de la portée, où C0=0, D0=1) de la note avant
-    * réajustement (car en fait, ceci est seulement le niveau stocké dans l'élément
-    * car l'ordonnée 0 sera celle de F2, vu que c'est là que sont les notes dans
-    * les fichiers image, donc ce niveau devra être réajusté au moment de l'affichage,
-    * mais cela sera fait uniquement à la lecture du niveau, dans P_Elt.getNiveau() )
-    * c'est à dire sa hauteur sur la portée. Les niveaux pairs sont ceux des notes qui
-    * sont sur une ligne, les notes dans les interlignes ayant des niveaux impairs.
+    * mais juste à une numérotation de la portée). Dans cette numérotation, F2 a le
+    * niveau 0, car toutes les images (en particulier les notes : noire, croche...)
+    * sont à ce niveau. Il doit être utilisable pour un placement par coordonnées,
+    * donc le niveau doit être negatif au-dessus de F2 (G2=-1, A2=-2...) et positif
+    * en-dessous (E2=1, D2 = 2...).
+    * Les niveaux pairs sont ceux des notes qui sont sur une ligne, les notes dans
+    * les interlignes ayant des niveaux impairs.
     */
   public function getNiveau(string $nomNote)
   {
-    // Ici, la lettre va indiquer un niveau sur la portée (E2 = 1ere ligne).
+    // Ici, la lettre va indiquer un niveau sur la portée (... E=1,F=0,G=-1).
     $lettre = array_search($nomNote[0],$this->lettres);
-    $octave= intval($nomNote[1]);
-    return ($lettre + (8 * $octave));
+    // F est la référence, on retranche la position de F
+    $F = array_search("F",$this->lettres);
+    $lettre = $F - $lettre;
+
+    // L'octave 2 est de niveau 0. (octave 3 = -7, octave 1 = +7)
+    $octave= 7 * (2 - intval($nomNote[1]));
+    $avantDecalage = $lettre + $octave;
+    $resultat = $avantDecalage - $this->decalageGraphique;
+    return $resultat;
   }
 
   /**
@@ -153,12 +175,12 @@ class P_image {
   {
     switch ($duree)
     {
-      case 1  : return get_croche();
+      case 1  : return $this->get_croche();
       case 2  :
-      case 3  : return get_noire();
+      case 3  : return $this->get_noire();
       case 4  :
-      case 6  : return get_blanche();
-      default : return get_ronde();
+      case 6  : return $this->get_blanche();
+      default : return $this->get_ronde();
     }
   }
 }

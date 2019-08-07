@@ -1,0 +1,13 @@
+            <div class="col-4">
+              <table class="cadreNoir">
+                <tr><td><h2 style="font-size : 1.5em;">{{legende|capitalize}}</h2></td></tr>
+                <tr><td><h2><img src="{{img_path}}instruments/{{image}}"></h2></td></tr>
+                {% if son|length > 0 %}
+                <tr><td>
+                  <div class="positionRelative">
+                    <audio controls controlsList="nodownload" src="{{son_path}}{{son}}"></audio>
+                  </div>
+                </td></tr>
+                {% endif %}
+              </table>
+            </div>

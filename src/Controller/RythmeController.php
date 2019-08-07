@@ -3,6 +3,8 @@ namespace App\Controller;
 
 use App\Entity\Vocabulaire;
 use App\Objet\Question;
+use App\Objet\Portee;
+use App\Objet\P_Image;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,7 +33,6 @@ class RythmeController extends ExerciceController
    */
   public function main3()
   {
-    $this->reinitNiveau();
     return $this->apprentissage('rythme');
   }
 
@@ -51,7 +52,47 @@ class RythmeController extends ExerciceController
       case 6: return $this->getCategorie('expression');
     }
   }
-  
+
+  protected function constructionDesReponsesNiv1()
+  {
+    $listeDeReponses = $this->getCategorie('silence');
+    // Dans la liste ainsi récupérée, ce qui nous intéresse est :
+    // - la duree du silence
+    //   en nombre de croches  : ordre
+    // - son nom               : nom
+    // - sa description        : description
+    // - son image (sans point):symbole
+    // Les propositions contiendront tous les silences trouvés en base.
+    // Pour chacune d'elles, on va construire une portée contenant des
+    // notes, et une autre contenant des silences.
+    $resultat = array();
+    $cst = P_image::getInstance();
+    foreach ($listeDeReponses as $rep)
+    {
+      $ps = new Portee("");
+      $ps->addSilence($rep->getSymbole(), $rep->getOrdre());
+      $rep->setPorteeSilence($ps);
+      // Ajouter la note de même durée que ce silence
+      $pn = new Portee("");
+      $nomNote = $cst->getLettreRandom().strval(random_int(2,3));
+      $pn->addNote($nomNote, "", $rep->getOrdre());
+      $rep->setPorteeNote($pn);
+      $resultat[] = $rep;
+    }
+    return $resultat;
+  }
+/*
+  protected function addFaussesReponses(Question $question, Vocabulaire $bonneReponse, array $tableau=null)
+  {
+    // Prendre les réponses fausses qui ont été choisies pour cette réponse.
+    $question->setPropositions($t);
+    // Ajouter la bonne réponse à cette liste, NON ! elle y est déjà
+    $question->addProposition($bonneReponse);
+    print_r("  ".count($question->getPropositions())." resultats obtenus.  ");
+    // et mélanger le tout.
+    $question->melangerPropositions();
+  }
+*/
   /* Cette fonction récupère en base la liste des silences
    * et remplit le champ description avec une valeur exprimée
    * en figures de notes (croches, noires...)
@@ -65,7 +106,7 @@ class RythmeController extends ExerciceController
    *   - blanche pointée
    *   - ronde
    */
-  private function constructionDesReponsesNiv1()
+  private function constructionDesReponsesNiv2()
   {
     $figures = array
     (
@@ -268,7 +309,7 @@ class RythmeController extends ExerciceController
     parent::initNiveau();
     switch ($this->getSss('niveau'))
     {
-      case 1 : $this->setSss('modele', 'QCM_Lassus'); break;
+      case 1 : $this->setSss('modele', 'QCM_Portee'); break;
       case 2 :
       case 3 :
       case 5 :
@@ -280,11 +321,12 @@ class RythmeController extends ExerciceController
   protected function complementCorrection(Vocabulaire $bonneReponse)
   {
     $msg = $this->getSss('correction');
-    if (substr($msg,0,3) == 'Oui') { $msg = "Oui, en effet, "; }
+    if (substr($msg,0,3) == 'Oui') { $msg = "Oui, "; }
     else  { $msg = "Non. En fait,  "; }
     switch ($this->getSss('niveau'))
     {
-      case 1 : $msg .= "ce silence équivaut à ".$bonneReponse->getOrdre()." croches.";
+      case 1 : $msg .= "ce silence vaut ".$bonneReponse->getOrdre()." croche";
+               if ($bonneReponse->getOrdre() > 1) $msg .= "s";
                break;
       case 2 : 
       case 3 :
@@ -292,7 +334,7 @@ class RythmeController extends ExerciceController
       case 5 :
       case 6 : $msg = "";
     }
-    $msg .= " Donc, " . $bonneReponse->getCommentaire();
+    $msg .= " (" . $bonneReponse->getCommentaire().").";
 
     $this->setSss('correction', $msg);
   }

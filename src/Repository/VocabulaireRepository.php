@@ -24,7 +24,19 @@ class VocabulaireRepository extends ServiceEntityRepository
       return $this->createQueryBuilder('v')
                   ->where('v.categorie = :cat')
                   ->setParameter('cat', $cat)
-                  ->orderBy('v.ordre, v.nom')
+                  ->getQuery()
+                  ->getResult();
+    }
+    /**
+      * Retourne tous les éléments de la catégorie "instrument"
+      * qui ont leur champ symbole renseigné (c'est leur mp3).
+      */
+    public function getInstrumentsAvecSon()
+    {
+      return $this->createQueryBuilder('v')
+                  ->where('v.categorie = :cat')
+                  ->setParameter('cat', 'instrument')
+                  ->andwhere('v.symbole IS NOT NULL')
                   ->getQuery()
                   ->getResult();
     }

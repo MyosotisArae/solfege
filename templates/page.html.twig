@@ -6,6 +6,10 @@
   <link rel="stylesheet" href="{{css_path}}page.css">
 {% endblock %}
 
+{% block trophee %}
+  {{ parent() }}
+{% endblock %}
+
 {% block corps %}
     <div class="container-fluid">
       <div class="row">
@@ -13,7 +17,7 @@
           <a href='main'>
           <img class="miniBtn cadreRouge" src="{{img_path}}conservatoire.jpg">
           </a>
-          <div class='tool-tip right'>Retour</div>
+          <div class='tool-tip right'>Accueil</div>
         </div>
         <div class="col-10">
           <h1>{% block titre %}{% endblock %}</h1>
@@ -21,7 +25,7 @@
         </div>
         <div class="col-1">
           <a href="apprendre_{{app.session.get('exercice')}}">
-            <div class='tool-tip left'>Explications</div>
+            <div class='tool-tip left'>Leçon</div>
             <div class="positionFixe miniBtn cadreRouge">
               <img class="positionRelative" src="{{img_path}}apprendre.gif">
             </div>

@@ -55,17 +55,25 @@ class ParentController extends AbstractController
     return true;
   }
   
+  /* Obtiens la liste de tous les trophées (Uniquement lors du premier appel)
+   * et la met dans la variable de session listeTrophees.
+   */
+/*
+  private function getTrophees()
+  {
+    return $this->getDoctrine()
+                ->getManager()
+                ->getRepository('App:Trophee')
+                ->getListe();
+  }
+*/
+
   private function getTrophee(int $id)
   {
-    foreach ($this->getSss('listeTrophees') as $trophee)
-    {
-      if ($trophee->getId() == $id)
-      {
-        if ($trophee->dejaObtenu()) return $trophee;
-      }
-    }
-    $em = $this->getDoctrine()->getManager();
-    return $em->getRepository('App:Trophee')->find($id);
+    return $this->getDoctrine()
+                ->getManager()
+                ->getRepository('App:Trophee')
+                ->find($id);
   }
   
   ////////////////////////////////////////////////////////////////////

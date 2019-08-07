@@ -20,7 +20,7 @@
       <b class="souligne">Question {{app.session.get('numQuestion')}} :</b>&nbsp;
       <b>Que signifie ce symbole ?</b>
     </div>
-    <div class="col-12"><img class="imgSymbole" src="{{symb_path}}{{app.session.get('question').reponses[0].symbole}}.gif"></div>
+    <div class="col-12"><img class="imgSymbole" src="{{symb_path}}{{app.session.get('question').reponse.symbole}}.gif"></div>
     {% if app.session.get('correction')|length > 0 %}
       {% include '_correction.html.twig' %}
     {% else %}

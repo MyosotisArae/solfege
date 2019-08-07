@@ -4,3 +4,44 @@
   padding : 0.5em;
 }
 .cadreNoir { margin-right : 2em; }
+.cadreConseil
+{
+  border : 2px dashed green;
+  background : rgba(0,255,0,0.5);
+  margin : 2em;
+  min-width : 15em;
+  max-width : 18em;
+}
+h1.conseil
+{
+  color : green;
+}
+.indentation
+{
+  margin-left : 1.5em;
+}
+/* Pour dessiner un tableau */
+table.tableau { border-collapse : collapse; }
+td.tableau
+{
+  border : 1px solid black; 
+  text-align : center;
+}
+.fonteInvisible { color : transparent; min-height : 25vh; }
+.reduction
+{
+  transform : scale(0.3);
+  position : relative;
+}
+/* Pour que les liens (les ancres surtout) se voient bien. */
+.enGras
+{
+  font-weight: bold;
+  font-size : 1.5em;
+}
+.enGras:hover
+{
+  font-weight: bold;
+  font-size : 2em;
+  color : gold;
+}

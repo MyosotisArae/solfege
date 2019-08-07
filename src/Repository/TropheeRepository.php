@@ -11,25 +11,4 @@ class TropheeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Trophee::class);
     }
-
-    ///////////////////////////////////////////////////////////////////////////////
-    //                              Mes requetes                                 //
-    ///////////////////////////////////////////////////////////////////////////////
-
-    // Retourne la liste des trophées
-    /**
-      * @return Trophee[]
-      */
-    public function getListe()
-    {
-      return $this->createQueryBuilder('t')
-                  ->orderBy('t.id')
-                  ->getQuery()
-                  ->getResult();
-    }
-    
-    ///////////////////////////////////////////////////////////////////////////////
-    //                              Mes fonctions                                //
-    ///////////////////////////////////////////////////////////////////////////////
-
 }

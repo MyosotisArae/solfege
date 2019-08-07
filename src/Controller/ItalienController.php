@@ -31,7 +31,6 @@ class ItalienController extends ExerciceController
    */
   public function main3()
   {
-    $this->reinitNiveau();
     return $this->apprentissage('italien',
                                 [
                                   'categorie_nuance' => $this->getCategorie('nuance'),

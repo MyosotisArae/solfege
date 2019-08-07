@@ -9,7 +9,7 @@ use App\Objet\P_Figure;
  */
 class P_Clef extends P_Figure
 {
-    public function __construct(string $nomImage="")
+    public function __construct(string $nomImage="cle_sol")
     {
       parent::__construct($nomImage);
       $this->setModificateur();
@@ -40,12 +40,12 @@ class P_Clef extends P_Figure
 
     public function setModificateur()
     {
-        if ($this->img == $this->cst->get_cle_sol())
+        if ($this->image == $this->cst->get_cle_sol())
         {
           $this->modificateur = 0;
           return; 
         }
-        if ($this->img == $this->cst->get_cle_fa())
+        if ($this->image == $this->cst->get_cle_fa())
         {
         // Une même note (un sol par exemple) aura 2 niveaux de moins en clé de fa (sol=E2)
         // qu'en clé de sol (sol=G2) sur la portée.

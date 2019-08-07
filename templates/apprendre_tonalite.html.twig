@@ -1,0 +1,995 @@
+{% extends "apprendre.html.twig" %}
+
+{% block entete %}
+  {{ parent() }}
+  <link rel="stylesheet" href="{{css_path}}apprendre.css">
+{% endblock %}
+
+
+{% block titre %}Les tonalités{% endblock %}
+
+{% block corps %}
+  {{ parent() }}
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+    <div class="listeDeroulante">
+      <div class="cadreNoir">
+        <h2 class="souligne">Les bases</h2>
+          <h3>Pour comprendre les tonalités, il faut avoir en tête un clavier de piano, qui représente bien l'échelle diatonique (échelle musicale de 7 degrés, composée de 5 tons et 2 demi tons). Voici une octave (8 notes, de do à do) :<br>
+          {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false} only %}
+          Entre 2 touches blanches, il y a :
+          <li><b>un ton</b> s'il y a une noire entre elles</li>
+          <li><b>un demi ton</b> sinon</li>
+          Et voici ce que ça donne :<br>
+          {% include "_clavierPiano.html.twig" with {"nbTouches":12,"avecTon":true} only %}
+          <table>
+            <tr>
+              <td>
+                <li>de do à ré : 1 ton</li>
+                <li>de ré à mi : 1 ton</li>
+                <li>de mi à fa : 1/2 ton</li>
+                <li>de fa à sol : 1 ton</li>
+                <li>de sol à la : 1 ton</li>
+                <li>de la à si : 1 ton</li>
+                <li>de si à do : 1/2 ton</li>
+                <li>...et ainsi de suite.</li>
+              </td>
+              <td>
+              {% include "_cadreConseil.html.twig" with {"texte":"En examen écrit, commence par dessiner ce clavier sur un papier de brouillon. Tu peux être sûr que tu vas en avoir besoin !"} %}
+              </td>
+            </tr>
+          </table>
+          Dans la suite, je te parlerai de la "méthode du clavier". Cette méthode consiste à compter les demi tons en comptant dans l'ordre (de gauche à droite) les touches de ce clavier (les blanches comme les noires). C'est une méthode <b>infaillible</b> pour compter les demi tons (chaque changement de touche ajoute un demi ton).<br>
+          <u>Important:</u><br>
+          Toutes les notes que je vais écrire sur cette page seront en clé de sol (mais je ne la dessinerai pas, ça prend trop de place, alors souviens toi qu'il faut tout lire en clé de sol).
+          <br>
+          </h3>
+      </div>
+      <div class="cadreNoir">
+        <h2 class="souligne">Les intervalles</h2>
+          <h3>
+            Un intervalle décrit <b>la distance</b> entre deux notes.<br>
+            Il est composé de deux mots:
+            <li>Le premier (le nom) indique la distance dessinée sur la portée.</li>
+          </h3>
+          <div class="indentation">
+            Exemple : do-ré est une seconde (do=1, ré=2) mais mi-sol est une tierce (mi=1, fa=2, sol=3).<br>
+            Donc, on compte en récitant la gamme, et le dernier chiffre donne le nom de l'intervalle.<br>
+            Les mots à retenir sont:<br>
+            <b>- prime</b> : les deux notes sont <b>les mêmes</b><br>
+            <b>- seconde</b> : le dernier chiffre est <b>2</b><br>
+            <b>- tierce</b> : le dernier chiffre est <b>3</b><br>
+            <b>- quarte</b> : le dernier chiffre est <b>4</b><br>
+            <b>- quinte</b> : le dernier chiffre est <b>5</b><br>
+            <b>- sixte</b> : le dernier chiffre est <b>6</b><br>
+            <b>- septième</b> : le dernier chiffre est <b>7</b><br>
+            <b>- octave</b> : le dernier chiffre est <b>8</b><br>
+            <b>- neuvième</b> : le dernier chiffre est <b>9</b><br>
+            <b>- dixième</b> : le dernier chiffre est <b>10</b><br>
+            <b>- ...</b><br>
+          </div>
+          <h3 id="qualificatif">
+            <li>Le deuxième (le qualificatif) dépend du nombre de tons entre les notes.</li>
+          </h3>
+          <div class="indentation">
+            Les cinq principaux sont :<br><b>
+            - majeur<br>
+            - mineur<br>
+            - juste<br>
+            - augmenté<br>
+            - diminué<br></b>
+            La mauvaise nouvelle, c'est que le qualificatif dépend du nom.<br>
+            Les qualificatifs "majeur" et "mineur" ne s'appliquent qu'à :<br>
+            - la seconde<br>
+            - la tierce<br>
+            - la sixte<br>
+            - la septième<br>
+            Les qualificatifs "augmenté" et "diminué" s'appliquent donc au reste, et c'est <a class="enGras" href="#augmente">ICI</a> que tu auras plus re renseignements sur eux.
+            <b>
+            <table class="tableau">
+              <tr>
+                <td></td>
+                <td class="tableau">majeure</td>
+                <td class="tableau">mineure</td>
+              </tr>
+              <tr>
+                <td class="tableau">seconde</td>
+                <td class="tableau">un ton</td>
+                <td class="tableau">un demi ton</td>
+              </tr>
+              <tr>
+                <td class="tableau">tierce</td>
+                <td class="tableau">2 tons</td>
+                <td class="tableau">un ton et un demi ton</td>
+              </tr>
+              <tr>
+                <td class="tableau">sixte</td>
+                <td class="tableau">4 tons et un demi ton</td>
+                <td class="tableau">4 tons</td>
+              </tr>
+              <tr>
+                <td class="tableau">septième</td>
+                <td class="tableau">5 tons et un demi ton</td>
+                <td class="tableau">5 tons</td>
+              </tr>
+            </table>
+            </b>
+            Comment retenir ça ? La réponse va te plaire : tu n'as pas besoin de le retenir !<br>
+            Tu vas utiliser le clavier que tu as dessiné et partir du do (la note la plus à gauche). Et rien qu'avec ça, tu peux retrouver tout ce qu'il y a dans ce tableau. Voici comment :<br>
+            <table>
+              <tr>
+               <td>
+                 {% include "_clavierPiano.html.twig" with {"nbTouches":1,"avecTon":false,"lesFleches":[0]} only %}
+               </td>
+               <td>
+                 <table>
+                   <tr>
+                     <td colspan=2>
+                       <b>La seconde majeure</b><br>qui est ici do-ré
+                     </td>
+                   </tr>
+                   <tr>
+                     <td class="positionRelative">
+                         {% set listeNotesDo =
+                                [
+                                  {
+                                    image: 'noire',
+                                    'niveau' : 3
+                                  },
+                                  {
+                                    image: 'barre',
+                                    'niveau' : 3
+                                  }
+                                ]
+                          %}
+                         {% set listeNotesRe =
+                                [
+                                  {
+                                    image: 'noire',
+                                    'niveau' : 2
+                                  }
+                                ]
+                          %}
+                         {% set portee = [listeNotesDo,listeNotesRe]
+                          %}
+                         {% include "_portee.html.twig" with {"elements":portee} only %}
+                     </td>
+                     <td>
+                       En partant du do, à gauche du clavier, il faut compter un demi ton de plus pour chaque touche rencontrée. Regarde ce bout de clavier. Il part du do. Puis on a une touche noire (appelée do dièse, ou ré bémol), ça nous fait un demi ton. Puis on a une autre touche (blanche, mais peu importe), ce qui nous fait un demi ton de plus. On est arrivé sur le ré en comptant deux demi tons.<br>
+                       Donc, do-ré = 1 ton. Ce do-ré "normal" est une seconde majeure.<br>
+                       Partir du do te donnera tous les intervalles "normaux" (donc majeurs). On vient de retrouver l'intervalle de la seconde, mais tu peux retrouver la tierce (2 tons) et tous les autres avec la même méthode.<br>
+                     </td>
+                   </tr>
+                 </table>
+               </td>
+              </tr>
+            </table>
+
+            <h3>Un intervalle mineur est <u>toujours</u> plus petit d'un demi ton que le même intervalle majeur. On va en voir un exemple tout de suite.</h3>
+
+            <table>
+              <tr>
+               <td>
+                 {% include "_clavierPiano.html.twig" with {"nbTouches":3,"avecTon":false,"lesFleches":[2]} only %}
+               </td>
+               <td>
+                 <table>
+                   <tr>
+                     <td colspan=2>
+                       <b>La seconde mineure</b><br>exemple avec mi-fa
+                     </td>
+                   </tr>
+                   <tr>
+                     <td class="positionRelative">
+                         {% set listeNotesMi =
+                                [
+                                  {
+                                    image: 'noire',
+                                    'niveau' : 1
+                                  }
+                                ]
+                          %}
+                         {% set listeNotesFa =
+                                [
+                                  {
+                                    image: 'noire',
+                                    'niveau' : 0
+                                  }
+                                ]
+                          %}
+                         {% set portee = [listeNotesMi,listeNotesFa] %}
+                         {% include "_portee.html.twig" with {"elements":portee} only %}
+                     </td>
+                     <td>
+                       Cette fois, on part du mi. La touche suivante est déjà le fa. On n'a donc compté qu'un demi ton.<br>
+                       Donc, mi-fa = 1/2 ton.<br>
+                       C'est une seconde mineure, puisqu'elle fait un demi ton de moins qu'une seconde majeure. Et une seconde majeure fait un ton. Et ça, tu le sais, parce que tu sais utiliser la méthode du clavier.<br>
+                     </td>
+                   </tr>
+                 </table>
+               </td>
+              </tr>
+            </table>
+            <table>
+              <tr>
+               <td>
+                 {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false,"lesFleches":[4,5]} only %}
+               </td>
+               <td>
+                 <table>
+                   <tr>
+                     <td colspan=2>
+                       <b>La tierce majeure</b><br>exemple avec sol-si
+                     </td>
+                   </tr>
+                   <tr>
+                     <td class="positionRelative">
+                         {% set listeNotesSol =
+                                [
+                                  {
+                                    image: 'noire',
+                                    'niveau' : -1
+                                  }
+                                ]
+                          %}
+                         {% set listeNotesSi =
+                                [
+                                  {
+                                    image: 'noire',
+                                    'niveau' : -3
+                                  }
+                                ]
+                          %}
+                         {% set portee = [listeNotesSol,listeNotesSi] %}
+                         {% include "_portee.html.twig" with {"elements":portee} only %}
+                     </td>
+                     <td>
+                       +1/2 par touche:
+                       <li>sol : 0</li>
+                       <li>sol dièse : 1/2</li>
+                       <li>la : 1</li>
+                       <li>la dièse : 1 1/2</li>
+                       <li>si : 2</li>
+                       sol-si = 2 tons.
+                     </td>
+                   </tr>
+                   <tr>
+                     <td colspan=2>
+                       Si on part du do, on a forcément du majeur. C'est comme ça que tu peux retrouver (<u>avec le clavier que tu as dessiné</u>) qu'une tierce majeure fait 2 tons.<br>
+                       Et on en déduit que sol-si est majeur aussi (comme do-mi).
+                     </td>
+                   </tr>
+                 </table>
+               </td>
+              </tr>
+            </table>
+          
+            Tu veux un autre exemple ? Je le savais !<br>
+            Une tierce majeure fait 2 tons. Combien fait une tierce mineure ?<br>
+            Rappel : mineur = un demi ton de moins que majeur<br>
+            Oui ! Une tierce mineure fait un ton et demi. En voici une :<br>
+          
+            <table>
+              <tr>
+               <td>
+                 {% include "_clavierPiano.html.twig" with {"nbTouches":3,"avecTon":false,"lesFleches":[1,2]} only %}
+               </td>
+               <td>
+                 <table>
+                   <tr>
+                     <td colspan=2>
+                       <b>La tierce mineure</b><br>exemple avec ré-fa
+                     </td>
+                   </tr>
+                   <tr>
+                     <td class="positionRelative">
+                         {% set portee = [listeNotesRe,listeNotesFa] %}
+                         {% include "_portee.html.twig" with {"elements":portee} only %}
+                     </td>
+                     <td>
+                       Toujours la même méthode : en suivant le clavier.<br>
+                       On ajoute un <u>demi ton</u> par touche:
+                       <li>ré : 0</li>
+                       <li>ré dièse : 0 + <u>1/2</u> = 1/2</li>
+                       <li>mi : 1/2 + <u>1/2</u> = 1</li>
+                       <li>fa : 1 + <u>1/2</u> = 1 1/2</li>
+                       Et donc ré-fa = 1 ton et demi.
+                     </td>
+                   </tr>
+                   <tr>
+                     <td colspan=2>
+                     </td>
+                   </tr>
+                 </table>
+               </td>
+              </tr>
+            </table>
+
+            Allez, maintenant que tu as bien compris, on corse un peu tout ça.<br>
+            Va savoir pourquoi, la quarte, la quinte et l'octave, quand ils sont "normaux", s'appellent "juste" plutôt que "majeur". Oui, c'est absurde. Mais c'est comme ça.<br>
+            La bonne nouvelle, c'est qu'on les retrouve elles aussi grâce à notre petit clavier, en partant du do.<br>
+
+            <table>
+              <tr>
+               <td>
+                 {% include "_clavierPiano.html.twig" with {"nbTouches":3,"avecTon":false,"lesFleches":[0,1,2]} only %}
+               </td>
+               <td>
+                 <table>
+                   <tr>
+                     <td colspan=2>
+                       <b>La quarte juste</b><br><br>
+                     </td>
+                   </tr>
+                   <tr>
+                     <td class="positionRelative">
+                         {% set portee = [listeNotesDo,listeNotesFa] %}
+                         {% include "_portee.html.twig" with {"elements":portee} only %}
+                     </td>
+                     <td>
+                       <table>
+                         <tr>
+                           <td class="tableau">do</td>
+                           <td class="tableau">ré</td>
+                           <td class="tableau">mi</td>
+                           <td class="tableau">fa</td>
+                           <td>4 notes,</td>
+                         </tr>
+                         <tr>
+                           <td class="tableau">1</td>
+                           <td class="tableau">2</td>
+                           <td class="tableau">3</td>
+                           <td class="tableau">4</td>
+                           <td>donc le nom est quarte.</td>
+                         </tr>
+                       </table>
+                       <br>do-fa = 1 + 1 + 1/2 = 2 tons et demi.
+                       <br>Donc quarte juste = 2 tons 1/2.
+                     </td>
+                   </tr>
+                 </table>
+               </td>
+              </tr>
+            </table>
+
+            <table>
+              <tr>
+               <td>
+                 {% include "_clavierPiano.html.twig" with {"nbTouches":4,"avecTon":false,"lesFleches":[0,1,2,3]} only %}
+               </td>
+               <td>
+                 <table>
+                   <tr>
+                     <td colspan=2>
+                       <b>La quinte juste</b><br><br>
+                     </td>
+                   </tr>
+                   <tr>
+                     <td class="positionRelative">
+                         {% set portee = [listeNotesDo,listeNotesSol] %}
+                         {% include "_portee.html.twig" with {"elements":portee} only %}
+                     </td>
+                     <td>
+                       <table>
+                         <tr>
+                           <td class="tableau">do</td>
+                           <td class="tableau">ré</td>
+                           <td class="tableau">mi</td>
+                           <td class="tableau">fa</td>
+                           <td class="tableau">sol</td>
+                           <td>5 notes,</td>
+                         </tr>
+                         <tr>
+                           <td class="tableau">1</td>
+                           <td class="tableau">2</td>
+                           <td class="tableau">3</td>
+                           <td class="tableau">4</td>
+                           <td class="tableau">5</td>
+                           <td>donc le nom est quinte.</td>
+                         </tr>
+                       </table>
+                       <br>do-sol = 1 + 1 + 1/2 + 1 = 3 tons et demi.
+                       <br>Donc quinte juste = 3 tons 1/2.
+                     </td>
+                   </tr>
+                 </table>
+               </td>
+              </tr>
+            </table>
+
+            <table>
+              <tr>
+               <td>
+                 {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false,"lesFleches":[0,1,2,3,4,5,6]} only %}
+               </td>
+               <td>
+                 <table>
+                   <tr>
+                     <td colspan=2>
+                       <b>L'octave juste</b><br><br>
+                     </td>
+                   </tr>
+                   <tr>
+                     <td class="positionRelative">
+                         {% set listeNotesDoDuHaut =
+                                [
+                                  {
+                                    image: 'noire',
+                                    'niveau' : -4
+                                  }
+                                ]
+                          %}
+                         {% set portee = [listeNotesDo,listeNotesDoDuHaut] %}
+                         {% include "_portee.html.twig" with {"elements":portee} only %}
+                     </td>
+                     <td>
+                       <table>
+                         <tr>
+                           <td class="tableau">do</td>
+                           <td class="tableau">ré</td>
+                           <td class="tableau">mi</td>
+                           <td class="tableau">fa</td>
+                           <td class="tableau">sol</td>
+                           <td class="tableau">la</td>
+                           <td class="tableau">si</td>
+                           <td class="tableau">do</td>
+                         </tr>
+                         <tr>
+                           <td class="tableau">1</td>
+                           <td class="tableau">2</td>
+                           <td class="tableau">3</td>
+                           <td class="tableau">4</td>
+                           <td class="tableau">5</td>
+                           <td class="tableau">6</td>
+                           <td class="tableau">7</td>
+                           <td class="tableau">8</td>
+                         </tr>
+                       </table>
+                       <br>8 notes, donc le nom est octave.
+                       <br>do-do = 6 tons.
+                       <br>octave juste = 6 tons.
+                     </td>
+                   </tr>
+                 </table>
+               </td>
+              </tr>
+            </table>
+
+            Voilà voilà voilà.<br id="augmente">
+            C'est le bon moment pour faire une pause, parce que, non, on n'a pas fini.<br>
+            Ce qui suit n'est peut-être pas au programme de cette année. Viens le relire quand on t'aura parlé, au cours de solfège, des termes "augmenté" et "diminué". Si ça ne te dit rien, passe directement à l'encadré suivant en cliquant <a class="enGras" href="#alterations">ICI</a>.<br><br>
+            Ces deux mots ("augmenté" et "diminué") sont des <a class="enGras" href="#qualificatif">qualificatifs</a> pour des intervalles qui contiennent une <a class="enGras" href="#alterations">altération</a>, plus particulièrement un dièse ou un bémol.<br>
+            
+            <table>
+              <tr>
+                <td colspan=2>
+                  Le dièse augmente le ton de la note d'un demi ton.<br><br>
+                </td>
+                <td class="fonteInvisible">blabla</td>
+                <td colspan=2>
+                  Le bémol diminue le ton de la note d'un demi ton.<br><br>
+                </td>
+              </tr>
+              <tr>
+                <td>
+            {% set listeNotesDoDiese =
+                   [
+                     {
+                       image: 'noire',
+                       'niveau' : -4
+                     },
+                     {
+                       image: 'diese',
+                       'niveau' : -4
+                     }
+                   ]
+             %}
+            {% set portee = [listeNotesDoDiese] %}
+            {% include "_portee.html.twig" with {"elements":portee} only %}
+                </td>
+                <td>
+                  Ceci est un do dièse.
+                </td>
+                <td></td>
+                <td>
+            {% set listeNotesReDuHautBemol =
+                   [
+                     {
+                       image: 'noire',
+                       'niveau' : -5
+                     },
+                     {
+                       image: 'bemol',
+                       'niveau' : -5
+                     }
+                   ]
+             %}
+            {% set portee = [listeNotesReDuHautBemol] %}
+            {% include "_portee.html.twig" with {"elements":portee} only %}
+                </td>
+                <td>
+                  Ceci est un ré bémol.
+                </td>
+              </tr>
+            </table>
+            <br><br><br>
+            Remarque : si tu jettes un oeil sur le clavier, tu verras que ces deux notes correspondent à la même touche noire.<br>
+            <h3>
+            Quand on utilise un dièse ou un bémol, le nom de l'intervalle de change pas (car les notes dessinées sur la portée sont les mêmes), mais le qualificatif change, puisque le nombre de tons entre les deux notes change.<br>
+            Voici quelques exemples :<br><br>
+            </h3>
+
+            <table>
+
+              <tr>
+                <td>
+                  <h3>Prime juste à l'unisson<br></h3>
+                </td>
+                <td class="fonteInvisible"><h3>bla</h3></td>
+                <td>
+                  <h3>Prime augmentée<br></h3>
+                </td>
+                <td class="fonteInvisible"><h3>bla</h3></td>
+                <td>(aussi nommée : demi ton chromatique)</td>
+              </tr>
+              <tr>
+                <td>
+                  {% set portee = [listeNotesDoDuHaut,listeNotesDoDuHaut] %}
+                  {% include "_portee.html.twig" with {"elements":portee} only %}
+                </td>
+                <td></td>
+                <td>
+                  {% set portee = [listeNotesDoDuHaut,listeNotesDoDiese] %}
+                  {% include "_portee.html.twig" with {"elements":portee} only %}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <br><br><br>zéro ton d'écart<br><br><br><br>
+                </td>
+                <td></td>
+                <td>
+                  <br><br><br>un demi ton d'écart<br><br><br><br>
+                </td>
+              </tr>
+              <tr>
+                <td class="reduction">
+                  <div class="positionAbsolue" style="top:-10em;left:-20em;">
+                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0]} only %}
+                  </div>
+                </td>
+                <td></td>
+                <td class="reduction">
+                  <div class="positionAbsolue" style="top:-10em;left:-20em;">
+                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,1]} only %}
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <h3><br><br><br><br>Seconde mineure<br></h3>
+                </td>
+                <td></td>
+                <td>
+                  <h3><br><br><br><br>Seconde majeure<br></h3>
+                </td>
+                <td></td>
+                <td>
+                  <h3><br><br><br><br>Seconde augmentée<br></h3>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {% set listeNotesReBemol =
+                         [
+                           {
+                             image: 'noire',
+                             'niveau' : 2
+                           },
+                           {
+                             image: 'bemol',
+                             'niveau' : 2
+                           }
+                         ]
+                   %}
+                  {% set portee = [listeNotesDo,listeNotesReBemol] %}
+                  {% include "_portee.html.twig" with {"elements":portee} only %}
+                </td>
+                <td></td>
+                <td>
+                  {% set portee = [listeNotesDo,listeNotesRe] %}
+                  {% include "_portee.html.twig" with {"elements":portee} only %}
+                </td>
+                <td></td>
+                <td>
+                  {% set listeNotesReDiese =
+                         [
+                           {
+                             image: 'noire',
+                             'niveau' : 2
+                           },
+                           {
+                             image: 'diese',
+                             'niveau' : 2
+                           }
+                         ]
+                   %}
+                  {% set portee = [listeNotesDo,listeNotesReDiese] %}
+                  {% include "_portee.html.twig" with {"elements":portee} only %}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <br><br><br><br>un demi ton d'écart<br><br><br>
+                </td>
+                <td></td>
+                <td>
+                  <br><br><br><br>un ton d'écart<br><br><br>
+                </td>
+                <td></td>
+                <td>
+                  <br><br><br><br>un ton et demi d'écart<br><br><br>
+                </td>
+              </tr>
+              <tr>
+                <td class="reduction">
+                  <div class="positionAbsolue" style="top:-10em;left:-20em;">
+                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,1]} only %}
+                  </div>
+                </td>
+                <td></td>
+                <td class="reduction">
+                  <div class="positionAbsolue" style="top:-10em;left:-20em;">
+                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,2]} only %}
+                  </div>
+                </td>
+                <td class="fonteInvisible">blabla</td>
+                <td class="reduction">
+                  <div class="positionAbsolue" style="top:-10em;left:-20em;">
+                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,3]} only %}
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <br><br><br><br><h3>Tierce mineure<br></h3>
+                </td>
+                <td></td>
+                <td>
+                  <br><br><br><br><h3>Tierce majeure<br></h3>
+                </td>
+                <td></td>
+                <td>
+                  <br><br><br><br><h3>Tierce augmentée<br></h3>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {% set listeNotesMiBemol =
+                         [
+                           {
+                             image: 'noire',
+                             'niveau' : 1
+                           },
+                           {
+                             image: 'bemol',
+                             'niveau' : 1
+                           }
+                         ]
+                   %}
+                  {% set portee = [listeNotesDo,listeNotesMiBemol] %}
+                  {% include "_portee.html.twig" with {"elements":portee} only %}
+                </td>
+                <td></td>
+                <td>
+                  {% set portee = [listeNotesDo,listeNotesMi] %}
+                  {% include "_portee.html.twig" with {"elements":portee} only %}
+                </td>
+                <td></td>
+                <td>
+                  {% set listeNotesMiDiese =
+                         [
+                           {
+                             image: 'noire',
+                             'niveau' : 1
+                           },
+                           {
+                             image: 'diese',
+                             'niveau' : 1
+                           }
+                         ]
+                   %}
+                  {% set portee = [listeNotesDo,listeNotesMiDiese] %}
+                  {% include "_portee.html.twig" with {"elements":portee} only %}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <br><br><br><br>un demi ton et demi d'écart<br><br><br>
+                </td>
+                <td></td>
+                <td>
+                  <br><br><br><br>deux tons d'écart<br><br><br>
+                </td>
+                <td></td>
+                <td>
+                  <br><br><br><br>deux tons et demi d'écart<br><br><br>
+                </td>
+              </tr>
+              <tr>
+                <td class="reduction">
+                  <div class="positionAbsolue" style="top:-10em;left:-20em;">
+                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,3]} only %}
+                  </div>
+                </td>
+                <td></td>
+                <td class="reduction">
+                  <div class="positionAbsolue" style="top:-10em;left:-20em;">
+                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,4]} only %}
+                  </div>
+                </td>
+                <td class="fonteInvisible">blabla</td>
+                <td class="reduction">
+                  <div class="positionAbsolue" style="top:-10em;left:-20em;">
+                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,6]} only %}
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <br><br><br><br><h3>Quarte diminuée<br></h3>
+                </td>
+                <td></td>
+                <td>
+                  <br><br><br><br><h3>Quarte juste<br></h3>
+                </td>
+                <td></td>
+                <td>
+                  <br><br><br><br><h3>Quarte augmentée<br></h3>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {% set listeNotesFaBemol =
+                         [
+                           {
+                             image: 'noire',
+                             'niveau' : 0
+                           },
+                           {
+                             image: 'bemol',
+                             'niveau' : 0
+                           }
+                         ]
+                   %}
+                  {% set portee = [listeNotesDo,listeNotesFaBemol] %}
+                  {% include "_portee.html.twig" with {"elements":portee} only %}
+                </td>
+                <td></td>
+                <td>
+                  {% set portee = [listeNotesDo,listeNotesFa] %}
+                  {% include "_portee.html.twig" with {"elements":portee} only %}
+                </td>
+                <td></td>
+                <td>
+                  {% set listeNotesFaDiese =
+                         [
+                           {
+                             image: 'noire',
+                             'niveau' : 0
+                           },
+                           {
+                             image: 'diese',
+                             'niveau' : 0
+                           }
+                         ]
+                   %}
+                  {% set portee = [listeNotesDo,listeNotesFaDiese] %}
+                  {% include "_portee.html.twig" with {"elements":portee} only %}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <br><br><br><br>2 tons d'écart<br><br><br>
+                </td>
+                <td></td>
+                <td>
+                  <br><br><br><br>2 tons 1/2 d'écart<br><br><br>
+                </td>
+                <td></td>
+                <td>
+                  <br><br><br><br>3 tons d'écart<br><br><br>
+                </td>
+              </tr>
+              <tr>
+                <td class="reduction">
+                  <div class="positionAbsolue" style="top:-10em;left:-20em;">
+                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,4]} only %}
+                  </div>
+                </td>
+                <td></td>
+                <td class="reduction">
+                  <div class="positionAbsolue" style="top:-10em;left:-20em;">
+                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,6]} only %}
+                  </div>
+                </td>
+                <td class="fonteInvisible">blabla</td>
+                <td class="reduction">
+                  <div class="positionAbsolue" style="top:-10em;left:-20em;">
+                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,7]} only %}
+                  </div>
+                </td>
+              </tr>
+
+            </table>
+            </h3>
+            <br><br><br><br>
+            On va s'arrêter là. Tu sais à qui demander si tout ça n'est pas clair pour toi.<br>
+            Une dernière remarque : je ne t'ai montré que des intervalles <b>ascendants</b>, c'est à dire où la deuxième note est plus haute que la première.<br>
+            
+            On peut aussi avoir des intervalles <b>descendants</b>, et ça ne change pas grand chose:<br><br>
+            {% set portee = [listeNotesFa,listeNotesDo] %}
+            {% include "_portee.html.twig" with {"elements":portee} only %}
+            <br><br><br><br><br>
+            De même, les intervalles que tu viens de voir sont <b>mélodiques</b>, c'est à dire que les notes sont jouées l'une après l'autre, comme ici :<br><br><br>
+            {% set cleSol =
+                   [
+                     {
+                       image: 'cle_sol',
+                       'niveau' : 0
+                     }
+                   ]
+             %}{% set listeNotesA2 =
+                   [
+                     {
+                       image: 'noire',
+                       'niveau' : -2
+                     }
+                   ]
+             %}
+            {% set listeNotesB2 =
+                   [
+                     {
+                       image: 'noire',
+                       'niveau' : -3
+                     }
+                   ]
+             %}
+             {% set listeNotesD3 =
+                   [
+                     {
+                       image: 'noire',
+                       'niveau' : -5
+                     }
+                   ]
+             %}
+             {% set listeNotesE3 =
+                   [
+                     {
+                       image: 'noire',
+                       'niveau' : -6
+                     }
+                   ]
+             %}
+             {% set listeNotesA3 =
+                   [
+                     {
+                       image: 'blanche',
+                       'niveau' : -9
+                     },
+                     {
+                       image: 'barre',
+                       'niveau' : -9
+                     }
+                   ]
+             %}
+             {% set listeNotesG3 =
+                   [
+                     {
+                       image: 'blanche',
+                       'niveau' : -8
+                     }
+                   ]
+             %}
+             {% set listeNotesC3 =
+                   [
+                     {
+                       image: 'ronde',
+                       'niveau' : -4
+                     }
+                   ]
+             %}
+            {% set portee = [cleSol,listeNotesA2,listeNotesB2,listeNotesD3,listeNotesE3,listeNotesA3,listeNotesG3,listeNotesC3] %}
+            {% include "_portee.html.twig" with {"elements":portee} only %}
+            <br><br><br><br>
+            <b class="fonteInvisible">blablablablablablablabla<audio controls controlsList="nodownload" src="{{dictee_path}}music1.mp3"></audio></b><br>
+            Mais si les notes sont jouées en même temps (on appelle ça un accord), ça devient un intervalle <b>harmonique</b>, comme ces trois là :<br><br><br><br><br>
+            {% set listeNotesC2E3 =
+                   [
+                     {
+                       image: 'ronde',
+                       'niveau' : 3
+                     },
+                     {
+                       image: 'barre',
+                       'niveau' : 3
+                     },
+                     {
+                       image: 'ronde',
+                       'niveau' : -6
+                     }
+                   ]
+             %}
+            {% set listeNotesG2G3 =
+                   [
+                     {
+                       image: 'ronde',
+                       'niveau' : -1
+                     },
+                     {
+                       image: 'ronde',
+                       'niveau' : -8
+                     }
+                   ]
+             %}
+            {% set listeNotesC2G4 =
+                   [
+                     {
+                       image: 'ronde',
+                       'niveau' : 3
+                     },
+                     {
+                       image: 'barre',
+                       'niveau' : 3
+                     },
+                     {
+                       image: 'ronde',
+                       'niveau' : -6
+                     },
+                     {
+                       image: 'ronde',
+                       'niveau' : -15
+                     },
+                     {
+                       image: 'barre',
+                       'niveau' : -15
+                     },
+                     {
+                       image: 'barre',
+                       'niveau' : -13
+                     },
+                     {
+                       image: 'barre',
+                       'niveau' : -11
+                     },
+                     {
+                       image: 'barre',
+                       'niveau' : -9
+                     }
+                   ]
+             %}
+            {% set portee = [cleSol,listeNotesC2E3,listeNotesG2G3,listeNotesC2G4] %}
+            {% include "_portee.html.twig" with {"elements":portee} only %}
+            <audio controls controlsList="nodownload" src="{{dictee_path}}music2.mp3"></audio>
+            <br><br><br><br><br><br>
+          </div>
+      </div>
+      <div class="cadreNoir">
+        <h2 class="souligne" id="alterations">Les altérations</h2>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+
+{% block pied %}
+  {{ parent() }}
+{% endblock %}
