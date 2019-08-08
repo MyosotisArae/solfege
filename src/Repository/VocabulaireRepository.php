@@ -31,6 +31,7 @@ class VocabulaireRepository extends ServiceEntityRepository
       * Retourne tous les éléments de la catégorie "instrument"
       * qui ont leur champ symbole renseigné (c'est leur mp3).
       */
+/*
     public function getInstrumentsAvecSon()
     {
       return $this->createQueryBuilder('v')
@@ -40,7 +41,7 @@ class VocabulaireRepository extends ServiceEntityRepository
                   ->getQuery()
                   ->getResult();
     }
-    
+*/
     ///////////////////////////////////////////////////////////////////////////////
     //                              Mes fonctions                                //
     ///////////////////////////////////////////////////////////////////////////////

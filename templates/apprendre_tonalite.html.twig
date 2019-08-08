@@ -17,7 +17,7 @@
     <div class="listeDeroulante">
       <div class="cadreNoir">
         <h2 class="souligne">Les bases</h2>
-          <h3>Pour comprendre les tonalités, il faut avoir en tête un clavier de piano, qui représente bien l'échelle diatonique (échelle musicale de 7 degrés, composée de 5 tons et 2 demi tons). Voici une octave (8 notes, de do à do) :<br>
+          Pour comprendre les tonalités, il faut avoir en tête un clavier de piano, qui représente bien <b>l'échelle diatonique</b> (échelle musicale de 7 degrés, composée de 5 tons et 2 demi tons). Voici une <b>octave</b> (de do à do, ça fait 8 notes) :<br>
           {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false} only %}
           Entre 2 touches blanches, il y a :
           <li><b>un ton</b> s'il y a une noire entre elles</li>
@@ -37,7 +37,7 @@
                 <li>...et ainsi de suite.</li>
               </td>
               <td>
-              {% include "_cadreConseil.html.twig" with {"texte":"En examen écrit, commence par dessiner ce clavier sur un papier de brouillon. Tu peux être sûr que tu vas en avoir besoin !"} %}
+              {% include "_cadreConseil.html.twig" with {"y":-8,"texte":"En examen écrit, commence par dessiner ce clavier sur un papier de brouillon. Tu peux être sûr que tu vas en avoir besoin !"} %}
               </td>
             </tr>
           </table>
@@ -45,15 +45,12 @@
           <u>Important:</u><br>
           Toutes les notes que je vais écrire sur cette page seront en clé de sol (mais je ne la dessinerai pas, ça prend trop de place, alors souviens toi qu'il faut tout lire en clé de sol).
           <br>
-          </h3>
       </div>
       <div class="cadreNoir">
         <h2 class="souligne">Les intervalles</h2>
-          <h3>
-            Un intervalle décrit <b>la distance</b> entre deux notes.<br>
-            Il est composé de deux mots:
-            <li>Le premier (le nom) indique la distance dessinée sur la portée.</li>
-          </h3>
+          Un intervalle décrit <b>la distance</b> entre deux notes.<br>
+          Il est composé de deux mots:
+          <li>Le premier (le <b>nom</b>) indique la distance dessinée sur la portée.</li>
           <div class="indentation">
             Exemple : do-ré est une seconde (do=1, ré=2) mais mi-sol est une tierce (mi=1, fa=2, sol=3).<br>
             Donc, on compte en récitant la gamme, et le dernier chiffre donne le nom de l'intervalle.<br>
@@ -70,9 +67,7 @@
             <b>- dixième</b> : le dernier chiffre est <b>10</b><br>
             <b>- ...</b><br>
           </div>
-          <h3 id="qualificatif">
-            <li>Le deuxième (le qualificatif) dépend du nombre de tons entre les notes.</li>
-          </h3>
+          <li id="qualificatif>Le deuxième (le <b>qualificatif</b>) dépend du nombre de tons entre les notes.</li>
           <div class="indentation">
             Les cinq principaux sont :<br><b>
             - majeur<br>
@@ -167,7 +162,7 @@
               </tr>
             </table>
 
-            <h3>Un intervalle mineur est <u>toujours</u> plus petit d'un demi ton que le même intervalle majeur. On va en voir un exemple tout de suite.</h3>
+            Un intervalle mineur est <u>toujours</u> plus petit d'un demi ton que le même intervalle majeur. On va en voir un exemple tout de suite.
 
             <table>
               <tr>
@@ -516,10 +511,8 @@
             </table>
             <br><br><br>
             Remarque : si tu jettes un oeil sur le clavier, tu verras que ces deux notes correspondent à la même touche noire.<br>
-            <h3>
-            Quand on utilise un dièse ou un bémol, le nom de l'intervalle de change pas (car les notes dessinées sur la portée sont les mêmes), mais le qualificatif change, puisque le nombre de tons entre les deux notes change.<br>
+            Quand on utilise un dièse ou un bémol, le nom de l'intervalle ne change pas (car les notes dessinées sur la portée sont les mêmes), mais le qualificatif change, puisque le nombre de tons entre les deux notes change.<br>
             Voici quelques exemples :<br><br>
-            </h3>
 
             <table>
 
@@ -827,7 +820,6 @@
               </tr>
 
             </table>
-            </h3>
             <br><br><br><br>
             On va s'arrêter là. Tu sais à qui demander si tout ça n'est pas clair pour toi.<br>
             Une dernière remarque : je ne t'ai montré que des intervalles <b>ascendants</b>, c'est à dire où la deuxième note est plus haute que la première.<br>

@@ -1,3 +1,4 @@
+b { font-size : 120%; }
 .imgSymbole
 {
   height : 3em;
@@ -9,12 +10,13 @@
   border : 2px dashed green;
   background : rgba(0,255,0,0.5);
   margin : 2em;
-  min-width : 15em;
-  max-width : 18em;
+  min-width : 600px;
+  max-width : 900px;
 }
 h1.conseil
 {
   color : green;
+  font-size : 8em;
 }
 .indentation
 {

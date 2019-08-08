@@ -15,14 +15,25 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-1">
-          <a href='{{app.session.get('exercice')}}'>
-          <img class="miniBtn cadreRouge" src="{{img_path}}retourExercice.gif">
+          <a href='main'>
+          <img class="miniBtn cadreRouge" src="{{img_path}}conservatoire.jpg">
           </a>
-          <div class='tool-tip right'>Exercice</div>
+          <div class='tool-tip right'>Accueil</div>
         </div>
-        <div class="offset-2 col-9">
+        <div class="col-10">
           <h1>{% block titre %}{% endblock %}</h1>
+          {% if app.session.get('niveau') > 0 %}<h2>Niveau {{app.session.get('niveau')}}</h2>{% endif %}
+        </div>
+        <div class="col-1">
+          <a href="apprendre_{{app.session.get('exercice')}}">
+            <div class='tool-tip left'>Exercice</div>
+            <div class="positionFixe miniBtn cadreRouge">
+              <img class="positionRelative" src="{{img_path}}retourExercice.gif">
+            </div>
+          </a>
         </div>
       </div>
     </div>
+
+
 {% endblock %}
