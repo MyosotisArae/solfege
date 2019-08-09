@@ -2,6 +2,7 @@
 {% set largeur = ((nbTouches + 1)*72)+50 %}
 <div class="ligne positionRelative" style="width:{{largeur}}px;">
   {% set xFleche = lesFleches|default([]) %}
+  {% set xFlecheInversee = lesFlechesInversees|default([]) %}
   {% set xPastille = lesPastilles|default([]) %}
   {% set numTouche = 0 %}
   {% for i in range(0,nbTouches) %}
@@ -22,9 +23,11 @@
     {% if (i==nextVide) %}
       {% set vide = 1-vide %}
       {% set demi = "demi_" %}
+      {% set demiInverse = "" %}
       {% set nextVide = nextVide+3+vide %}
     {% else %}
-    {% set demi = "" %}
+      {% set demi = "" %}
+      {% set demiInverse = "demi_" %}
   <img class="positionAbsolue" style="left : {{x}}px;" src="{{img_path}}portee/toucheNoirePiano.gif">
       {% if numTouche in xPastille %}
   <img class="positionAbsolue" style="left : {{x}}px;" src="{{img_path}}portee/pastille_noire.gif">
@@ -32,6 +35,9 @@
     {% endif %}
     {% if (avecTon or (i in xFleche)) %}
   <img class="positionAbsolue" style="left : {{x-25}}px; top:220px;" src="{{img_path}}portee/un_{{demi}}ton.gif">
+    {% endif %}
+    {% if (i in xFlecheInversee) %}
+  <img class="positionAbsolue" style="left : {{x-25}}px; top:220px;" src="{{img_path}}portee/un_{{demiInverse}}ton.gif">
     {% endif %}
     {% set x = x+72 %}
     {% set numTouche = numTouche+2 %}

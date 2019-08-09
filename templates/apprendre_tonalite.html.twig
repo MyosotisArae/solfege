@@ -29,11 +29,11 @@
               <td>
                 <li>de do à ré : 1 ton</li>
                 <li>de ré à mi : 1 ton</li>
-                <li>de mi à fa : 1/2 ton</li>
+                <li>de mi à fa : ½ ton</li>
                 <li>de fa à sol : 1 ton</li>
                 <li>de sol à la : 1 ton</li>
                 <li>de la à si : 1 ton</li>
-                <li>de si à do : 1/2 ton</li>
+                <li>de si à do : ½ ton</li>
                 <li>...et ainsi de suite.</li>
               </td>
               <td>
@@ -42,12 +42,12 @@
             </tr>
           </table>
           Dans la suite, je te parlerai de la "méthode du clavier". Cette méthode consiste à compter les demi tons en comptant dans l'ordre (de gauche à droite) les touches de ce clavier (les blanches comme les noires). C'est une méthode <b>infaillible</b> pour compter les demi tons (chaque changement de touche ajoute un demi ton).<br>
-          <u>Important:</u><br>
-          Toutes les notes que je vais écrire sur cette page seront en clé de sol (mais je ne la dessinerai pas, ça prend trop de place, alors souviens toi qu'il faut tout lire en clé de sol).
+          <u><b>Important:</b></u><br>
+          Toutes les notes que je vais écrire sur cette page seront en <b>clé de sol</b> (mais je ne la dessinerai pas, ça prend trop de place).
           <br>
       </div>
       <div class="cadreNoir">
-        <h2 class="souligne">Les intervalles</h2>
+        <h2 class="souligne" id="intervalles">Les intervalles</h2>
           Un intervalle décrit <b>la distance</b> entre deux notes.<br>
           Il est composé de deux mots:
           <li>Le premier (le <b>nom</b>) indique la distance dessinée sur la portée.</li>
@@ -67,7 +67,7 @@
             <b>- dixième</b> : le dernier chiffre est <b>10</b><br>
             <b>- ...</b><br>
           </div>
-          <li id="qualificatif>Le deuxième (le <b>qualificatif</b>) dépend du nombre de tons entre les notes.</li>
+          <li id="qualificatif">Le deuxième (le <b>qualificatif</b>) dépend du nombre de tons entre les notes.</li>
           <div class="indentation">
             Les cinq principaux sont :<br><b>
             - majeur<br>
@@ -199,7 +199,7 @@
                      </td>
                      <td>
                        Cette fois, on part du mi. La touche suivante est déjà le fa. On n'a donc compté qu'un demi ton.<br>
-                       Donc, mi-fa = 1/2 ton.<br>
+                       Donc, mi-fa = ½ ton.<br>
                        C'est une seconde mineure, puisqu'elle fait un demi ton de moins qu'une seconde majeure. Et une seconde majeure fait un ton. Et ça, tu le sais, parce que tu sais utiliser la méthode du clavier.<br>
                      </td>
                    </tr>
@@ -241,11 +241,11 @@
                          {% include "_portee.html.twig" with {"elements":portee} only %}
                      </td>
                      <td>
-                       +1/2 par touche:
+                       +½ par touche:
                        <li>sol : 0</li>
-                       <li>sol dièse : 1/2</li>
+                       <li>sol dièse : ½</li>
                        <li>la : 1</li>
-                       <li>la dièse : 1 1/2</li>
+                       <li>la dièse : 1 ½</li>
                        <li>si : 2</li>
                        sol-si = 2 tons.
                      </td>
@@ -287,9 +287,9 @@
                        Toujours la même méthode : en suivant le clavier.<br>
                        On ajoute un <u>demi ton</u> par touche:
                        <li>ré : 0</li>
-                       <li>ré dièse : 0 + <u>1/2</u> = 1/2</li>
-                       <li>mi : 1/2 + <u>1/2</u> = 1</li>
-                       <li>fa : 1 + <u>1/2</u> = 1 1/2</li>
+                       <li>ré dièse : 0 + <u>½</u> = ½</li>
+                       <li>mi : ½ + <u>½</u> = 1</li>
+                       <li>fa : 1 + <u>½</u> = 1 ½</li>
                        Et donc ré-fa = 1 ton et demi.
                      </td>
                    </tr>
@@ -340,8 +340,8 @@
                            <td>donc le nom est quarte.</td>
                          </tr>
                        </table>
-                       <br>do-fa = 1 + 1 + 1/2 = 2 tons et demi.
-                       <br>Donc quarte juste = 2 tons 1/2.
+                       <br>do-fa = 1 + 1 + ½ = 2 tons et demi.
+                       <br>Donc quarte juste = 2 tons ½.
                      </td>
                    </tr>
                  </table>
@@ -385,8 +385,8 @@
                            <td>donc le nom est quinte.</td>
                          </tr>
                        </table>
-                       <br>do-sol = 1 + 1 + 1/2 + 1 = 3 tons et demi.
-                       <br>Donc quinte juste = 3 tons 1/2.
+                       <br>do-sol = 1 + 1 + ½ + 1 = 3 tons et demi.
+                       <br>Donc quinte juste = 3 tons ½.
                      </td>
                    </tr>
                  </table>
@@ -792,7 +792,7 @@
                 </td>
                 <td></td>
                 <td>
-                  <br><br><br><br>2 tons 1/2 d'écart<br><br><br>
+                  <br><br><br><br>2 tons ½ d'écart<br><br><br>
                 </td>
                 <td></td>
                 <td>
@@ -971,9 +971,199 @@
             <br><br><br><br><br><br>
           </div>
       </div>
+
       <div class="cadreNoir">
         <h2 class="souligne" id="alterations">Les altérations</h2>
+        Cette année, tu n'auras besoin de connaître que 3 altérations :<br>
+        <table>
+          <tr>
+            <td>
+              <b>Le&nbsp;dièse</b><h1><br><br></h1>
+            </td>
+            <td>
+              <img src="{{img_path}}symboles/diese.gif"><h1><br><br></h1>
+            </td>
+            <td>
+              Ce symbole se place sur la même ligne qu'une note,<br>
+              - soit à côté de la clé, alors elle concerne toute la portée et toutes les notes portant ce nom, <br>
+              - soit juste devant une note, elle ne s'applique alors qu'au reste de la mesure, et uniquement aux notes de cette hauteur.<br>
+              Le dièse indique que cette note sera <b>plus haute d'un demi ton</b> : ça veut dire qu'au lieu de taper sur la touche de cette note, on tapera sur la suivante (celle à sa droite). Cette modification concerne cette note, mais aussi toutes les notes identiques qui la suivent, jusqu'à la prochaine barre de mesure.<br>
+              <table>
+                <tr>
+                  <td>
+                    S'il est à côté de la clé, cela signifie qu'il s'applique à <b>toutes</b> les notes de la portée.<br>
+                    Dans ce cas, les dièses s'appliquent dans un ordre précis :<br>
+                    Si on ne met qu'un seul dièse à côté de la clé, ce sera forcément le fa.<br>
+                    Si on en met deux, ce sera fa et do.<br>
+                    Si on en met 3 : fa, do et sol.<br>
+                    Si on en met 4 : fa-do-sol-ré, comme tu peux le voir ici à droite.<br>
+                    Ordre complet : fa-do-sol-ré-la-mi-si
+                  </td>
+                  <td>
+                    <img src="{{img_path}}armature_mi_majeur.gif">
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td><h3><br></h3></td>
+          </tr>
+          <tr>
+            <td>
+              <b>Le&nbsp;bémol</b><h1><br><br></h1>
+            </td>
+            <td>
+              <img src="{{img_path}}symboles/bemol.gif"><h1><br><br></h1>
+            </td>
+            <td>
+              Comme le dièse, il se place devant une note ou juste après la clé<br>
+              Il indique que cette note (et celles qui suivent, de même hauteur, jusqu'à la fin de la mesure) sera <b>plus basse d'un demi ton</b> : on tapera sur la touche précédente du clavier (celle à sa gauche).<br>
+              <table>
+                <tr>
+                  <td>
+                    Lui aussi, s'il est à côté de la clé, s'applique à toutes les notes de la portée.<br>
+                    Les bémols s'appliquent dans l'ordre inverse des dièses :<br>
+                    Si on ne met qu'un seul bémol à côté de la clé, ce sera le si.<br>
+                    Si on en met deux, ce sera si et mi.<br>
+                    Ordre complet : si-mi-la-ré-sol-do-fa
+                  </td>
+                  <td>
+                    <img src="{{img_path}}armature_mi_bemol_majeur.gif">
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+        Quand on met une altération à côté d'une note, c'est pour modifier celle-là. Ca n'affecte généralement qu'une seule note (sauf si on retrouve cette note plus tard <u>dans la même mesure</u>). On appelle ça une <b>altération accidentelle</b>. Une altération accidentelle ne concerne que la hauteur où elle se trouve.<br>
+        <img src="{{img_path}}diese_accidentel.png" style="float: left; margin: 4px 10px 0px 0px;">
+        Ici à gauche, par exemple, 1 est un fa, 2 est un fa dièse, mais pas 3, qui n'est pas à la même hauteur. 4 est un fa dièse, mais pas 5 qui a un bécarre, du coup il redevient un fa normal. 6 devrait en être un aussi, à cause du bécarre, mais on lui a mis un dièse pour le forcer à être un fa dièse. 7 est un fa normal, car la barre de mesure annule toutes les altérations accidentelles des mesures précédentes. Puis on a un fa dièse en 8, et un fa normal en 9, parce qu'il n'est pas au même niveau que 8.<br><br>
+        Quand, à côté de la clé (et avant le chiffrage), on peut  trouver un groupe de 1 à 7 dièses ou bémols (mais <u>jamais des dièses et des bémols en même temps</u>), on appelle ce groupe une <b>armature</b> et ces altérations ne sont plus accidentelles mais <b>constitutives</b>.<br>
+        <br> Comme on vient de le voir, quand il y a au moins une altération dans l'armature, et qu'on veut, juste pour une seule note, l'annuler, on utilise le <b>bécarre</b> :<br>
+        <table>
+          <tr>
+            <td>
+              <img src="{{img_path}}symboles/becarre.gif"><h1><br><br></h1>
+            </td>
+            <td>
+              Evidemment, le bécarre sera toujours accidentel. Il sert à annuler une altération constitutive. Si on ne voulait pas de cette altération, on ne la mettrait pas, et on n'aurait donc pas besoin du bécarre pour l'enlever.<br>
+              <br>
+              Voici un exemple d'utilisation du bécarre:<br>
+              <img src="{{img_path}}becarre_accidentel.png" style="float: left; margin: 4px 10px 0px 0px;">
+              On a 3 bémols dans l'armature, donc si-mi-la (tu peux le vérifier sur cette image). Tous les si, les mi et les la seront en bémol, quelle que soit leur hauteur. Cette portée commence donc par trois mi bémol. Le 4 est un mi, à cause du bécarre, et le 6 aussi, parce qu'il vient après le bécarre et sur la même hauteur, mais le 5 reste un mi bémol, car il n'est pas au niveau du bécarre. On a ensuite une barre de mesure. Elle annule le bécarre. Du coup, 7 et 8 sont des mi bémols, conformément à l'armature.<br>
+              <b><u>Important :</u></b><br>
+              Les altérations constitutives s'appliquent à toutes les notes portant le même nom, pas juste celles à leur niveau.<br>
+              Les altérations accidentelles ne s'appliquent qu'à leur niveau, et jusqu'à la prochaine barre de mesure seulement.<br>
+              
+            </td>
+          </tr>
+        </table>
+        <br>J'ajoute ces trois altérations, qui sont rarement utilisées, mais qu'il faut connaître pour ta culture musicale :<br>
+        <img src="{{img_path}}symboles/dbdiese.gif">Le <b>double dièse</b> hausse la note d'un ton (il agit comme deux dièses ;  un "do double dièse" est un ré, par exemple).<br>
+        <img src="{{img_path}}symboles/dbbemol.gif">Le <b>double bémol</b> baisse la note d'un ton (comme deux bémols).<br>
+        <img src="{{img_path}}symboles/dbbecarre.gif">Le <b>double bécarre</b> annulait ces deux altérations, autrefois. Mais maintenant, un seul bécarre suffit.<br>
       </div>
+
+      <div class="cadreNoir">
+        <h2 class="souligne" id="alterations">Les gammes majeures et mineures</h2>
+        Là, il va vraiment devenir indispensable que tu aies sur ton brouillon un clavier de piano de dessiné, éventuellement sur deux octaves, même, ça peut aider.<br>
+        <table>
+          <tr>
+            <td style="width : 48em;">
+              Une <b>gamme majeure</b>, c'est quoi ?<br>
+              C'est une gamme (8 notes consécutives) où les tons se suivent comme sur un clavier de piano :<br>
+              1 ton (do-ré), 1 (ré-mi), ½ (mi-fa), 1 (fa-sol), 1 (sol-la), 1 (la-si) et ½ (si-do).<br>
+              La gamme que je viens de citer est la gamme en do majeur : elle commence par do, et ses intervalles sont : 1,1,½,1,1,1,½<br>
+            <td class="reduction">
+              <div class="positionAbsolue" style="top : -3em;">
+            {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false,"lesFleches":[0,1,2,3,4,5,6]} only %}
+              </div>
+            </td>
+          </tr>
+        </table>
+        <br>
+        <table>
+          <tr>
+            <td style="width : 35em;">
+          <tr>
+            <td>
+              Mettons qu'on mette un dièse dans l'armature. Le fa, donc, forcément. Maintenant, mi-fa fait un ton, mais fa-sol plus qu'un demi. Si on persiste à compter à partir du do, on n'a plus les bons intervalles :
+              1,1,1,½,1,1,½<br>
+            <td class="reduction">
+              <div class="positionAbsolue" style="top : -3em;">
+            {% include "_clavierPiano.html.twig" with {"nbTouches":10,"avecTon":false,"lesPastilles":[0,2,4,7,8,10,12,14]} only %}
+              </div>
+            </td>
+          </tr>
+        </table>
+        <br>
+        <table>
+          <tr>
+            <td style="width : 35em;">
+          <tr>
+            <td>
+              Pourtant, on a bien trois 1 qui se suivent, et deux 1. Il y a moyen de faire une gamme majeure avec ça. Il suffit de décaler.<br>
+              On doit commencer par deux 1 consécutifs. Où sont-ils ? Au niveau de sol-la. Alors réécrivons ça en partant du sol :
+              1,1,½,1,1,1,½<br>
+              Ca marche ! On a les bons intervalles, on commence par sol, on est donc en sol majeur.
+            <td class="reduction">
+              <div class="positionAbsolue" style="top : -3em;">
+            {% include "_clavierPiano.html.twig" with {"nbTouches":11,"avecTon":false,"lesPastilles":[7,21],"lesFleches":[4,5,6,7,8],"lesFlechesInversees":[9,10]} only %}
+              </div>
+            </td>
+          </tr>
+        </table>
+        <br>
+        Et du coup, une gamme <b>mineure</b>, qu'est_ce que c'est ? Eh bien, c'est tout le reste. Il existe des classifications, évidemment. Mais tu ne devrais par en entendre parler en cours de solfège avant plusieurs années, je pense.<br>
+        <br>Bon, du coup, voilà ce qu'il faut faire :<br>
+        <li>Si l'armature est <b>vide</b> (ni dièse, ni bémol à côté de la clé, et peu importe s'il y a des altérations accidentelles dans le morceau), c'est du <b>do majeur</b>. On n'utilise que les touches blanches du clavier du piano, donc, tout simplement.</li>
+        <li>Sinon, tu pars d'une note (do ou autre chose), tu regardes ton clavier et tu notes les tons entre chaque note, jusqu'à ce que tu aies écrit sept nombres (des 1 ou des ½), <b>en tenant compte de toutes les altérations dans l'armature</b>, car tu vas, par moment, devoir passer par des touches noires. Ensuite, tu regardes ce que tu as écrit. Il y a un groupe de trois 1 et un groupe de deux 1 ? C'est du majeur. Trouve où il faut décaler et tu as ta note de gamme. Le nom de la gamme est "<i>cette note</i>" suivi de "majeur".<br>
+        Mais si tu n'as pas ces deux groupes de 1, c'est une gamme mineure.
+        <br><br>
+        Dans une gamme, on définit des <b>degrés</b>, qui ont un nom et un numéro (en chiffres romains).<br>
+        <b>
+        <table>
+          <tr>
+            <td><li>I</li></td>
+            <td>:&nbsp;&nbsp;</td>
+            <td>tonique</td>
+          </tr>
+          <tr>
+            <td><li>II</li></td>
+            <td>:</td>
+            <td>sus-tonique</td>
+          </tr>
+          <tr>
+            <td><li>III</li></td>
+            <td>:</td>
+            <td>médiante</td>
+          </tr>
+          <tr>
+            <td><li>IV</li></td>
+            <td>:</td>
+            <td>sous-dominante</td>
+          </tr>
+          <tr>
+            <td><li>V</li></td>
+            <td>:</td>
+            <td>dominante</td>
+          </tr>
+          <tr>
+            <td><li>VI</li></td>
+            <td>:</td>
+            <td>sus-dominante</td>
+          </tr>
+          <tr>
+            <td><li>VII</li></td>
+            <td>:</td>
+            <td>sensible</td>
+          </tr>
+        </table>
+        </b>
+        Une façon plus juste de définir une gamme majeure est de dire que les notes médiante et sous-dominante (degrés III et IV) sont séparées d'un demi ton, ainsi que les notes sensible et tonique (degrés VII et I), et les autres par un ton.
+      </div>
+
     </div>
     </div>
   </div>
