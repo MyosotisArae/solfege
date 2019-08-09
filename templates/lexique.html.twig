@@ -1,0 +1,129 @@
+{% extends "apprendre.html.twig" %}
+
+{% block entete %}
+  {{ parent() }}
+<style>
+.btn-default
+{
+  border : 1px solid LightGrey;
+}
+.colonnes
+{
+  columns : 4;
+}
+.colonnes a
+{
+  color : black;
+  font-size : 1.5em;
+}
+.colonnes a:hover
+{
+  color : orange;
+  font-weight : bold;
+}
+</style>
+{% endblock %}
+
+{% block titre %}Lexique{% endblock %}
+
+{% block navigation %}
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-1">
+          <a href='main'>
+          <img class="miniBtn cadreRouge" src="{{img_path}}conservatoire.jpg">
+          </a>
+          <div class='tool-tip right'>Accueil</div>
+        </div>
+        <div class="col-10">
+          <h1>Lexique</h1>
+        </div>
+      </div>
+    </div>
+{% endblock %}
+
+{% block page %}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="container">
+        <div class="btn-toolbar">
+          <div class="btn-group btn-group-sm">
+            <button class="btn btn-default">Afficher tout</button>
+            <button class="btn"></button>
+            <button class="btn btn-default">A</button>
+            <button class="btn btn-default">B</button>
+            <button class="btn btn-default">C</button>
+            <button class="btn btn-default">D</button>
+            <button class="btn btn-default">E</button>
+            <button class="btn btn-default">F</button>
+            <button class="btn btn-default">G</button>
+            <button class="btn btn-default">H</button>
+            <button class="btn btn-default">I</button>
+            <button class="btn btn-default">J</button>
+            <button class="btn btn-default">K</button>
+            <button class="btn btn-default">L</button>
+            <button class="btn btn-default">M</button>
+            <button class="btn btn-default">N</button>
+            <button class="btn btn-default">O</button>
+            <button class="btn btn-default">P</button>
+            <button class="btn btn-default">Q</button>
+            <button class="btn btn-default">R</button>
+            <button class="btn btn-default">S</button>
+            <button class="btn btn-default">T</button>
+            <button class="btn btn-default">U</button>
+            <button class="btn btn-default">V</button>
+            <button class="btn btn-default">W</button>
+            <button class="btn btn-default">X</button>
+            <button class="btn btn-default">Y</button>
+            <button class="btn btn-default">Z</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br><br>
+
+    <div class="col-12">
+      <div class="colonnes">
+              <a href="apprendre_tonalite#constitutive">Accidentelle</a><br>
+              <a href="apprendre_tonalite#harmonique">Accord</a><br>
+              <a href="apprendre_tonalite#augmente">Augmenté</a><br>
+              <a href="apprendre_tonalite#alterations">Alterations</a><br>
+              <a href="apprendre_tonalite#becarre">Bécarre</a><br>
+              <a href="apprendre_tonalite#bemol">Bémol</a><br>
+              <a href="apprendre_tonalite#constitutive">Constitutive</a><br>
+              <a href="apprendre_tonalite#degre">Degré</a><br>
+              <a href="apprendre_tonalite#alterations">Dièse</a><br>
+              <a href="apprendre_tonalite#augmente">Diminué</a><br>
+              <a href="apprendre_tonalite#gamme">Gamme majeure</a><br>
+              <a href="apprendre_tonalite#gammeMineure">Gamme mineure</a><br>
+              <a href="apprendre_tonalite#intervalles">Intervalle</a><br>
+              <a href="apprendre_tonalite#ascendant">Intervalle ascendant</a><br>
+              <a href="apprendre_tonalite#ascendant">Intervalle descendant</a><br>
+              <a href="apprendre_tonalite#harmonique">Intervalle harmonique</a><br>
+              <a href="apprendre_tonalite#ascendant">Intervalle mélodique</a><br>
+              <a href="apprendre_tonalite">Méthode du clavier</a><br>
+              <a href="apprendre_tonalite#qualificatif">Qualificatif</a><br>
+              <a href="apprendre_tonalite#octaveJuste">Octave juste</a><br>
+              <a href="apprendre_tonalite#primeJuste">Prime juste</a><br>
+              <a href="apprendre_tonalite#quarteJuste">Quarte diminuée</a><br>
+              <a href="apprendre_tonalite#quarteAugmentee">Quarte augmentée</a><br>
+              <a href="apprendre_tonalite#quarteAugmentee">Quarte diminuée</a><br>
+              <a href="apprendre_tonalite#quinteJuste">Quinte juste</a><br>
+              <a href="apprendre_tonalite#secondeAugmentee">Seconde augmentée</a><br>
+              <a href="apprendre_tonalite#secondeMajeure">Seconde majeure</a><br>
+              <a href="apprendre_tonalite#secondeMineure">Seconde mineure</a><br>
+              <a href="apprendre_tonalite#tierceAugmentee">Tierce augmentée</a><br>
+              <a href="apprendre_tonalite#tierceMajeure">Tierce majeure</a><br>
+              <a href="apprendre_tonalite#tierceMineure">Tierce mineure</a><br>
+              <a href="apprendre_tonalite#degre">Tonique</a><br>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block corps %}
+  {{ parent() }}
+{% endblock %}

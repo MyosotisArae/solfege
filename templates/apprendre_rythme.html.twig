@@ -1,0 +1,490 @@
+{% extends "apprendre.html.twig" %}
+
+{% block entete %}
+  {{ parent() }}
+  <link rel="stylesheet" href="{{css_path}}apprendre.css">
+{% endblock %}
+
+
+{% block titre %}Le rythme{% endblock %}
+
+{% block corps %}
+  {{ parent() }}
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+    <div class="listeDeroulante">
+      <div class="cadreNoir">
+        <h2 class="souligne">Le chiffrage</h2>
+          Les <b>mesures</b> permettent d'organiser la portée en petites portions de temps équivalents.<br>
+          Le chiffrage de la mesure précise le nombre et la valeur des temps dans les mesures. Il s'agit des deux chiffres indiqués à côté de la clé sous la forme d'une fraction.<br>
+          <table>
+            <tr>
+              <td>
+                <img src="{{img_path}}chiffrage.jpg">
+              </td>
+              <td>
+                Le chiffre du haut (numérateur) indique la quantité de temps contenue dans chaque mesure.<br><br>
+                Le chiffre du bas (dénominateur) indique quelle est la valeur de ces temps.<br>
+                Voyons maintenant ce que signifie cette valeur.<br><br><br><br><br>
+              </td>
+            </tr>
+          </table>
+          Je suis certaine que tu as déjà vu ce dessin quelquepart :
+          <table>
+            <tr>
+              <td>
+                <img src="{{img_path}}duree_notes_ronde.gif">
+              </td>
+              <td>
+                Le dénominateur est basé sur cette décomposition de la ronde.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <img src="{{img_path}}duree_notes_blanches.gif">
+              </td>
+              <td>
+                Nous voyons 2 blanches ici. Si le dénominateur vaut 2, la valeur est : une blanche.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <img src="{{img_path}}duree_notes_noires.gif">
+              </td>
+              <td>
+                Ici, 4 noires, donc la valeur est une noire.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <img src="{{img_path}}duree_notes_croches.gif">
+              </td>
+              <td>
+                Et si c'est 8, la valeur est une croche.
+              </td>
+            </tr>
+          </table>
+          <br>Et donc, voilà ce que ça signifie :
+          <table>
+            <tr>
+              <td>
+                <img src="{{img_path}}mesure44.gif">
+              </td>
+              <td>
+                Le 4 du bas indique qu'on compte des noires. La noire est l'unité de valeur, mais aussi l'unité de temps.<br>
+                Celui du haut indique qu'on en veut 4 par mesure.<br>
+                Note que la mesure 4/4, qui est la plus courante, peut être abrégée par un C.
+              </td>
+            </tr>
+          </table>
+          <table>
+            <tr>
+              <td>
+                <img src="{{img_path}}mesure34.gif">
+              </td>
+              <td>
+                On compte toujours des noires. Mais cette fois-ci, on en a 3 par mesure.
+              </td>
+            </tr>
+          </table>
+          <table>
+            <tr>
+              <td>
+                <img src="{{img_path}}mesure24.gif">
+              </td>
+              <td>
+                Et là, on compte 2 noires par mesure.
+              </td>
+            </tr>
+          </table>
+          Ces mesures sont dites <b>binaires</b> parce qu'on peut diviser la valeur en deux: une noire = deux croches<br>
+          Celle-ci en est une également. C'est très similaire à la mesure 4/4 :<br>
+          <table>
+            <tr>
+              <td>
+                <img src="{{img_path}}mesure22.gif">
+              </td>
+              <td>
+                Le 2 du bas indique qu'on compte des blanches. Une blanche = 2 noires, donc c'est binaire.<br>
+                Le 2 du haut indique qu'on en veut 2. On a donc 2 blanches par mesure, et on est d'accord, c'est un peu pareil que 4 noires par mesure.<br>
+              </td>
+            </tr>
+          </table>
+          <table>
+            <tr>
+              <td>
+                Note quand même qu'il existe une abréviation pour ça. Le C barré :&nbsp;&nbsp;
+              </td>
+              <td>
+                <img src="{{img_path}}mesureCbarre.gif">
+              </td>
+            </tr>
+          </table>
+
+          <br><br>Etudions maintenant des mesures que l'on rencontre moins fréquemment (sauf dans les questions d'examen !) : les mesures <b>ternaires</b> ou <b>composées</b>.<br>
+          Le dénominateur est 8. Des croches donc. Mais ... une croche est divisible en deux doubles croches, donc pourquoi ternaire au lieu de binaire&nbsp;?<br>
+          Parce qu'on va distinguer <b>l'unité de valeur</b>, qui est la croche, de <b>l'unité de temps</b>, qui est la noire pointée. Et une noire pointée est divisible en 3, d'où le terme ternaire.<br>
+          Voyons cela de plus près:<br>
+          <table>
+            <tr>
+              <td>
+                <img src="{{img_path}}mesure38.gif">
+              </td>
+              <td>
+                Le 8 du bas indique qu'on compte des croches (c'est <b>l'unité de valeur</b>).<br>
+                Celui du haut indique qu'on en veut 3 par mesure, ce qui équivaut à une noire pointée. C'est <b>l'unité de temps</b>.
+              </td>
+            </tr>
+          </table>
+          <table>
+            <tr>
+              <td>
+                <img src="{{img_path}}mesure68.gif">
+              </td>
+              <td>
+                On a maintenant 6 croches par mesure, donc 2 noires pointées.<br>
+              </td>
+            </tr>
+          </table>
+          <table>
+            <tr>
+              <td>
+                <img src="{{img_path}}mesure98.gif">
+              </td>
+              <td>
+                Ici, on peut placer 3 noires pointées par mesure.
+              </td>
+            </tr>
+          </table>
+          <br>Bref, par convention, on dit qu'une mesure est <b>binaire</b> si le numérateur (le chiffre du haut) est 2, 4 ou 8. Mais à partir du moment où il est divisible par 3 (3, 6, 9 ou 12), on appelle ça une mesure <b>ternaire</b>.
+
+      </div>
+
+      <div class="cadreNoir">
+        <h2 class="souligne">Le tempo</h2>
+          Le tempo se compte en nombre de <b>pulsations</b> par minute. C'est la mesure qu'on bat, les tics du métronome.<br>
+          Exemples :
+          <li>lento (lent) fait 52 à 68 pulsations par minute (à peu près une par seconde)</li>
+          <li>andante (allant) en fait entre 76 et 100</li>
+          <li>moderato : 88 à 112</li>
+          <li>presto (rapide) : 140 à 200</li>
+          La pulsation, c'est l'unité de temps. On en parle dans l'encadré précédent.<br>
+          <u>Rappel :</u><br>
+          <li>en chiffrage 4/4, la pulsation est d'une noire. On en a 4 par mesure.</li>
+          <li>en 3/4, c'est une noire aussi, mais on en a 3 par mesure.</li>
+          <li>en 6/8, l'unité de temps est la noire pointé. On bat donc une pulsation toutes les 3 croches.</li>
+          <br>Voici un exemple qui devrait te parler. Tu connais la chanson "Le bon roi Dagobert" ? Elle est en 6/8. Sur la partition ci-dessous, tu remarqueras que, dans la première mesure, il n'y a pas le compte. Ca arrive. Certains morceaux ne commencent pas au temps 1. Ce morceau-là commence à la sixième unité de valeur (la sixième croche).<br>
+          <table>
+            <tr>
+              <td>
+                <img src="{{img_path}}Dagobert_pulsations.jpg">
+              </td>
+              <td class="fonteInvisible">
+                <h3>bla</h3>
+              </td>
+              <td>
+                La pulsation se note par des traits noirs au début de chaque unité de temps. Tu les vois ?<br><br>
+                Essaie de chanter la chanson (au moins dans ta tête) en battant la mesure.<br>
+                Premier trait : main en haut, deuxième trait : main en bas.<br>
+                On commence à battre après le premier trait de mesure, car la toute première mesure est incomplète.<br>
+                Tu entends comme les pulsations sont bien marquées ?
+              </td>
+            </tr>
+          </table>
+          
+          <table>
+            <tr>
+              <td>
+                Les pulsations et le rythme, c'est différent. Pour battre le rythme, on tape dans ses mains à chaque note.<br>
+                Tu peux essayer aussi, si tu veux.<br>
+                Sur la partition de droite, le rythme est indiqué par des traits verts.
+              </td>
+              <td class="fonteInvisible">
+                <h3>bla</h3>
+              </td>
+              <td>
+                <img src="{{img_path}}Dagobert_rythme.jpg">
+              </td>
+            </tr>
+          </table>
+
+          <br><u>Comment Battre la mesure ?</u>
+          <li>Quand il y a deux temps (2/2, 2/4, ou 6/8) :</li>
+          <div class="indentation">
+            - temps 1 : main en bas
+            - temps 2 : main en haut
+          </div>
+          <li>Dans une mesure à 3 temps (3/4, 9/8) :</li>
+          <div class="indentation">
+            - temps 1 : main en bas
+            - temps 2 : main à droite (et toujours en bas), c'est à dire que tu l'éloignes de toi
+            - temps 3 : main en haut
+          </div>
+          <li>Pour une mesure à 4 temps (4/4, 8/8) :</li>
+          <div class="indentation">
+            - temps 1 : main en bas
+            - temps 2 : main à gauche (tu la rapproches de ton ventre)
+            - temps 3 : main à droite
+            - temps 4 : main en haut
+          </div>
+          <li></li>
+          <li></li>
+          J'insiste sur le fait que c'est juste la main qui bouge. Le coude reste collé à la table, comme au bras de fer, sinon on est disqualifié !
+      </div>
+
+      <div class="cadreNoir">
+        <h2 class="souligne" id="alterations">Les signes</h2>
+        Voici les principaux signes en rapport avec le rythme :<br>
+        <table>
+          <tr>
+            <td>
+              <table>
+                <tr>
+                  <td class="tableau">
+                    <img src="{{img_path}}symboles/figure_croche.gif">
+                  </td>
+                  <td class="tableau">
+                    croche
+                  </td>
+                  <td>
+                    <h1>=</h1>
+                  </td>
+                  <td class="tableau">
+                    <img src="{{img_path}}symboles/demi_soupir.gif">
+                  </td>
+                  <td class="tableau">
+                    demi soupir
+                  </td>
+                  <td class="fonteInvisible">
+                    <h3>bla</h3>
+                  </td>
+                  <td class="tableau">
+                    <img src="{{img_path}}symboles/figure_noire.gif">
+                  </td>
+                  <td class="tableau">
+                    noire
+                  </td>
+                  <td>
+                    <h1>=</h1>
+                  </td>
+                  <td class="tableau">
+                    <img src="{{img_path}}symboles/soupir.gif">
+                  </td>
+                  <td class="tableau">
+                    soupir
+                  </td>
+                </tr>
+              </table>
+              <br>
+      
+              <table>
+                <tr>
+                  <td class="tableau">
+                    <img src="{{img_path}}symboles/figure_blanche.gif">
+                  </td>
+                  <td class="tableau">
+                    blanche
+                  </td>
+                  <td>
+                    <h1>=</h1>
+                  </td>
+                  <td class="tableau">
+                    <img src="{{img_path}}symboles/demie_pause.gif">
+                  </td>
+                  <td class="tableau">
+                    demi pause
+                  </td>
+                  <td class="fonteInvisible">
+                    <h3>bla</h3>
+                  </td>
+                  <td class="tableau">
+                    <img src="{{img_path}}symboles/figure_ronde.gif">
+                  </td>
+                  <td class="tableau">
+                    ronde
+                  </td>
+                  <td>
+                    <h1>=</h1>
+                  </td>
+                  <td class="tableau">
+                    <img src="{{img_path}}symboles/pause.gif">
+                  </td>
+                  <td class="tableau">
+                    pause
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td>
+              <table>
+                <tr>
+                  <td class="tableau">
+                    triolet
+                  </td>
+                </tr>
+                <tr>
+                  <td class="tableau">
+                    <img src="{{img_path}}symboles/figure_triolet.gif">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="tableau">
+                    Même durée qu'une noire
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+        <br>
+
+
+
+        <table>
+          <tr>
+            <td class="tableau">
+              <img src="{{img_path}}symboles/barre.gif">
+            </td>
+            <td class="tableau">
+              barre&nbsp;de&nbsp;mesure<br>
+              Sépare les mesures
+            </td>
+            <td class="fonteInvisible">
+              <h3>bla</h3>
+            </td>
+            <td class="tableau">
+              <img src="{{img_path}}symboles/doubleBarre.gif">
+            </td>
+            <td class="tableau">
+              double&nbsp;barre&nbsp;de&nbsp;mesure<br>
+              Indique la fin du morceau.<br>
+            </td>
+            <td class="fonteInvisible">
+              <h3>bla</h3>
+            </td>
+            <td class="tableau">
+              <img src="{{img_path}}symboles/double_barre.gif">
+            </td>
+            <td class="tableau">
+              double barre de mesure (rare)<br>
+              Utilisée quand il y a un changement dans le morceau (tempo, armature, ou chiffrage modifié).<br>
+            </td>
+          </tr>
+        </table>
+        <br>
+
+        <table>
+          <tr>
+            <td class="tableau">
+              <img src="{{img_path}}symboles/da_capo_2.gif">
+            </td>
+            <td class="tableau">
+              barre de reprise<br>
+              Indique qu'il faut continuer le morceau au signe de renvoi.
+              <table>
+                <tr>
+                  <td>
+                    Equivalent à :
+                  </td>
+                  <td>
+                    <img src="{{img_path}}symboles/da_capo_3.gif">
+                  </td>
+                  <td>
+                    qui se lit "da capo"
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td class="fonteInvisible">
+              <h3>bla</h3>
+            </td>
+            <td class="tableau">
+              <img src="{{img_path}}symboles/signe_de_renvoi.jpg">
+            </td>
+            <td class="tableau">
+              signe de renvoi<br>
+              Indique où il faut reprendre le morceau.
+              <table>
+                <tr>
+                  <td>
+                    Equivalent à :
+                  </td>
+                  <td>
+                    <img src="{{img_path}}symboles/reprise.gif">
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+        <br>
+
+        <table>
+          <tr>
+            <td class="tableau">
+              <img src="{{img_path}}symboles/repeter_2.gif">
+            </td>
+            <td class="tableau">
+              Ce signe indique qu'il faut répéter un motif.<br>
+              Exemple :
+            </td>
+            <td class="tableau">
+              <img src="{{img_path}}symboles/repeter_2_exemple.png">
+            </td>
+        </table>
+        <br>
+
+        <table>
+          <tr>
+            <td class="tableau">
+              <img src="{{img_path}}symboles/repeter_1.gif">
+            </td>
+            <td class="tableau">
+              Ce signe indique qu'il faut répéter une mesure.<br>
+              Exemple :
+            </td>
+            <td class="tableau">
+              <img src="{{img_path}}symboles/repeter_1_exemple.png">
+            </td>
+        </table>
+        <br>
+
+        <table>
+          <tr>
+            <td class="tableau">
+              La <b>liaison de prolongation</b> est un signe en forme d'arc de cercle placé entre deux notes de même hauteur.<br>
+              Elle indique qu'au lieu de jouer ces deux notes séparément, on ajoute leurs durées pour jouer cette note plus longtemps. Une note peut ainsi se prolonger sur plusieurs mesures : à droite, on joue une première note sur un temps un quart (= 5 doubles croches), puis on la joue sur 11 temps.
+            </td>
+            <td class="tableau">
+              <img src="{{img_path}}symboles/prolongation.png">
+            </td>
+        </table>
+        <br>
+
+        <table>
+          <tr>
+            <td class="tableau">
+              <img src="{{img_path}}symboles/arpege.png">
+            </td>
+            <td class="tableau">
+              La ligne ondulée verticale symbolise un <b>arpège</b>.<br>
+              Un arpège est un accord (plusieurs notes simultanées) dont les notes sont jouées l'une après l'autre (puis maintenues ensemble comme dans un accord classique).<br>
+              Sauf indication contraire, les notes doivent être jouées du bas vers le haut.
+            </td>
+        </table>
+        <br>
+
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+
+{% block pied %}
+  {{ parent() }}
+{% endblock %}
