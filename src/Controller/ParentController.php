@@ -13,6 +13,7 @@ class ParentController extends AbstractController
     if (!isset($this->session)) { $this->session = $session; }
     $this->setSss('nomTrophee', '');
     $this->setSss('imageTrophee', '');
+    // Important : pas d'appel à doctrine dans ce constructeur.
     //$this->util = $this->get("utilitaires");
   }
 
@@ -38,8 +39,31 @@ class ParentController extends AbstractController
                 ->getNiveau($this->session->get('exercice'));
   }
 
+  protected function setProchainTrophee()
+  {
+    $fileAttenteTrophees = $this->getSss('fileTrophees');
+    if ($fileAttenteTrophees == null) $fileAttenteTrophees = array();
+    if (count($fileAttenteTrophees) > 0)
+    {
+      $id = array_shift($fileAttenteTrophees);
+      $this->obtentionTrophee($id);
+      $this->setSss('fileTrophees', $fileAttenteTrophees);
+    }
+  }
+
   protected function obtentionTrophee(int $id)
   {
+    // On ne peut afficher qu'un trophée à la fois.
+    // S'il y en a déjà un de sauvegardé (nomTrophee non vide),
+    // alors mettre celui-ci dans la file d'attente.
+    if (strlen($this->getSss('nomTrophee')) > 0)
+    {
+      $fileAttenteTrophees = $this->getFileDattenteTrophees();
+      $fileAttenteTrophees[] = $id;
+      $this->setSss('fileTrophees', $fileAttenteTrophees);
+      return;
+    }
+
     $trophee = $this->getTrophee($id);
     if ($trophee->dejaObtenu()) return false;
 
@@ -58,7 +82,6 @@ class ParentController extends AbstractController
   /* Obtiens la liste de tous les trophées (Uniquement lors du premier appel)
    * et la met dans la variable de session listeTrophees.
    */
-/*
   private function getTrophees()
   {
     return $this->getDoctrine()
@@ -66,7 +89,6 @@ class ParentController extends AbstractController
                 ->getRepository('App:Trophee')
                 ->getListe();
   }
-*/
 
   private function getTrophee(int $id)
   {

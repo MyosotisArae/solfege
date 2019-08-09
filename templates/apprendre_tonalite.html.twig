@@ -113,7 +113,7 @@
             </b>
             Comment retenir ça ? La réponse va te plaire : tu n'as pas besoin de le retenir !<br>
             Tu vas utiliser le clavier que tu as dessiné et partir du do (la note la plus à gauche). Et rien qu'avec ça, tu peux retrouver tout ce qu'il y a dans ce tableau. Voici comment :<br>
-            <table>
+            <table id="secondeMajeure">
               <tr>
                <td>
                  {% include "_clavierPiano.html.twig" with {"nbTouches":1,"avecTon":false,"lesFleches":[0]} only %}
@@ -164,7 +164,7 @@
 
             Un intervalle mineur est <u>toujours</u> plus petit d'un demi ton que le même intervalle majeur. On va en voir un exemple tout de suite.
 
-            <table>
+            <table id="secondeMineure">
               <tr>
                <td>
                  {% include "_clavierPiano.html.twig" with {"nbTouches":3,"avecTon":false,"lesFleches":[2]} only %}
@@ -207,7 +207,7 @@
                </td>
               </tr>
             </table>
-            <table>
+            <table id="tierceMajeure">
               <tr>
                <td>
                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false,"lesFleches":[4,5]} only %}
@@ -266,7 +266,7 @@
             Rappel : mineur = un demi ton de moins que majeur<br>
             Oui ! Une tierce mineure fait un ton et demi. En voici une :<br>
           
-            <table>
+            <table id="tierceMineure">
               <tr>
                <td>
                  {% include "_clavierPiano.html.twig" with {"nbTouches":3,"avecTon":false,"lesFleches":[1,2]} only %}
@@ -306,7 +306,7 @@
             Va savoir pourquoi, la quarte, la quinte et l'octave, quand ils sont "normaux", s'appellent "juste" plutôt que "majeur". Oui, c'est absurde. Mais c'est comme ça.<br>
             La bonne nouvelle, c'est qu'on les retrouve elles aussi grâce à notre petit clavier, en partant du do.<br>
 
-            <table>
+            <table id="quarteJuste">
               <tr>
                <td>
                  {% include "_clavierPiano.html.twig" with {"nbTouches":3,"avecTon":false,"lesFleches":[0,1,2]} only %}
@@ -349,7 +349,7 @@
               </tr>
             </table>
 
-            <table>
+            <table id="quinteJuste">
               <tr>
                <td>
                  {% include "_clavierPiano.html.twig" with {"nbTouches":4,"avecTon":false,"lesFleches":[0,1,2,3]} only %}
@@ -394,7 +394,7 @@
               </tr>
             </table>
 
-            <table>
+            <table id="octaveJuste">
               <tr>
                <td>
                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false,"lesFleches":[0,1,2,3,4,5,6]} only %}
@@ -514,8 +514,7 @@
             Quand on utilise un dièse ou un bémol, le nom de l'intervalle ne change pas (car les notes dessinées sur la portée sont les mêmes), mais le qualificatif change, puisque le nombre de tons entre les deux notes change.<br>
             Voici quelques exemples :<br><br>
 
-            <table>
-
+            <table id="primeJuste">
               <tr>
                 <td>
                   <h3>Prime juste à l'unisson<br></h3>
@@ -570,7 +569,7 @@
                   <h3><br><br><br><br>Seconde majeure<br></h3>
                 </td>
                 <td></td>
-                <td>
+                <td id="secondeAugmentee">
                   <h3><br><br><br><br>Seconde augmentée<br></h3>
                 </td>
               </tr>
@@ -647,7 +646,7 @@
                 </td>
               </tr>
 
-              <tr>
+              <tr id="tierceAugmentee">
                 <td>
                   <br><br><br><br><h3>Tierce mineure<br></h3>
                 </td>
@@ -733,7 +732,7 @@
                 </td>
               </tr>
 
-              <tr>
+              <tr id="quarteAugmentee">
                 <td>
                   <br><br><br><br><h3>Quarte diminuée<br></h3>
                 </td>
@@ -820,7 +819,7 @@
               </tr>
 
             </table>
-            <br><br><br><br>
+            <br><br><br><br id="ascendant">
             On va s'arrêter là. Tu sais à qui demander si tout ça n'est pas clair pour toi.<br>
             Une dernière remarque : je ne t'ai montré que des intervalles <b>ascendants</b>, c'est à dire où la deuxième note est plus haute que la première.<br>
             
@@ -898,7 +897,7 @@
              %}
             {% set portee = [cleSol,listeNotesA2,listeNotesB2,listeNotesD3,listeNotesE3,listeNotesA3,listeNotesG3,listeNotesC3] %}
             {% include "_portee.html.twig" with {"elements":portee} only %}
-            <br><br><br><br>
+            <br><br><br><br id="harmonique">
             <b class="fonteInvisible">blablablablablablablabla<audio controls controlsList="nodownload" src="{{dictee_path}}music1.mp3"></audio></b><br>
             Mais si les notes sont jouées en même temps (on appelle ça un accord), ça devient un intervalle <b>harmonique</b>, comme ces trois là :<br><br><br><br><br>
             {% set listeNotesC2E3 =
@@ -1007,7 +1006,7 @@
             </td>
           </tr>
           <tr>
-            <td><h3><br></h3></td>
+            <td id="bemol"><h3><br></h3></td>
           </tr>
           <tr>
             <td>
@@ -1041,7 +1040,7 @@
         Ici à gauche, par exemple, 1 est un fa, 2 est un fa dièse, mais pas 3, qui n'est pas à la même hauteur. 4 est un fa dièse, mais pas 5 qui a un bécarre, du coup il redevient un fa normal. 6 devrait en être un aussi, à cause du bécarre, mais on lui a mis un dièse pour le forcer à être un fa dièse. 7 est un fa normal, car la barre de mesure annule toutes les altérations accidentelles des mesures précédentes. Puis on a un fa dièse en 8, et un fa normal en 9, parce qu'il n'est pas au même niveau que 8.<br><br>
         Quand, à côté de la clé (et avant le chiffrage), on peut  trouver un groupe de 1 à 7 dièses ou bémols (mais <u>jamais des dièses et des bémols en même temps</u>), on appelle ce groupe une <b>armature</b> et ces altérations ne sont plus accidentelles mais <b>constitutives</b>.<br>
         <br> Comme on vient de le voir, quand il y a au moins une altération dans l'armature, et qu'on veut, juste pour une seule note, l'annuler, on utilise le <b>bécarre</b> :<br>
-        <table>
+        <table id="becarre">
           <tr>
             <td>
               <img src="{{img_path}}symboles/becarre.gif"><h1><br><br></h1>
@@ -1052,13 +1051,13 @@
               Voici un exemple d'utilisation du bécarre:<br>
               <img src="{{img_path}}becarre_accidentel.png" style="float: left; margin: 4px 10px 0px 0px;">
               On a 3 bémols dans l'armature, donc si-mi-la (tu peux le vérifier sur cette image). Tous les si, les mi et les la seront en bémol, quelle que soit leur hauteur. Cette portée commence donc par trois mi bémol. Le 4 est un mi, à cause du bécarre, et le 6 aussi, parce qu'il vient après le bécarre et sur la même hauteur, mais le 5 reste un mi bémol, car il n'est pas au niveau du bécarre. On a ensuite une barre de mesure. Elle annule le bécarre. Du coup, 7 et 8 sont des mi bémols, conformément à l'armature.<br>
-              <b><u>Important :</u></b><br>
-              Les altérations constitutives s'appliquent à toutes les notes portant le même nom, pas juste celles à leur niveau.<br>
-              Les altérations accidentelles ne s'appliquent qu'à leur niveau, et jusqu'à la prochaine barre de mesure seulement.<br>
-              
             </td>
           </tr>
         </table>
+        <b id='constitutive'><u>Important :</u></b><br>
+        Les altérations constitutives s'appliquent à toutes les notes portant le même nom, pas juste celles à leur niveau.<br>
+        Les altérations accidentelles ne s'appliquent qu'à leur niveau, et jusqu'à la prochaine barre de mesure seulement.<br>
+        <br>
         <br>J'ajoute ces trois altérations, qui sont rarement utilisées, mais qu'il faut connaître pour ta culture musicale :<br>
         <img src="{{img_path}}symboles/dbdiese.gif">Le <b>double dièse</b> hausse la note d'un ton (il agit comme deux dièses ;  un "do double dièse" est un ré, par exemple).<br>
         <img src="{{img_path}}symboles/dbbemol.gif">Le <b>double bémol</b> baisse la note d'un ton (comme deux bémols).<br>
@@ -1114,13 +1113,13 @@
             </td>
           </tr>
         </table>
-        <br>
+        <br id="gammeMineure">
         Et du coup, une gamme <b>mineure</b>, qu'est_ce que c'est ? Eh bien, c'est tout le reste. Il existe des classifications, évidemment. Mais tu ne devrais par en entendre parler en cours de solfège avant plusieurs années, je pense.<br>
         <br>Bon, du coup, voilà ce qu'il faut faire :<br>
         <li>Si l'armature est <b>vide</b> (ni dièse, ni bémol à côté de la clé, et peu importe s'il y a des altérations accidentelles dans le morceau), c'est du <b>do majeur</b>. On n'utilise que les touches blanches du clavier du piano, donc, tout simplement.</li>
         <li>Sinon, tu pars d'une note (do ou autre chose), tu regardes ton clavier et tu notes les tons entre chaque note, jusqu'à ce que tu aies écrit sept nombres (des 1 ou des ½), <b>en tenant compte de toutes les altérations dans l'armature</b>, car tu vas, par moment, devoir passer par des touches noires. Ensuite, tu regardes ce que tu as écrit. Il y a un groupe de trois 1 et un groupe de deux 1 ? C'est du majeur. Trouve où il faut décaler et tu as ta note de gamme. Le nom de la gamme est "<i>cette note</i>" suivi de "majeur".<br>
         Mais si tu n'as pas ces deux groupes de 1, c'est une gamme mineure.
-        <br><br>
+        <br><br id="degre">
         Dans une gamme, on définit des <b>degrés</b>, qui ont un nom et un numéro (en chiffres romains).<br>
         <b>
         <table>

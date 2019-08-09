@@ -19,6 +19,7 @@
   position : absolute;
   display : none;
   top : 0;
+  left : 3em;
   height : 10em;
   width : auto;
 }

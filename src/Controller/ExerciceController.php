@@ -200,6 +200,11 @@ class ExerciceController extends ParentController
                      ->getScoreDuNiveau($niveau, $this->getSss('exercice'));
       if ($maxScore->getScore() >= $score) return false;
 
+      // Si le score maximum enregistré est 0, on considère que le niveau n'a
+      // jamais été essayé. Dans ce cas, si le score obtenu cette fois-ci est
+      // 6, on accorde le trophée "niveau réussi du premier coup".
+      $this->obtentionTrophee(3);
+
       $maxScore->setScore($score);
       $em->persist($maxScore);
       $em->flush();

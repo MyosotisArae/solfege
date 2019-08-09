@@ -11,4 +11,13 @@ class TropheeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Trophee::class);
     }
+
+    public function getListe()
+    {
+      $qb = $this->createQueryBuilder('t')
+                 ->orderBy('t.id');
+
+      return $qb->getQuery()
+                ->getResult();
+    }
 }

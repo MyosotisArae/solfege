@@ -8,9 +8,23 @@
 
 {% block titre %}Les trophées{% endblock %}
 
-{% block corps %}
-  {{ parent() }}
+{% block navigation %}
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-1">
+          <a href='score'>
+          <img class="miniBtn cadreRouge" src="{{img_path}}scores.jpg">
+          </a>
+          <div class='tool-tip right'>Scores</div>
+        </div>
+        <div class="col-10">
+          <h1>Les trophées</h1>
+        </div>
+      </div>
+    </div>
+{% endblock %}
 
+{% block page %}
 <div class="container-fluid">
   <div class="row">
     <div class="col-12">
@@ -44,4 +58,8 @@
   </div>
 </div>
 
+{% endblock %}
+
+{% block corps %}
+  {{ parent() }}
 {% endblock %}

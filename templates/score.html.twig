@@ -4,13 +4,35 @@
   {{ parent() }}
 {% endblock %}
 
+{% block navigation %} 
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-1">
+          <a href='main'>
+          <img class="miniBtn cadreRouge" src="{{img_path}}conservatoire.jpg">
+          </a>
+          <div class='tool-tip right'>Accueil</div>
+        </div>
+        <div class="col-10">
+          <h1>Mes scores</h1>
+          {% if app.session.get('niveau') > 0 %}<h2>Niveau {{app.session.get('niveau')}}</h2>{% endif %}
+        </div>
+        <div class="col-1">
+          <a href="apprendre_{{app.session.get('exercice')}}">
+            <div class='tool-tip left'>Tous les trophées</div>
+            <div class="positionFixe miniBtn cadreRouge">
+              <img class="positionRelative" src="{{img_path}}trophees/logo.gif">
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+{% endblock %}
+
 {% block corps %}
   {{ parent() }}
 {% endblock %}
 
-{% block titre %}
-Mes scores
-{% endblock %}
 
 {% block page %}
   {{ parent() }}
@@ -34,7 +56,7 @@ Mes scores
               <div>
                 <table class="sousTitre">
                   <tr>
-                    <td><img class="micro" src="{{img_path}}trophees/logo.jpg"></td>
+                    <td><img class="micro" src="{{img_path}}trophees/logo.gif"></td>
                     <td><h2>Trophées</h2></td>
                   </tr>
                 </table>
