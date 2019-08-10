@@ -1,6 +1,12 @@
 .positionFixe { position : fixed; }
 .positionRelative { position : relative; }
 .positionAbsolue { position : absolute; }
+/* Pour avoir la même marge à gauche et à droite sur les exercices */
+.centrerExercice
+{
+  margin-left : 5%;
+  margin-right : 5%;
+}
 .miniBtn
 {
   height : 10vh;
