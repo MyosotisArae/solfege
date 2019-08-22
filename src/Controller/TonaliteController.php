@@ -58,11 +58,11 @@ class TonaliteController extends ExerciceController
     switch ($this->getSss('niveau'))
     {
       case 1 : $this->setSss('modele', 'QCM_symbole'); break;
-      case 2 :
+      case 2 ://à faire
       case 3 :
       case 5 :
       case 6 : $this->setSss('modele', 'QCM_nom'); break;
-      case 4 : $this->setSss('modele', 'QCM_description'); break;
+      case 4 : $this->setSss('modele', 'QCM_commentaire1'); break;
     }
   }
 

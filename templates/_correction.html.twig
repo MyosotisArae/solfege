@@ -1,4 +1,14 @@
     <div class="col-12"><h2>{{app.session.get('correction')}}</h2></div>
+    {% if app.session.get('media') is defined %}
+      {% if app.session.get('media')|length > 2 %}
+    <div class="positionAbsolue" style="top:150px; right : 100px;">
+      <audio controls controlsList="nodownload" src="{{son_path}}{{app.session.get('media')}}.mp3">
+    </div>
+    <div class="positionAbsolue" style="top:210px; right : 100px;">
+      <img style="width : 300px; height : auto;" src="{{img_path}}instruments/{{app.session.get('media')}}.jpg">
+    </div>
+      {% endif %}
+    {% endif %}
       {% if app.session.get('numQuestion') < 6  %}
       <div class="col-3 cadreReponse">
         <a href="{{app.session.get('exercice')}}">Question suivante</a>

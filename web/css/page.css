@@ -86,11 +86,24 @@ b { font-size : 2em; }
   border-radius : 0.8em;
   text-align : center;
   margin-top : 1em;
+  font-size : 1.5em;
 }
 .cadreReponse a
 {
   font-size : 1.5em;
   color : black;
 }
+.cadreReponse label
+{
+  width : 2em;
+  height : 2em;
+}
+
+
+
+
+
+
+
 .cadreReponse a:hover { font-weight : bold; }
 .fonteInvisible { color : transparent; min-height : 25vh; }

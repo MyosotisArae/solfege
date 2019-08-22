@@ -18,17 +18,19 @@
   <div class="row">
     <div class="col-12">
       <b class="souligne">Question {{app.session.get('numQuestion')}} :</b>&nbsp;
-      <b>Que signifie ce symbole ?</b>
+      <b>{{ (app.session.get('texteQuestion') is defined) ? app.session.get('texteQuestion') : "Que signifie ce symbole ?" }}</b>
     </div>
     <div class="col-12"><img class="imgSymbole" src="{{symb_path}}{{app.session.get('question').reponse.symbole}}.gif"></div>
     {% if app.session.get('correction')|length > 0 %}
       {% include '_correction.html.twig' %}
     {% else %}
       {% for p in app.session.get('question').propositions %}
-    <div class="col-2 contenantCadreReponse">
+    <div class="col-3 contenantCadreReponse">
       <div class="cadreReponse">
         <a href="{{app.session.get('exercice')}}Correction{{loop.index0}}">{{p.nom}}</a>
       </div>
+    </div>
+    <div class="col-1 contenantCadreReponse">
     </div>
       {% endfor %}
     {% endif %}

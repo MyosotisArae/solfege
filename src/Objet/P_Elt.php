@@ -4,7 +4,7 @@ namespace App\Objet;
 use App\Objet\P_Figure;
 use App\Objet\P_Aplacer;
 use App\Objet\P_Clef;
-use App\Objet\P_image;
+use App\Objet\P_constantes;
 
 /**
  * P_Elt
@@ -23,7 +23,7 @@ class P_Elt
     public function __construct(P_Clef $clef)
     {
       // Récupérer l'instance du singleton qui fournit les noms de fichiers image.
-      $this->cst = P_image::getInstance();
+      $this->cst = new P_constantes();
       // Liste des P_Figure à afficher pour cet élément.
       $this->figures = array();
       if ($clef != null) $this->clef = $clef;
@@ -42,7 +42,7 @@ class P_Elt
       $this->duree = 0;
     }
 
-    // Cette propriété permet d'accéder aux constantes dans P_image.
+    // Cette propriété permet d'accéder aux constantes dans P_constantes.
     private $cst;
 
     // La hauteur permettra donc compter les tons entre deux notes.
@@ -146,7 +146,7 @@ class P_Elt
       {
         // Le nom de l'image n'est pas le même si le point est dans un interligne
         // ou sur une ligne (c'est à dire juste un peu au-dessus de la ligne).
-        // C'est la classe P_Image qui va calculer quelle image utiliser.
+        // C'est la classe P_constantes qui va calculer quelle image utiliser.
         $p = new P_Aplacer($this->cst->get_point($niveau), $niveau);
         $this->figures[] = $p;
       }

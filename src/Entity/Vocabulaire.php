@@ -15,6 +15,7 @@ class Vocabulaire
 {
     public function __construct(string $n='', string $d='', string $s='', string $c='')
     {
+      //if ($id != null) $this->id = $id;
       $this->nom = $n;
       $this->description = $d;
       $this->symbole = $s;
@@ -24,7 +25,7 @@ class Vocabulaire
 
       $this->mauvaisesReponses = array();
 
-      // Utilisé pour stocker une liste d'images dans certains exercices,
+      // Utilisï¿½ pour stocker une liste d'images dans certains exercices,
       // comme dans rythme niveau 1 par exemple.
       $this->porteeSilence = null;
       $this->porteeNote = null;
@@ -82,10 +83,10 @@ class Vocabulaire
     private $ordre;
 
     /**
-     * Relation pour trouver les "mauvaises réponses" à associer à chaque élément.
+     * Relation pour trouver les "mauvaises rï¿½ponses" ï¿½ associer ï¿½ chaque ï¿½lï¿½ment.
      * @ORM\ManyToMany(targetEntity="App\Entity\Vocabulaire")
      */
-    private $mauvaisesReponses; // Tableau d'éléments de Vocabulaire
+    private $mauvaisesReponses; // Tableau d'ï¿½lï¿½ments de Vocabulaire
     
     private $porteeSilence;
     private $porteeNote;
@@ -192,6 +193,12 @@ class Vocabulaire
     public function setOrdre(int $o)
     {
         $this->ordre = $o;
+        return $this;
+    }
+
+    public function setId(int $id)
+    {
+        $this->id = $id;
         return $this;
     }
 

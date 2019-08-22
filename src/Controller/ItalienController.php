@@ -63,10 +63,10 @@ class ItalienController extends ExerciceController
     {
       case 1 : $this->setSss('modele', 'QCM_symbole'); break;
       case 2 :
-      case 3 :
-      case 5 :
+      case 3 : $this->setSss('modele', 'QCM_nom'); break;
+      case 4 : $this->setSss('modele', 'QCM_commentaire1'); break;
+      case 5 ://à faire
       case 6 : $this->setSss('modele', 'QCM_nom'); break;
-      case 4 : $this->setSss('modele', 'QCM_description'); break;
     }
   }
 

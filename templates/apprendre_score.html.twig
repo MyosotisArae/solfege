@@ -37,8 +37,8 @@
               {% for trophee in trophees %}
                 <tr{{ trophee.obtenu ? ' class="griser"' : ''}}>
                   <td class="doubleImage">
-                    <img class="micro" src="{{img_path}}trophees/{{trophee.image}}">
-                    <img class="micro2" src="{{img_path}}trophees/{{trophee.image}}">
+                    <img class="micro" src="{{img_path}}trophees/{{trophee.image}}.gif">
+                    <img class="micro2" src="{{img_path}}trophees/{{trophee.image}}.gif">
                   </td>
                   <td>
                     <dl>
@@ -49,6 +49,7 @@
                 </tr>
               {% endfor %}
               </table>
+              <h3><br><br><br><br></h3>
             </div>
           </div>
         </div>

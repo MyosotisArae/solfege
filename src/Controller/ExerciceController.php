@@ -42,7 +42,7 @@ class ExerciceController extends ParentController
   public function apprentissage(string $exercice, $parametres=array())
   {
     $this->reinitNiveau();
-    $this->obtentionTrophee(1);
+    $this->obtentionTrophee(103); // Trophée 103 : Aller sur une page de leçon.
     $this->setSss('exercice', $exercice);
     $this->reinitNiveau();
     return $this->render('/apprendre_'.$exercice.'.html.twig', $parametres);
@@ -57,7 +57,14 @@ class ExerciceController extends ParentController
     if ($bonneReponse->getId() == $reponseFournie->getId())
     {
       $msg = 'Oui, la bonne réponse est bien "';
-      $this->setSss('nbBonnesRep', 1 + $this->getSss('nbBonnesRep'));
+
+      // Si on a cliqué sur Refresh, on valide cette page pour la deuxième fois.
+      // Le score ne doit pas être incrémenté. Vérifier que la question de ce
+      // niveau n'a pas déjà été comptabilisée.
+      if (!$this->dejaValidee())
+      {
+        $this->setSss('nbBonnesRep', 1 + $this->getSss('nbBonnesRep'));
+      }
     }
     else
     {
@@ -189,9 +196,14 @@ class ExerciceController extends ParentController
                 ->getNiveau($this->getSss('exercice'));
   }
 
-  protected function saveScore(int $niveau, int $score)
+  protected function saveScore(int $niveau, int $scoreReel)
   {
-      $this->obtentionTrophee(2);
+      $this->obtentionTrophee(101);
+
+      // Pour marquer l'effort qui a été fait, même si aucune bonne réponse n'a
+      // été donnée, on accorde un score de 1 au joueur.
+      $score = $scoreReel;
+      if ($score == 0) $score = 1;
 
       $em = $this->getDoctrine()
                  ->getManager();
@@ -200,10 +212,7 @@ class ExerciceController extends ParentController
                      ->getScoreDuNiveau($niveau, $this->getSss('exercice'));
       if ($maxScore->getScore() >= $score) return false;
 
-      // Si le score maximum enregistré est 0, on considère que le niveau n'a
-      // jamais été essayé. Dans ce cas, si le score obtenu cette fois-ci est
-      // 6, on accorde le trophée "niveau réussi du premier coup".
-      $this->obtentionTrophee(3);
+      $this->verificationTropheesOnScore($this->getSss('exercice'),$niveau,$score,$maxScore->getScore());
 
       $maxScore->setScore($score);
       $em->persist($maxScore);

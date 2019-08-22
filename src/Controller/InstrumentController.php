@@ -31,7 +31,6 @@ class InstrumentController extends ExerciceController
    */
   public function main3()
   {
-    //$this->getCategorie('nuance');
     $this->reinitNiveau();
     return $this->apprentissage('instrument');
   }
@@ -44,9 +43,9 @@ class InstrumentController extends ExerciceController
   {
     switch ($this->getSss('niveau'))
     {
-      case 1: return $this->getCategorie('instrument');
-      case 2: return $this->getInstrumentsAvecSon();
-      case 3:
+      case 1:
+      case 2:
+      case 3: return $this->getInstrumentsAvecSon();
       case 4: return $this->getInstrumentsAvecSon();
       case 5: return $this->getCategorie('tempo');
       case 6: return $this->getCategorie('expression');
@@ -64,12 +63,6 @@ class InstrumentController extends ExerciceController
       else if (strlen($liste[$i]->getSymbole()) < 1) { unset($liste[$i]); }
     }
     return $liste;
-    /*
-    return $this->getDoctrine()
-                ->getManager()
-                ->getRepository('App:Vocabulaire')
-                ->getInstrumentsAvecSon();
-    */
   }
 
   protected function initNiveau()
@@ -77,9 +70,9 @@ class InstrumentController extends ExerciceController
     parent::initNiveau();
     switch ($this->getSss('niveau'))
     {
-      case 1 : $this->setSss('modele', 'QCM_commentaire'); break;
+      case 1 : $this->setSss('modele', 'QCM_commentaire2'); break;
       case 2 : $this->setSss('modele', 'QCM_son_famille'); break;
-      case 3 : $this->setSss('modele', 'ecoute'); break;
+      case 3 : $this->setSss('modele', 'QCM_son_nom'); break;
       case 4 : $this->setSss('modele', 'QCM_son_nom'); break;
       case 5 :
       case 6 : $this->setSss('modele', 'QCM_nom'); break;
@@ -125,14 +118,18 @@ class InstrumentController extends ExerciceController
                if (strlen($bonneReponse->getDescription()) > 0)
                  $complement =", car ".$bonneReponse->getDescription();
                break;
-      case 2 : $msg .= "ça vient d'un morceau ".$article.$bonneReponse->getNom()." (famille des " . $bonneReponse->getCommentaire().")";
+      case 2 :
+      case 3 : $msg .= "ça vient d'un morceau ".$article.$bonneReponse->getNom()." (famille des " . $bonneReponse->getCommentaire().")";
                break; 
-      case 3 :
+      
       case 4 :
       case 5 :
       case 6 : $msg = "";
     }
     $msg .= $complement.".";
+    
+    // Ajouter le nom de l'image est du son (nom.jpg, nom.mp3)
+    $this->setSss('media', $bonneReponse->getSymbole());
 
     $this->setSss('correction', $msg);
   }

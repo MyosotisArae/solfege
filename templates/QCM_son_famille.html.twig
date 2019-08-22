@@ -27,15 +27,18 @@
     {% else %}
 
       {% for p in app.session.get('question').propositions %}
-    <div class="col-12 offset-1 contenantCadreReponse">
+    <div class="col-2 contenantCadreReponse">
       <div class="cadreReponse">
         <a href="{{app.session.get('exercice')}}Correction{{loop.index0}}">
           {{p.commentaire}}
         </a>
       </div>
     </div>
+    <div class="col-1 contenantCadreReponse">
+    </div>
       {% endfor %}
     {% endif %}
+    
   </div>
 </div>
 {% endblock %}

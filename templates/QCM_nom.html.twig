@@ -23,15 +23,14 @@
     {% if app.session.get('correction')|length > 0 %}
       {% include '_correction.html.twig' %}
     {% else %}
-  </div>
-</div>
-<div class="container-fluid">
-  <div class="row">
+
       {% for p in app.session.get('question').propositions %}
-    <div class="offset-1 col-3 contenantCadreReponse">
+    <div class="col-4 contenantCadreReponse">
       <div class="cadreReponse">
         <a href="{{app.session.get('exercice')}}Correction{{loop.index0}}">{{p.description}}</a>
       </div>
+    </div>
+    <div class="offset-1 contenantCadreReponse">
     </div>
       {% endfor %}
     {% endif %}

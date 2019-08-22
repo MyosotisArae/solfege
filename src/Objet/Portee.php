@@ -3,7 +3,7 @@ namespace App\Objet;
 
 use App\Objet\P_Elt;
 use App\Objet\P_Clef;
-use App\Objet\P_image;
+use App\Objet\P_constantes;
 
 /**
  * Portee
@@ -14,12 +14,12 @@ class Portee
     public function __construct(string $nomCle="")
     {
       // Récupérer l'instance du singleton qui fournit les noms de fichiers image.
-      $this->cst = P_image::getInstance();
+      $this->cst = new P_constantes();
       $this->elements = array();
       $this->addCle($nomCle);
     }
 
-    // Cette propriété permet d'accéder aux constantes dans P_image.
+    // Cette propriété permet d'accéder aux constantes dans P_constantes.
     private $cst;
 
     /**
@@ -85,7 +85,7 @@ class Portee
       *            correspond à la hauteur théorique de F2. De plus, dans ma
       *            notation, "C" est un do en clé de sol, mais un mi en clé
       *            de fa. Moi, ça m'arrange comme ça. N'en parlez à personne.)
-      * @var alteration : nom de l'altération dans P_image
+      * @var alteration : nom de l'altération dans P_constantes
       * @var duree : duree en nombre de croches
       * exemple d'appel pour une blanche en do (grâve) diese :
       *     addNote("C2",$this->cst->get_diese(),4)

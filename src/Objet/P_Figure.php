@@ -1,7 +1,7 @@
 <?php
 namespace App\Objet;
 
-use App\Objet\P_image;
+use App\Objet\P_constantes;
 
 /**
  * P_Figure
@@ -15,22 +15,22 @@ use App\Objet\P_image;
 class P_Figure
 {
     /**
-     * nomImage est une des constantes présentes dans P_image
+     * nomImage est une des constantes présentes dans P_constantes
      * niveau est l'ordonnée de la figure
      */
     public function __construct(string $nomImage="")
     {
       // Récupérer l'instance du singleton qui fournit les noms de fichiers image.
-      $this->cst = P_image::getInstance();
+      $this->cst = new P_constantes();
       $this->image = $nomImage;
     }
 
-    // Cette propriété permet d'accéder aux constantes dans P_image.
+    // Cette propriété permet d'accéder aux constantes dans P_constantes.
     protected $cst;
 
     /**
      * Nom du fichier image (sans l'extension : ce seront tous des .gif)
-     * Utiliser uniquement les constantes présentes dans la classe P_Image
+     * Utiliser uniquement les constantes présentes dans la classe P_constantes
      * @var string
      */
     protected $image;

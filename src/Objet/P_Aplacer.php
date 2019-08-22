@@ -2,7 +2,6 @@
 namespace App\Objet;
 
 use App\Objet\P_Figure;
-use App\Objet\P_image;
 
 /**
  * Aplacer
@@ -11,7 +10,7 @@ use App\Objet\P_image;
 class P_Aplacer extends P_Figure
 {
     /**
-     * nomImage est une des constantes présentes dans P_image
+     * nomImage est une des constantes présentes dans P_constantes
      * niveau est l'ordonnée de la figure
      */
     public function __construct(string $nomImage = "", int $niveau = 0)

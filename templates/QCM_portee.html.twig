@@ -27,21 +27,17 @@
     {% if app.session.get('correction')|length > 0 %}
       {% include '_correction.html.twig' %}
     {% else %}
-  </div>
-</div>
-<div class="container-fluid">
-  <div class="row">
+
       {% for p in app.session.get('question').propositions %}
-    <div class="offset-1 col-1 contenantCadreReponse">
-      <div class="cadreReponse">
+    <div class="col-1 contenantCadreReponse">
         <a href="{{app.session.get('exercice')}}Correction{{loop.index0}}">
           <div class="positionRelative">
             {% include "_portee.html.twig" with {"y":5,"elements":p.porteeNote.elements} only %}
           </div>
         </a>
-        <img src="{{img_path}}portee/vide.gif"><br>
         <img src="{{img_path}}portee/vide.gif">
-      </div>
+    </div>
+    <div class="offset-1>
     </div>
       {% endfor %}
     {% endif %}
