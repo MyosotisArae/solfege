@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Objet\P_constantes;
 use App\Entity\Trophee;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,9 +11,11 @@ class ParentController extends AbstractController
 {
   private $listeDisciplines;  // Noms des disciplines (comme dans ScoreRepository)
   private $maxParDisciplines; // Donne, par discipline et par niveau, le score max
+  protected $cst; // Constantes
 
   public function __construct(SessionInterface $session)
   {
+    $this->cst = new P_constantes();
     if (!isset($this->session)) { $this->session = $session; }
     $this->setSss('nomTrophee', '');
     $this->setSss('imageTrophee', '');
@@ -24,7 +27,7 @@ class ParentController extends AbstractController
                                     [6,6,6,6], // italien
                                     [6,6,6], // instrument
                                     [6], // tonalite
-                                    [6]  // rythme
+                                    [6,6,6]  // rythme
                                     );
   }
 

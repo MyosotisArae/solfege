@@ -1,6 +1,16 @@
+{% if echelle is not defined %}
+{% set echelle = 1 %}
+{% endif %}
+<style>
+ .imgEchelle
+ {
+   width  : {{100*echelle}}px;
+   height : auto;
+ }
+</style>
 <div style="display : inline-block;">
   {# Calculer la largeur de la portee #}
-  {% set largeur = (elements|length)*100 %}
+  {% set largeur = (elements|length)*100*echelle %}
   <div class="positionRelative" style="width:{{largeur}}px;">
     <div class="positionAbsolue" style="top:{{y|default(-5)}}em;">
       {% set x=0 %}
@@ -10,9 +20,10 @@
       {%   set figures = element.figures %}
       {% endif %}
       <div class="positionAbsolue" style="top : 0; left : {{x}}px;">
-        {% include "_figure.html.twig" with {"figures":figures} only %}
+        {#{% include "_figure.html.twig" with {"echelle":echelle, "figures":figures} only %}#}
+        {% include "_figure.html.twig" with {"echelle":echelle, "figures":element.figures} only %}
       </div>
-      {% set x = x + 100 %}
+      {% set x = x + (100*echelle) %}
       {% endfor %}
     </div>
   </div>

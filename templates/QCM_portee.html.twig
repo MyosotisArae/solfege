@@ -18,9 +18,9 @@
   <div class="row">
     <div class="col-12">
       <b class="souligne">Question {{app.session.get('numQuestion')}} :</b>
-      <b>Trouve la note qui a la même durée que ce silence: </b><br><br><br>
+      <b>{{ app.session.get('texteQuestion') }}</b><br><br><br>
       <div class="positionRelative">
-        {% include "_portee.html.twig" with {"elements":app.session.get('question').reponse.porteeSilence.elements} only %}
+        {% include "_portee.html.twig" with {"echelle":0.7, "y":-2, "elements":app.session.get('question').reponse.porteeSilence.elements} only %}
       </div>
       <br><br><br><br><br><br>
     </div>
@@ -29,6 +29,15 @@
     {% else %}
 
       {% for p in app.session.get('question').propositions %}
+
+
+        {% if app.session.get('afficherNom') is defined and app.session.get('afficherNom') == '1' %}
+    <div class="col-4 contenantCadreReponse">
+      <div class="cadreReponse">
+        <a href="{{app.session.get('exercice')}}Correction{{loop.index0}}">{{p.nom}}</a>
+      </div>
+
+        {% else %}
     <div class="col-1 contenantCadreReponse">
         <a href="{{app.session.get('exercice')}}Correction{{loop.index0}}">
           <div class="positionRelative">
@@ -36,10 +45,13 @@
           </div>
         </a>
         <img src="{{img_path}}portee/vide.gif">
+        {% endif %}
+
     </div>
-    <div class="offset-1>
+    <div class="col-1">
     </div>
       {% endfor %}
+
     {% endif %}
   </div>
 </div>

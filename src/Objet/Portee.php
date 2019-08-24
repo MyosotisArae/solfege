@@ -68,7 +68,7 @@ class Portee
         // La portée a bien une clé. On l'ajoute aux figures à afficher.
         $elt = new P_Elt($this->clef); // Ceci définit la clé du P_Elt.
         // Le P_Elt est lui-même une clé, donc on ajoute cette figure à sa liste :
-        $elt->addFigure($this->clef);
+        $elt->addSigne($nomCle);
 
         $this->elements[] = $elt;
       }
@@ -120,12 +120,21 @@ class Portee
       $this->elements[] = $elt;
     }
 
+    public function addSigne(string $nomImage)
+    {
+      $elt = new P_Elt($this->clef); // Ceci définit la clé du P_Elt.
+
+      $elt->addSigne($nomImage);
+
+      $this->elements[] = $elt;
+    }
+
     private function getNiveauSilence(int $duree)
     {
-      // Soupir pointé. Le point est le LA.
+      // Soupir pointé. Le point doit être au niveau du LA.
       if ($duree == 3) return $this->cst->getNiveau("A2");
       
-      // demie pause pointée. Le point est le SI.
+      // demie pause pointée. Le point doit être au niveau du SI.
       if ($duree == 6) return $this->cst->getNiveau("B2");
       
       return 0;

@@ -46,7 +46,7 @@ class RythmeController extends ExerciceController
     {
       case 1: return $this->constructionDesReponsesNiv1();
       case 2: return $this->constructionDesReponsesNiv2();
-      case 3:
+      case 3: return $this->constructionDesReponsesNiv3();
       case 4:
       case 5: return $this->getCategorie('tempo');
       case 6: return $this->getCategorie('expression');
@@ -55,6 +55,7 @@ class RythmeController extends ExerciceController
 
   protected function constructionDesReponsesNiv1()
   {
+    $this->setSss('texteQuestion', 'Trouve la note qui a la même durée que ce silence:');
     $listeDeReponses = $this->getCategorie('silence');
     // Dans la liste ainsi récupérée, ce qui nous intéresse est :
     // - la duree du silence
@@ -82,89 +83,25 @@ class RythmeController extends ExerciceController
     return $resultat;
   }
 
-  protected function addFaussesReponses(Question $question, Vocabulaire $bonneReponse, array $tableau=null)
-  {
-    switch ($this->getSss('niveau'))
-    {
-      case 1 : parent::addFaussesReponses();; break;
-      case 2 : $this->addFaussesReponsesNiv2($question,$bonneReponse); break;
-      case 3 :
-      case 4 :
-      case 5 :
-      case 6 :
-    }
-  }
-
-  protected function addFaussesReponsesNiv2(Question $question, Vocabulaire $bonneReponse)
-  {
-    $nbCrochesBonneReponse = $bonneReponse->getOrdre();
-    $bonneReponse->setNom($this->getDureeMesure($nbCrochesBonneReponse));
-    $bonneReponse->setSymbole("../portee/".$bonneReponse->getSymbole());
-    $question->addReponse($bonneReponse);
-    // Toutes les durees :
-    $dureesEnCroches = [2,4,6,8,9,12];
-    while (count($dureesEnCroches) > 0)
-    {
-      $nbCroches = array_shift($dureesEnCroches);
-      $reponse = new Vocabulaire($this->getDureeMesure($nbCroches));
-      $reponse->setOrdre($nbCroches);
-      if ($nbCroches == $nbCrochesBonneReponse) $reponse->setId($bonneReponse->getId());
-      $question->addProposition($reponse);
-    }
-    $question->melangerPropositions();
-  }
-
-  private function getDureeMesure(int $nbCroches)
-  {
-    // Dans certains cas, ce nb de croches de croches peut être exprimé en noires, voire en blanches.
-    // Pour diversifier les résultats, on va appliquer les statistiques suivantes:
-    // - 40% de chances d'exprimer la durée en blanches si c'est possible.
-    // - 40% de chances de l'exprimer en noires si c'est possible, 60% si on ne peut pas l'exprimer en blanches.
-    // - on l'exprime en croches si on n'est pas tombé sur un des cas précédents.
-    $stat = random_int(0,100);
-    $nbNoires = intval($nbCroches/2);
-    // Cas 1 : On peut l'exprimer en blanches.
-    if ($nbCroches%4 == 0)
-    {
-      $nbBlanches = intval($nbCroches/4);
-      if ($stat < 40)
-      {
-         $reponse = $nbBlanches." blanche";
-         if ($nbBlanches > 1) $reponse .= "s";
-         return $reponse;
-      }
-      else if ($stat < 80)
-      {
-         $reponse = $nbNoires." noire";
-         if ($nbNoires > 1) $reponse .= "s";
-         return $reponse;
-      }
-    }
-    else
-    // Cas 2 : On peut l'exprimer en noires, mais pas en blanches.
-    if ($nbCroches%2 == 0)
-    {
-      if ($stat < 60)
-      {
-         $reponse = $nbNoires." noire";
-         if ($nbNoires > 1) $reponse .= "s";
-         return $reponse;
-      }
-    }
-    return $nbCroches." croches";
-  }
-
   /** Cette fonction crée une liste de questions sur le chiffrage
    *  en montrant un chiffrage et en posant une question sur le contenu
    *  d'une mesure. Il prépare aussi la question :
    *  Indique quelles séries de notes on peut mettre dans ce type de mesure :
-   *  -> x croches, x' noires, x'' noires pointées, x''' blanches
+   *  -> x croches, x' noires, x'' blanches
    */
   private function constructionDesReponsesNiv2()
   {
     $this->setSss('texteQuestion', 'Indique quelles séries de notes on peut mettre dans ce type de mesure :');
     return $this->getCategorie("chiffrage");
   }
+
+  protected function constructionDesReponsesNiv3()
+  {
+    $this->setSss('texteQuestion', 'Quelle est la pulsation ?');
+    $this->setSss('afficherNom', '1');
+    return $this->getCategorie("chiffrage");
+  }
+
   
   /* Retourne un texte retournant la durée du temps fourni.
    * $duree : exprimée en nombre de croches.
@@ -216,6 +153,116 @@ class RythmeController extends ExerciceController
     $texte = "Il fallait choisir la réponse : " . $texte . ".";
     return $texte;
   }
+
+  protected function addFaussesReponses(Question $question, Vocabulaire $bonneReponse, array $tableau=null)
+  {
+    switch ($this->getSss('niveau'))
+    {
+      case 1 : parent::addFaussesReponses();; break;
+      case 2 : $this->addFaussesReponsesNiv2($question,$bonneReponse); break;
+      case 3 : $this->addFaussesReponsesNiv3($question,$bonneReponse); break;
+      case 4 :
+      case 5 :
+      case 6 :
+    }
+  }
+
+  protected function addFaussesReponsesNiv2(Question $question, Vocabulaire $bonneReponse)
+  {
+    $nbCrochesBonneReponse = $bonneReponse->getOrdre();
+    $bonneReponse->setNom($this->getDureeMesure($nbCrochesBonneReponse));
+    $bonneReponse->setSymbole("../portee/".$bonneReponse->getSymbole());
+    $question->addReponse($bonneReponse);
+    // Toutes les durees :
+    $dureesEnCroches = [2,4,6,8,9,12];
+    while (count($dureesEnCroches) > 0)
+    {
+      $nbCroches = array_shift($dureesEnCroches);
+      $reponse = new Vocabulaire($this->getDureeMesure($nbCroches));
+      $reponse->setOrdre($nbCroches);
+      if ($nbCroches == $nbCrochesBonneReponse) $reponse->setId($bonneReponse->getId());
+      $question->addProposition($reponse);
+    }
+    $question->melangerPropositions();
+  }
+  
+  protected function addFaussesReponsesNiv3(Question $question, Vocabulaire $bonneReponse, array $tableau=null)
+  {
+    // Deux réponses possibles : binaire ou ternaire
+    // 1. Créer une portée pour la bonne reponse
+    $nbCrochesBonneReponse = $bonneReponse->getOrdre();
+    $pn = new Portee($this->cst->get_cle_sol());   // La clé,
+    $pn->addSigne($bonneReponse->getSymbole());    // le chiffrage,
+    $this->addMesure($nbCrochesBonneReponse, $pn); // les notes d'une mesure
+    $pn->addSigne("barre_mesure");                 // une barre de mesure,
+    $this->addMesure($nbCrochesBonneReponse, $pn); // une autre mesure
+    $pn->addSigne("barre_mesure");                 // une barre de mesure,
+    $this->addMesure($nbCrochesBonneReponse, $pn); // une dernière mesure
+    $pn->addSigne("barre_mesure_fin");             // une barre de mesure de fin.
+    $bonneReponse->setPorteeSilence($pn);
+    $question->setReponse($bonneReponse);
+
+    // 2. Deux réponses possibles
+    $autreRep = new Vocabulaire();
+    if ($bonneReponse->getNom() == "binaire") $autreRep->setNom("ternaire");
+    else $autreRep->setNom("binaire");
+    $question->addProposition($bonneReponse);
+    $question->addProposition($autreRep);
+    $question->melangerPropositions();
+  }
+
+  private function addMesure(int $nbCrochesBonneReponse, Portee $p)
+  {
+    $nbCroches = $nbCrochesBonneReponse;
+    while ($nbCroches > 0)
+    {
+      $dureeMax = min(8,$nbCroches);
+      $duree = random_int(1, $dureeMax);
+      $nomNote = $this->cst->getLettreRandom().strval(random_int(2,3));
+      $p->addNote($nomNote, "", $duree);
+      $nbCroches -= $duree;
+    }
+  }
+
+  private function getDureeMesure(int $nbCroches)
+  {
+    // Dans certains cas, ce nb de croches de croches peut être exprimé en noires, voire en blanches.
+    // Pour diversifier les résultats, on va appliquer les statistiques suivantes:
+    // - 40% de chances d'exprimer la durée en blanches si c'est possible.
+    // - 40% de chances de l'exprimer en noires si c'est possible, 60% si on ne peut pas l'exprimer en blanches.
+    // - on l'exprime en croches si on n'est pas tombé sur un des cas précédents.
+    $stat = random_int(0,100);
+    $nbNoires = intval($nbCroches/2);
+    // Cas 1 : On peut l'exprimer en blanches.
+    if ($nbCroches%4 == 0)
+    {
+      $nbBlanches = intval($nbCroches/4);
+      if ($stat < 40)
+      {
+         $reponse = $nbBlanches." blanche";
+         if ($nbBlanches > 1) $reponse .= "s";
+         return $reponse;
+      }
+      else if ($stat < 80)
+      {
+         $reponse = $nbNoires." noire";
+         if ($nbNoires > 1) $reponse .= "s";
+         return $reponse;
+      }
+    }
+    else
+    // Cas 2 : On peut l'exprimer en noires, mais pas en blanches.
+    if ($nbCroches%2 == 0)
+    {
+      if ($stat < 60)
+      {
+         $reponse = $nbNoires." noire";
+         if ($nbNoires > 1) $reponse .= "s";
+         return $reponse;
+      }
+    }
+    return $nbCroches." croches";
+  }
   
   /* Retourne un texte retournant la durée du temps fourni.
    * $duree : exprimée en nombre de croches.
@@ -241,9 +288,9 @@ class RythmeController extends ExerciceController
     parent::initNiveau();
     switch ($this->getSss('niveau'))
     {
-      case 1 : $this->setSss('modele', 'QCM_portee'); break;
+      case 1 :
+      case 3 : $this->setSss('modele', 'QCM_portee'); break;
       case 2 : $this->setSss('modele', 'QCM_symbole'); break;
-      case 3 : $this->setSss('modele', 'QCM_symbole_choix_multiple'); break;
       case 5 :
       case 6 : $this->setSss('modele', 'QCM_nom'); break;
       case 4 : $this->setSss('modele', 'QCM_commentaire1'); break;
@@ -261,9 +308,9 @@ class RythmeController extends ExerciceController
                if ($bonneReponse->getOrdre() > 1) $msg .= "s";
                $msg .= " (" . $bonneReponse->getCommentaire().").";
                break;
-      case 2 : $msg .= $bonneReponse->getCommentaire(). " ".$bonneReponse->getDescription();
+      case 2 :
+      case 3 : $msg .= $bonneReponse->getCommentaire(). " ".$bonneReponse->getDescription();
                break;
-      case 3 :
       case 4 :
       case 5 :
       case 6 : $msg = "";
