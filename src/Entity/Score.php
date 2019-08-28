@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Objet\P_constantes;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -48,7 +49,7 @@ class Score
      * @ORM\Column(name="score", type="integer", nullable=false)
      */
     private $score;
-    
+
     ///////////////////////////////////////////////////////////////////////////////
     //                              Getteurs                                     //
     ///////////////////////////////////////////////////////////////////////////////
@@ -73,8 +74,14 @@ class Score
         return $this->score;
     }
 
+    public function getScoreMax(): ?int
+    {
+        $cst = new P_constantes();
+        return $cst->getScoreMax_int($this->getDiscipline(), $this->getNiveau());
+    }
+
     ///////////////////////////////////////////////////////////////////////////////
-    //                              Getteurs                                     //
+    //                              Setteurs                                     //
     ///////////////////////////////////////////////////////////////////////////////
 
     public function setScore(int $s)

@@ -16,6 +16,7 @@ class Portee
       // Récupérer l'instance du singleton qui fournit les noms de fichiers image.
       $this->cst = new P_constantes();
       $this->elements = array();
+      $this->echelle = 1;
       $this->addCle($nomCle);
     }
 
@@ -43,7 +44,7 @@ class Portee
     //                              Getteurs                                     //
     ///////////////////////////////////////////////////////////////////////////////
 
-    public function getCle(): ?array
+    public function getCle(): ?P_Clef
     {
         return $this->clef;
     }
@@ -52,6 +53,21 @@ class Portee
     {
         return $this->elements;
     }
+
+    public function getEchelle(): ?float
+    {
+        return $this->echelle;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////
+    //                              Setteurs                                     //
+    ///////////////////////////////////////////////////////////////////////////////
+
+    public function setEchelle(float $echelle)
+    {
+        $this->echelle = $echelle;
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////////
     //                              Fonctions                                    //
@@ -85,12 +101,13 @@ class Portee
       *            correspond à la hauteur théorique de F2. De plus, dans ma
       *            notation, "C" est un do en clé de sol, mais un mi en clé
       *            de fa. Moi, ça m'arrange comme ça. N'en parlez à personne.)
-      * @var alteration : nom de l'altération dans P_constantes
+      * @var alteration : nom de l'altération dans P_constantes (altération de la 1ere note, $nom)
       * @var duree : duree en nombre de croches
       * exemple d'appel pour une blanche en do (grâve) diese :
       *     addNote("C2",$this->cst->get_diese(),4)
+      * @var autresNotes : noms des notes supplémentaires superposées (pour faire un accord)
       */
-    public function addNote(string $nom, string $alteration, int $duree)
+    public function addNote(string $nom, string $alteration, int $duree, $autresNotes = [])
     {
       $elt = new P_Elt($this->clef); // Ceci définit la clé du P_Elt.
 
@@ -105,6 +122,13 @@ class Portee
 
       // Ajouter les barres éventuelles :
       $elt->addBarres($niveau);
+
+      foreach ($autresNotes as $noteAccord)
+      {
+        $niveau = $elt->addNote($noteAccord, $duree);
+        $elt->addPoint($duree, $niveau);
+        $elt->addBarres($niveau);
+      }
 
       $this->elements[] = $elt;
     }
@@ -126,6 +150,11 @@ class Portee
 
       $elt->addSigne($nomImage);
 
+      $this->elements[] = $elt;
+    }
+
+    public function addElt(P_Elt $elt)
+    {
       $this->elements[] = $elt;
     }
 

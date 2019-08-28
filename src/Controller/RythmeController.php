@@ -67,7 +67,6 @@ class RythmeController extends ExerciceController
     // Pour chacune d'elles, on va construire une portée contenant des
     // notes, et une autre contenant des silences.
     $resultat = array();
-    $cst = new P_constantes();
     foreach ($listeDeReponses as $rep)
     {
       $ps = new Portee("");
@@ -75,7 +74,7 @@ class RythmeController extends ExerciceController
       $rep->setPorteeSilence($ps);
       // Ajouter la note de même durée que ce silence
       $pn = new Portee("");
-      $nomNote = $cst->getLettreRandom().strval(random_int(2,3));
+      $nomNote = $this->cst->getLettreRandom().strval(random_int(2,3));
       $pn->addNote($nomNote, "", $rep->getOrdre());
       $rep->setPorteeNote($pn);
       $resultat[] = $rep;

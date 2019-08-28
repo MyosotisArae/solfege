@@ -2,6 +2,7 @@
 namespace App\Repository;
 
 use App\Entity\Score;
+use App\Objet\P_constantes;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -10,18 +11,8 @@ class ScoreRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Score::class);
+        $this->cst = new P_constantes();
         $this->listeDisciplines = array("italien","instrument","tonalite","rythme");
-    }
-    
-    public $listeDisciplines;
-    
-    ///////////////////////////////////////////////////////////////////////////////
-    //                              Mes fonctions                                //
-    ///////////////////////////////////////////////////////////////////////////////
-
-    private function getIndiceDiscipline($discipline)
-    {
-      return array_search($discipline, $this->listeDisciplines);
     }
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -44,7 +35,7 @@ class ScoreRepository extends ServiceEntityRepository
 
       // Classer ces objets par discipline
       $liste = array();
-      foreach ($this->listeDisciplines as $dis)
+      foreach ($this->cst->get_listeDisciplines() as $dis)
       {
         $liste[$dis] = array();
       }
@@ -62,13 +53,18 @@ class ScoreRepository extends ServiceEntityRepository
       $qb = $this->createQueryBuilder('s')
                  ->select('MAX(s.niveau)')
                  ->where('s.discipline = :d')
-                 ->setParameter('d', $this->getIndiceDiscipline($discipline))
-                 ->andWhere('s.score = 6');
+                 ->setParameter('d', $this->cst->getIndiceDiscipline($discipline));
 
       $niveau = $qb->getQuery()
                    ->getSingleScalarResult();
 
       if ($niveau == null) $niveau = 0;
+      else
+      {
+        // Un score a été enregistré pour cette discipline. Vérifier si c'est le score max.
+        $ceScore = $this->getScoreDuNiveau($niveau, $discipline);
+        if ($ceScore->getScore() < $ceScore->getScoreMax()) { $niveau -= 1; }
+      }
 
       return $niveau;
     }
@@ -77,16 +73,17 @@ class ScoreRepository extends ServiceEntityRepository
     // une nouvelle entité si aucun score n'existe encore pour ces critères.
     public function getScoreDuNiveau(int $niveau, string $discipline)
     {
+      $indiceDiscipline = $this->cst->getIndiceDiscipline($discipline);
       $qb = $this->createQueryBuilder('s')
                  ->where('s.discipline = :d')
-                 ->setParameter('d', $this->getIndiceDiscipline($discipline))
+                 ->setParameter('d', $indiceDiscipline)
                  ->andWhere('s.niveau = :n')
                  ->setParameter('n', $niveau);
 
       $score = $qb->getQuery()
                   ->getOneOrNullResult();
 
-      if ($score == null) $score = new Score($niveau, $this->getIndiceDiscipline($discipline), 0);
+      if ($score == null) $score = new Score($niveau, $indiceDiscipline, 0);
 
       return $score;
     }

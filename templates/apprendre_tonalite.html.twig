@@ -81,7 +81,7 @@
             - la tierce<br>
             - la sixte<br>
             - la septième<br>
-            Les qualificatifs "augmenté" et "diminué" s'appliquent donc au reste, et c'est <a class="enGras" href="#augmente">ICI</a> que tu auras plus re renseignements sur eux.
+            Les qualificatifs "augmenté" et "diminué" s'appliquent donc au reste, et c'est <a class="enGras" href="#augmente">ICI</a> que tu auras plus de renseignements sur eux.
             <b>
             <table class="tableau">
               <tr>
@@ -127,34 +127,17 @@
                    </tr>
                    <tr>
                      <td class="positionRelative">
-                         {% set listeNotesDo =
-                                [
-                                  {
-                                    image: 'noire',
-                                    'niveau' : 3
-                                  },
-                                  {
-                                    image: 'barre',
-                                    'niveau' : 3
-                                  }
-                                ]
-                          %}
-                         {% set listeNotesRe =
-                                [
-                                  {
-                                    image: 'noire',
-                                    'niveau' : 2
-                                  }
-                                ]
-                          %}
-                         {% set portee = [listeNotesDo,listeNotesRe]
-                          %}
-                         {% include "_portee.html.twig" with {"elements":portee} only %}
+                         {% set indice = 0 %} 
+                         {% include "_portee.html.twig" with {"elements":listePortees[0].elements, "echelle":listePortees[0].echelle, "indice":indice} only %}
                      </td>
                      <td>
-                       En partant du do, à gauche du clavier, il faut compter un demi ton de plus pour chaque touche rencontrée. Regarde ce bout de clavier. Il part du do. Puis on a une touche noire (appelée do dièse, ou ré bémol), ça nous fait un demi ton. Puis on a une autre touche (blanche, mais peu importe), ce qui nous fait un demi ton de plus. On est arrivé sur le ré en comptant deux demi tons.<br>
+                       En partant du do, à gauche du clavier, il faut compter un demi ton de plus pour chaque touche rencontrée. Regarde ce bout de clavier. Il part du do. Puis on a une touche noire (appelée do dièse, ou ré bémol), ça nous fait un demi ton. Puis on a une autre touche (blanche, mais peu importe), ce qui nous fait un demi ton de plus. On est arrivé sur le ré en comptant deux demi tons.
+                     </td>
+                    </tr>
+                    <tr>
+                      <td colspan=2>
                        Donc, do-ré = 1 ton. Ce do-ré "normal" est une seconde majeure.<br>
-                       Partir du do te donnera tous les intervalles "normaux" (donc majeurs). On vient de retrouver l'intervalle de la seconde, mais tu peux retrouver la tierce (2 tons) et tous les autres avec la même méthode.<br>
+                       Partir du do te donnera toujours un intervalle "normal" (c'est à dire majeur) s'il n'y a aucun dièse ni bémol. On vient de retrouver l'intervalle de la seconde, mais tu peux retrouver la tierce (2 tons) et tous les autres avec la même méthode.<br>
                      </td>
                    </tr>
                  </table>
@@ -178,24 +161,8 @@
                    </tr>
                    <tr>
                      <td class="positionRelative">
-                         {% set listeNotesMi =
-                                [
-                                  {
-                                    image: 'noire',
-                                    'niveau' : 1
-                                  }
-                                ]
-                          %}
-                         {% set listeNotesFa =
-                                [
-                                  {
-                                    image: 'noire',
-                                    'niveau' : 0
-                                  }
-                                ]
-                          %}
-                         {% set portee = [listeNotesMi,listeNotesFa] %}
-                         {% include "_portee.html.twig" with {"elements":portee} only %}
+                         {% set indice = 1 %} 
+                         {% include "_portee.html.twig" with {"elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
                      </td>
                      <td>
                        Cette fois, on part du mi. La touche suivante est déjà le fa. On n'a donc compté qu'un demi ton.<br>
@@ -221,24 +188,8 @@
                    </tr>
                    <tr>
                      <td class="positionRelative">
-                         {% set listeNotesSol =
-                                [
-                                  {
-                                    image: 'noire',
-                                    'niveau' : -1
-                                  }
-                                ]
-                          %}
-                         {% set listeNotesSi =
-                                [
-                                  {
-                                    image: 'noire',
-                                    'niveau' : -3
-                                  }
-                                ]
-                          %}
-                         {% set portee = [listeNotesSol,listeNotesSi] %}
-                         {% include "_portee.html.twig" with {"elements":portee} only %}
+                         {% set indice = 2 %} 
+                         {% include "_portee.html.twig" with {"elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
                      </td>
                      <td>
                        +½ par touche:
@@ -252,7 +203,7 @@
                    </tr>
                    <tr>
                      <td colspan=2>
-                       Si on part du do, on a forcément du majeur. C'est comme ça que tu peux retrouver (<u>avec le clavier que tu as dessiné</u>) qu'une tierce majeure fait 2 tons.<br>
+                       Si on part du do, sans altération, on a forcément du majeur. C'est comme ça que tu peux retrouver (<u>avec le clavier que tu as dessiné</u>) qu'une tierce majeure fait 2 tons.<br>
                        Et on en déduit que sol-si est majeur aussi (comme do-mi).
                      </td>
                    </tr>
@@ -280,8 +231,8 @@
                    </tr>
                    <tr>
                      <td class="positionRelative">
-                         {% set portee = [listeNotesRe,listeNotesFa] %}
-                         {% include "_portee.html.twig" with {"elements":portee} only %}
+                         {% set indice = 3 %} 
+                         {% include "_portee.html.twig" with {"elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
                      </td>
                      <td>
                        Toujours la même méthode : en suivant le clavier.<br>
@@ -303,7 +254,7 @@
             </table>
 
             Allez, maintenant que tu as bien compris, on corse un peu tout ça.<br>
-            Va savoir pourquoi, la quarte, la quinte et l'octave, quand ils sont "normaux", s'appellent "juste" plutôt que "majeur". Oui, c'est absurde. Mais c'est comme ça.<br>
+            Va savoir pourquoi, la quarte, la quinte et l'octave, quand ils sont "normaux", s'appellent "juste" plutôt que "majeur". Oui, c'est absurde, arbitraire, et, disons le carrément, idiot, mais c'est comme ça.<br>
             La bonne nouvelle, c'est qu'on les retrouve elles aussi grâce à notre petit clavier, en partant du do.<br>
 
             <table id="quarteJuste">
@@ -320,8 +271,8 @@
                    </tr>
                    <tr>
                      <td class="positionRelative">
-                         {% set portee = [listeNotesDo,listeNotesFa] %}
-                         {% include "_portee.html.twig" with {"elements":portee} only %}
+                         {% set indice = 4 %} 
+                         {% include "_portee.html.twig" with {"elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
                      </td>
                      <td>
                        <table>
@@ -363,8 +314,8 @@
                    </tr>
                    <tr>
                      <td class="positionRelative">
-                         {% set portee = [listeNotesDo,listeNotesSol] %}
-                         {% include "_portee.html.twig" with {"elements":portee} only %}
+                         {% set indice = 5 %} 
+                         {% include "_portee.html.twig" with {"elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
                      </td>
                      <td>
                        <table>
@@ -408,16 +359,8 @@
                    </tr>
                    <tr>
                      <td class="positionRelative">
-                         {% set listeNotesDoDuHaut =
-                                [
-                                  {
-                                    image: 'noire',
-                                    'niveau' : -4
-                                  }
-                                ]
-                          %}
-                         {% set portee = [listeNotesDo,listeNotesDoDuHaut] %}
-                         {% include "_portee.html.twig" with {"elements":portee} only %}
+                         {% set indice = 6 %} 
+                         {% include "_portee.html.twig" with {"elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
                      </td>
                      <td>
                        <table>
@@ -454,8 +397,8 @@
 
             Voilà voilà voilà.<br id="augmente">
             C'est le bon moment pour faire une pause, parce que, non, on n'a pas fini.<br>
-            Ce qui suit n'est peut-être pas au programme de cette année. Viens le relire quand on t'aura parlé, au cours de solfège, des termes "augmenté" et "diminué". Si ça ne te dit rien, passe directement à l'encadré suivant en cliquant <a class="enGras" href="#alterations">ICI</a>.<br><br>
-            Ces deux mots ("augmenté" et "diminué") sont des <a class="enGras" href="#qualificatif">qualificatifs</a> pour des intervalles qui contiennent une <a class="enGras" href="#alterations">altération</a>, plus particulièrement un dièse ou un bémol.<br>
+            On va maintenant parler des mots "augmenté" et "diminué". <br>
+            Ces deux mots sont des <a class="enGras" href="#qualificatif">qualificatifs</a> pour des intervalles qui contiennent une <a class="enGras" href="#alterations">altération</a>, et plus précisément un dièse ou un bémol.<br>
             
             <table>
               <tr>
@@ -469,40 +412,16 @@
               </tr>
               <tr>
                 <td>
-            {% set listeNotesDoDiese =
-                   [
-                     {
-                       image: 'noire',
-                       'niveau' : -4
-                     },
-                     {
-                       image: 'diese',
-                       'niveau' : -4
-                     }
-                   ]
-             %}
-            {% set portee = [listeNotesDoDiese] %}
-            {% include "_portee.html.twig" with {"elements":portee} only %}
+                  {% set indice = 7 %} 
+                  {% include "_portee.html.twig" with {"y":-3, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
                 </td>
                 <td>
                   Ceci est un do dièse.
                 </td>
                 <td></td>
                 <td>
-            {% set listeNotesReDuHautBemol =
-                   [
-                     {
-                       image: 'noire',
-                       'niveau' : -5
-                     },
-                     {
-                       image: 'bemol',
-                       'niveau' : -5
-                     }
-                   ]
-             %}
-            {% set portee = [listeNotesReDuHautBemol] %}
-            {% include "_portee.html.twig" with {"elements":portee} only %}
+                  {% set indice = 8 %} 
+                  {% include "_portee.html.twig" with {"y":-3, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
                 </td>
                 <td>
                   Ceci est un ré bémol.
@@ -528,22 +447,22 @@
               </tr>
               <tr>
                 <td>
-                  {% set portee = [listeNotesDoDuHaut,listeNotesDoDuHaut] %}
-                  {% include "_portee.html.twig" with {"elements":portee} only %}
+                  {% set indice = 9 %} 
+                  {% include "_portee.html.twig" with {"y":-2, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
                 </td>
                 <td></td>
                 <td>
-                  {% set portee = [listeNotesDoDuHaut,listeNotesDoDiese] %}
-                  {% include "_portee.html.twig" with {"elements":portee} only %}
+                  {% set indice = 10 %} 
+                  {% include "_portee.html.twig" with {"y":-2, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
                 </td>
               </tr>
               <tr>
                 <td>
-                  <br><br><br>zéro ton d'écart<br><br><br><br>
+                  <br>zéro ton d'écart<br><br><br><br>
                 </td>
                 <td></td>
                 <td>
-                  <br><br><br>un demi ton d'écart<br><br><br><br>
+                  <br>un demi ton d'écart<br><br><br><br>
                 </td>
               </tr>
               <tr>
@@ -575,55 +494,31 @@
               </tr>
               <tr>
                 <td>
-                  {% set listeNotesReBemol =
-                         [
-                           {
-                             image: 'noire',
-                             'niveau' : 2
-                           },
-                           {
-                             image: 'bemol',
-                             'niveau' : 2
-                           }
-                         ]
-                   %}
-                  {% set portee = [listeNotesDo,listeNotesReBemol] %}
-                  {% include "_portee.html.twig" with {"elements":portee} only %}
+                  {% set indice = 11 %} 
+                  {% include "_portee.html.twig" with {"y":-2, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
                 </td>
                 <td></td>
                 <td>
-                  {% set portee = [listeNotesDo,listeNotesRe] %}
-                  {% include "_portee.html.twig" with {"elements":portee} only %}
+                  {% set indice = 12 %} 
+                  {% include "_portee.html.twig" with {"y":-2, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
                 </td>
                 <td></td>
                 <td>
-                  {% set listeNotesReDiese =
-                         [
-                           {
-                             image: 'noire',
-                             'niveau' : 2
-                           },
-                           {
-                             image: 'diese',
-                             'niveau' : 2
-                           }
-                         ]
-                   %}
-                  {% set portee = [listeNotesDo,listeNotesReDiese] %}
-                  {% include "_portee.html.twig" with {"elements":portee} only %}
+                  {% set indice = 13 %} 
+                  {% include "_portee.html.twig" with {"y":-2, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
                 </td>
               </tr>
               <tr>
                 <td>
-                  <br><br><br><br>un demi ton d'écart<br><br><br>
+                  <br>un demi ton d'écart<br><br><br>
                 </td>
                 <td></td>
                 <td>
-                  <br><br><br><br>un ton d'écart<br><br><br>
+                  <br>un ton d'écart<br><br><br>
                 </td>
                 <td></td>
                 <td>
-                  <br><br><br><br>un ton et demi d'écart<br><br><br>
+                  <br>un ton et demi d'écart<br><br><br>
                 </td>
               </tr>
               <tr>
@@ -661,55 +556,31 @@
               </tr>
               <tr>
                 <td>
-                  {% set listeNotesMiBemol =
-                         [
-                           {
-                             image: 'noire',
-                             'niveau' : 1
-                           },
-                           {
-                             image: 'bemol',
-                             'niveau' : 1
-                           }
-                         ]
-                   %}
-                  {% set portee = [listeNotesDo,listeNotesMiBemol] %}
-                  {% include "_portee.html.twig" with {"elements":portee} only %}
+                  {% set indice = 14 %} 
+                  {% include "_portee.html.twig" with {"y":-2, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
                 </td>
                 <td></td>
                 <td>
-                  {% set portee = [listeNotesDo,listeNotesMi] %}
-                  {% include "_portee.html.twig" with {"elements":portee} only %}
+                  {% set indice = 15 %} 
+                  {% include "_portee.html.twig" with {"y":-2, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
                 </td>
                 <td></td>
                 <td>
-                  {% set listeNotesMiDiese =
-                         [
-                           {
-                             image: 'noire',
-                             'niveau' : 1
-                           },
-                           {
-                             image: 'diese',
-                             'niveau' : 1
-                           }
-                         ]
-                   %}
-                  {% set portee = [listeNotesDo,listeNotesMiDiese] %}
-                  {% include "_portee.html.twig" with {"elements":portee} only %}
+                  {% set indice = 16 %} 
+                  {% include "_portee.html.twig" with {"y":-2, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
                 </td>
               </tr>
               <tr>
                 <td>
-                  <br><br><br><br>un demi ton et demi d'écart<br><br><br>
+                  <br>un demi ton et demi d'écart<br><br><br>
                 </td>
                 <td></td>
                 <td>
-                  <br><br><br><br>deux tons d'écart<br><br><br>
+                  <br>deux tons d'écart<br><br><br>
                 </td>
                 <td></td>
                 <td>
-                  <br><br><br><br>deux tons et demi d'écart<br><br><br>
+                  <br>deux tons et demi d'écart<br><br><br>
                 </td>
               </tr>
               <tr>
@@ -747,55 +618,31 @@
               </tr>
               <tr>
                 <td>
-                  {% set listeNotesFaBemol =
-                         [
-                           {
-                             image: 'noire',
-                             'niveau' : 0
-                           },
-                           {
-                             image: 'bemol',
-                             'niveau' : 0
-                           }
-                         ]
-                   %}
-                  {% set portee = [listeNotesDo,listeNotesFaBemol] %}
-                  {% include "_portee.html.twig" with {"elements":portee} only %}
+                  {% set indice = 17 %} 
+                  {% include "_portee.html.twig" with {"y":-2, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
                 </td>
                 <td></td>
                 <td>
-                  {% set portee = [listeNotesDo,listeNotesFa] %}
-                  {% include "_portee.html.twig" with {"elements":portee} only %}
+                  {% set indice = 18 %} 
+                  {% include "_portee.html.twig" with {"y":-2, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
                 </td>
                 <td></td>
                 <td>
-                  {% set listeNotesFaDiese =
-                         [
-                           {
-                             image: 'noire',
-                             'niveau' : 0
-                           },
-                           {
-                             image: 'diese',
-                             'niveau' : 0
-                           }
-                         ]
-                   %}
-                  {% set portee = [listeNotesDo,listeNotesFaDiese] %}
-                  {% include "_portee.html.twig" with {"elements":portee} only %}
+                  {% set indice = 19 %} 
+                  {% include "_portee.html.twig" with {"y":-2, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
                 </td>
               </tr>
               <tr>
                 <td>
-                  <br><br><br><br>2 tons d'écart<br><br><br>
+                  <br>2 tons d'écart<br><br><br>
                 </td>
                 <td></td>
                 <td>
-                  <br><br><br><br>2 tons ½ d'écart<br><br><br>
+                  <br>2 tons ½ d'écart<br><br><br>
                 </td>
                 <td></td>
                 <td>
-                  <br><br><br><br>3 tons d'écart<br><br><br>
+                  <br>3 tons d'écart<br><br><br>
                 </td>
               </tr>
               <tr>
@@ -823,151 +670,44 @@
             On va s'arrêter là. Tu sais à qui demander si tout ça n'est pas clair pour toi.<br>
             Une dernière remarque : je ne t'ai montré que des intervalles <b>ascendants</b>, c'est à dire où la deuxième note est plus haute que la première.<br>
             
-            On peut aussi avoir des intervalles <b>descendants</b>, et ça ne change pas grand chose:<br><br>
-            {% set portee = [listeNotesFa,listeNotesDo] %}
-            {% include "_portee.html.twig" with {"elements":portee} only %}
-            <br><br><br><br><br>
+            <table>
+              <tr>
+                <td>
+                  On peut aussi avoir des intervalles <b>descendants</b>, et ça ne change pas grand chose:
+                </td>
+                <td>
+                  {% set indice = 20 %} 
+                  {% include "_portee.html.twig" with {"y":-2, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
+                </td>
+              </tr>
+            </table>
+            <br><br><br><br>
             De même, les intervalles que tu viens de voir sont <b>mélodiques</b>, c'est à dire que les notes sont jouées l'une après l'autre, comme ici :<br><br><br>
-            {% set cleSol =
-                   [
-                     {
-                       image: 'cle_sol',
-                       'niveau' : 0
-                     }
-                   ]
-             %}{% set listeNotesA2 =
-                   [
-                     {
-                       image: 'noire',
-                       'niveau' : -2
-                     }
-                   ]
-             %}
-            {% set listeNotesB2 =
-                   [
-                     {
-                       image: 'noire',
-                       'niveau' : -3
-                     }
-                   ]
-             %}
-             {% set listeNotesD3 =
-                   [
-                     {
-                       image: 'noire',
-                       'niveau' : -5
-                     }
-                   ]
-             %}
-             {% set listeNotesE3 =
-                   [
-                     {
-                       image: 'noire',
-                       'niveau' : -6
-                     }
-                   ]
-             %}
-             {% set listeNotesA3 =
-                   [
-                     {
-                       image: 'blanche',
-                       'niveau' : -9
-                     },
-                     {
-                       image: 'barre',
-                       'niveau' : -9
-                     }
-                   ]
-             %}
-             {% set listeNotesG3 =
-                   [
-                     {
-                       image: 'blanche',
-                       'niveau' : -8
-                     }
-                   ]
-             %}
-             {% set listeNotesC3 =
-                   [
-                     {
-                       image: 'ronde',
-                       'niveau' : -4
-                     }
-                   ]
-             %}
-            {% set portee = [cleSol,listeNotesA2,listeNotesB2,listeNotesD3,listeNotesE3,listeNotesA3,listeNotesG3,listeNotesC3] %}
-            {% include "_portee.html.twig" with {"elements":portee} only %}
-            <br><br><br><br id="harmonique">
-            <b class="fonteInvisible">blablablablablablablabla<audio controls controlsList="nodownload" src="{{dictee_path}}music1.mp3"></audio></b><br>
-            Mais si les notes sont jouées en même temps (on appelle ça un accord), ça devient un intervalle <b>harmonique</b>, comme ces trois là :<br><br><br><br><br>
-            {% set listeNotesC2E3 =
-                   [
-                     {
-                       image: 'ronde',
-                       'niveau' : 3
-                     },
-                     {
-                       image: 'barre',
-                       'niveau' : 3
-                     },
-                     {
-                       image: 'ronde',
-                       'niveau' : -6
-                     }
-                   ]
-             %}
-            {% set listeNotesG2G3 =
-                   [
-                     {
-                       image: 'ronde',
-                       'niveau' : -1
-                     },
-                     {
-                       image: 'ronde',
-                       'niveau' : -8
-                     }
-                   ]
-             %}
-            {% set listeNotesC2G4 =
-                   [
-                     {
-                       image: 'ronde',
-                       'niveau' : 3
-                     },
-                     {
-                       image: 'barre',
-                       'niveau' : 3
-                     },
-                     {
-                       image: 'ronde',
-                       'niveau' : -6
-                     },
-                     {
-                       image: 'ronde',
-                       'niveau' : -15
-                     },
-                     {
-                       image: 'barre',
-                       'niveau' : -15
-                     },
-                     {
-                       image: 'barre',
-                       'niveau' : -13
-                     },
-                     {
-                       image: 'barre',
-                       'niveau' : -11
-                     },
-                     {
-                       image: 'barre',
-                       'niveau' : -9
-                     }
-                   ]
-             %}
-            {% set portee = [cleSol,listeNotesC2E3,listeNotesG2G3,listeNotesC2G4] %}
-            {% include "_portee.html.twig" with {"elements":portee} only %}
-            <audio controls controlsList="nodownload" src="{{dictee_path}}music2.mp3"></audio>
-            <br><br><br><br><br><br>
+            <table>
+              <tr>
+                <td>
+            {% set indice = 21 %} 
+            {% include "_portee.html.twig" with {"y":-3, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
+                </td>
+                <td>
+                <b class="fonteInvisible">bla<audio controls controlsList="nodownload" src="{{dictee_path}}music1.mp3"></audio></b>
+                </td>
+              </tr>
+            </table>
+            <br><br id="harmonique">
+            Mais si les notes sont jouées en même temps (on appelle ça un accord), ça devient un intervalle <b>harmonique</b>, comme ces trois là :<br><br>
+            <table>
+              <tr>
+                <td>
+            {% set indice = 22 %} 
+            {% include "_portee.html.twig" with {"y":-3, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
+                </td>
+                <td>
+                  <b class="fonteInvisible">bla<audio controls controlsList="nodownload" src="{{dictee_path}}music2.mp3"></audio></b>
+                </td>
+              </tr>
+            </table>
+            <br><br>
           </div>
       </div>
 
@@ -1050,7 +790,7 @@
               <br>
               Voici un exemple d'utilisation du bécarre:<br>
               <img src="{{img_path}}becarre_accidentel.png" style="float: left; margin: 4px 10px 0px 0px;">
-              On a 3 bémols dans l'armature, donc si-mi-la (tu peux le vérifier sur cette image). Tous les si, les mi et les la seront en bémol, quelle que soit leur hauteur. Cette portée commence donc par trois mi bémol. Le 4 est un mi, à cause du bécarre, et le 6 aussi, parce qu'il vient après le bécarre et sur la même hauteur, mais le 5 reste un mi bémol, car il n'est pas au niveau du bécarre. On a ensuite une barre de mesure. Elle annule le bécarre. Du coup, 7 et 8 sont des mi bémols, conformément à l'armature.<br>
+              On a 3 bémols dans l'armature, donc si-mi-la (tu peux le vérifier sur cette image). Tous les si, les mi et les la seront en bémol, quelle que soit leur hauteur. Cette portée commence donc par trois mi bémol. Le 4 est un mi normal, à cause du bécarre, et le 6 aussi, parce qu'il vient après le bécarre et sur la même hauteur, mais le 5 reste un mi bémol, car il n'est pas au niveau du bécarre. On a ensuite une barre de mesure. Elle annule le bécarre. Du coup, 7 et 8 sont des mi bémols, conformément à l'armature.<br>
             </td>
           </tr>
         </table>
@@ -1102,10 +842,10 @@
             <td style="width : 35em;">
           <tr>
             <td>
-              Pourtant, on a bien trois 1 qui se suivent, et deux 1. Il y a moyen de faire une gamme majeure avec ça. Il suffit de décaler.<br>
+              Pourtant, on a bien un groupe de trois 1 consécutifs, séparés (par un demi ton) d'un groupe de deux 1 qui se suivent. Il y a moyen de faire une gamme majeure avec ça. Il suffit de décaler.<br>
               On doit commencer par deux 1 consécutifs. Où sont-ils ? Au niveau de sol-la. Alors réécrivons ça en partant du sol :
               1,1,½,1,1,1,½<br>
-              Ca marche ! On a les bons intervalles, on commence par sol, on est donc en sol majeur.
+              Ca marche ! On les bons intervalles placés dans l'ordre de la gamme majeure. Comme, maintenant, on commence par sol, on est donc en sol majeur.
             <td class="reduction">
               <div class="positionAbsolue" style="top : -3em;">
             {% include "_clavierPiano.html.twig" with {"nbTouches":11,"avecTon":false,"lesPastilles":[7,21],"lesFleches":[4,5,6,7,8],"lesFlechesInversees":[9,10]} only %}
@@ -1118,7 +858,7 @@
         <br>Bon, du coup, voilà ce qu'il faut faire :<br>
         <li>Si l'armature est <b>vide</b> (ni dièse, ni bémol à côté de la clé, et peu importe s'il y a des altérations accidentelles dans le morceau), c'est du <b>do majeur</b>. On n'utilise que les touches blanches du clavier du piano, donc, tout simplement.</li>
         <li>Sinon, tu pars d'une note (do ou autre chose), tu regardes ton clavier et tu notes les tons entre chaque note, jusqu'à ce que tu aies écrit sept nombres (des 1 ou des ½), <b>en tenant compte de toutes les altérations dans l'armature</b>, car tu vas, par moment, devoir passer par des touches noires. Ensuite, tu regardes ce que tu as écrit. Il y a un groupe de trois 1 et un groupe de deux 1 ? C'est du majeur. Trouve où il faut décaler et tu as ta note de gamme. Le nom de la gamme est "<i>cette note</i>" suivi de "majeur".<br>
-        Mais si tu n'as pas ces deux groupes de 1, c'est une gamme mineure.
+        Mais si tu n'as pas ces deux groupes (trois 1 et deux 1), c'est une gamme mineure.
         <br><br id="degre">
         Dans une gamme, on définit des <b>degrés</b>, qui ont un nom et un numéro (en chiffres romains).<br>
         <b>
@@ -1160,7 +900,12 @@
           </tr>
         </table>
         </b>
-        Une façon plus juste de définir une gamme majeure est de dire que les notes médiante et sous-dominante (degrés III et IV) sont séparées d'un demi ton, ainsi que les notes sensible et tonique (degrés VII et I), et les autres par un ton.
+        Une façon plus juste de définir une gamme majeure est de dire que les notes médiante et sous-dominante (degrés III et IV) sont séparées d'un demi ton, ainsi que les notes sensible et tonique (degrés VII et I), et les autres par un ton.<br>
+        Retiens surtout que dans une gamme "machin" majeure ou mineure, le degré I est "machin" :
+        <li>do majeur : do est la tonique (donc ré est la sus tonique, et ainsi de suite)</li>
+        <li>fa mineur : fa est la tonique</li>
+        <li>la majeur : la est la tonique</li>
+        Bref, tu vois l'idée.
       </div>
 
     </div>

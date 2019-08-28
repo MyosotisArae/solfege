@@ -9,8 +9,9 @@
         <div class="container-fluid">
           <div class="row">
         {% for score in lignes %}
+            {% set mx = score.scoreMax %}
             <div class="col-6">
-              <h3>Niveau {{score.niveau}} : {{ (score.score*100/6)|number_format(0,'.',',') }}% </h3>
+              <h3>Niveau {{score.niveau}} : {{ (score.score*100/mx)|number_format(0,'.',',') }}% </h3>
             </div>
         {% else %}<h3>Tu n'as pas encore joué dans ce niveau.</h3>
         {% endfor %}

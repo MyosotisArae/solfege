@@ -57,3 +57,8 @@ a:hover
 {
   text-decoration : none;
 }
+.reduction
+{
+  transform : scale(0.3);
+  position : relative;
+}

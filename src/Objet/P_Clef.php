@@ -47,9 +47,9 @@ class P_Clef extends P_Figure
         }
         if ($this->image == $this->cst->get_cle_fa())
         {
-        // Une même note (un sol par exemple) aura 2 niveaux de moins en clé de fa (sol=E2)
-        // qu'en clé de sol (sol=G2) sur la portée.
-          $this->modificateur = -2;
+          // Une même note (un sol par exemple) aura 2 niveaux de moins en clé de fa (sol=E2)
+          // qu'en clé de sol (sol=G2) sur la portée.
+          $this->modificateur = 2;
           return; 
         }
         $this->modificateur = 0;

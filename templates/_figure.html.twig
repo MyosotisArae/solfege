@@ -1,7 +1,10 @@
 {% if echelle is not defined %}
 {% set echelle = 1 %}
 {% endif %}
-  <img class="positionAbsolue imgEchelle" src="{{img_path}}portee/portee.gif" style="top:0px;">
+{% if indice is not defined %}
+{% set indice = 'A' %}
+{% endif %}
+  <img class="positionAbsolue imgEchelle{{ indice }}" src="{{img_path}}portee/portee.gif" style="top:0px;">
   <div class="positionAbsolue">
   {% for figure in figures %}
     {% set y = figure.niveau * 12.4 * echelle %}
@@ -11,7 +14,7 @@
         {% set inverse = '_inversee' %}
       {% endif %}
     {% endif %}
-    <img class="positionAbsolue imgEchelle" src="{{img_path}}portee/{{figure.image}}{{inverse}}.gif" style="top : {{y|round(0,'floor')}}px;">
+    <img class="positionAbsolue imgEchelle{{ indice }}" src="{{img_path}}portee/{{figure.image}}{{inverse}}.gif" style="top : {{y|round(0,'floor')}}px;">
   {% endfor %}
   </div>
   <img src="{{img_path}}portee/vide.gif">

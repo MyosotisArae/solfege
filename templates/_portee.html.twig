@@ -1,8 +1,11 @@
 {% if echelle is not defined %}
 {% set echelle = 1 %}
 {% endif %}
+{% if indice is not defined %}
+{% set indice = 'A' %}
+{% endif %}
 <style>
- .imgEchelle
+ .imgEchelle{{ indice }}
  {
    width  : {{100*echelle}}px;
    height : auto;
@@ -15,13 +18,15 @@
     <div class="positionAbsolue" style="top:{{y|default(-5)}}em;">
       {% set x=0 %}
       {% for element in elements %}
+      
       {% set figures = element %}
       {% if element.figures is defined %}
       {%   set figures = element.figures %}
       {% endif %}
+      
       <div class="positionAbsolue" style="top : 0; left : {{x}}px;">
-        {#{% include "_figure.html.twig" with {"echelle":echelle, "figures":figures} only %}#}
-        {% include "_figure.html.twig" with {"echelle":echelle, "figures":element.figures} only %}
+        {% include "_figure.html.twig" with {"echelle":echelle, "figures":figures, "indice":indice} only %}
+        {#{% include "_figure.html.twig" with {"echelle":echelle, "figures":element.figures} only %}#}
       </div>
       {% set x = x + (100*echelle) %}
       {% endfor %}

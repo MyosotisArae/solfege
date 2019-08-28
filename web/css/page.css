@@ -1,7 +1,7 @@
 .positionFixe { position : fixed; }
 .positionRelative { position : relative; }
 .positionAbsolue { position : absolute; }
-/* Pour avoir la même marge à gauche et à droite sur les exercices */
+/* Pour avoir la mï¿½me marge ï¿½ gauche et ï¿½ droite sur les exercices */
 .centrerExercice
 {
   margin-left : 5%;
@@ -78,7 +78,7 @@ b { font-size : 2em; }
 {
   max-width : 150px;
 }
-.contenantCadreReponse { padding-right : 0.4m; display : inline-block; }
+.contenantCadreReponse { padding-right : 0.4em; display : inline-block; }
 .cadreReponse
 {
   border : 2px solid black;
@@ -86,7 +86,10 @@ b { font-size : 2em; }
   border-radius : 0.8em;
   text-align : center;
   margin-top : 1em;
+  margin-left : 1em;
   font-size : 1.5em;
+  min-width : 3em;
+  max-height : 2em;
 }
 .cadreReponse a
 {
@@ -98,12 +101,11 @@ b { font-size : 2em; }
   width : 2em;
   height : 2em;
 }
-
-
-
-
-
-
-
+.cadreReponse button
+{
+  background: transparent;
+  border : none;
+}
 .cadreReponse a:hover { font-weight : bold; }
 .fonteInvisible { color : transparent; min-height : 25vh; }
+.largeur30 { width : 30em; }

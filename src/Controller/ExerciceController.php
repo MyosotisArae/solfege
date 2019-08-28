@@ -24,14 +24,16 @@ class ExerciceController extends ParentController
     $this->setSss('exercice', $exercice);
     $this->initNiveau();
     $this->poserQuestion();
-    return $this->render('/'.$this->getSss('modele').'.html.twig');
+    $parametres = array('nbQuestions' => $this->cst->getScoreMax($this->getSss('exercice'), $this->getSss('niveau')) );
+    return $this->render('/'.$this->getSss('modele').'.html.twig', $parametres);
   }
   
-  public function correction(string $exercice, int $numRep)
+  public function correction(string $exercice, $reponseFournie)
   {
     $this->setSss('exercice', $exercice);
-    $this->corriger($numRep);
-    return $this->render('/'.$this->getSss('modele').'.html.twig');
+    $this->corriger($reponseFournie);
+    $parametres = array('nbQuestions' => $this->cst->getScoreMax($this->getSss('exercice'), $this->getSss('niveau')) );
+    return $this->render('/'.$this->getSss('modele').'.html.twig', $parametres);
   }
   
   /**
@@ -41,20 +43,18 @@ class ExerciceController extends ParentController
    */
   public function apprentissage(string $exercice, $parametres=array())
   {
-    $this->reinitNiveau();
     $this->obtentionTrophee(103); // Trophée 103 : Aller sur une page de leçon.
     $this->setSss('exercice', $exercice);
     $this->reinitNiveau();
     return $this->render('/apprendre_'.$exercice.'.html.twig', $parametres);
   }
   
-  protected function corriger(int $numRep)
+  protected function corriger($numRep)
   {
     $question = $this->getSss('question');
     $bonneReponse = $question->getReponse();
-    $reponseFournie = $question->getProposition($numRep);
     $msg = "";
-    if ($bonneReponse->getId() == $reponseFournie->getId())
+    if ($this->testReponseFournie($question,$numRep))
     {
       $msg = 'Oui, la bonne réponse est bien "';
 
@@ -73,12 +73,18 @@ class ExerciceController extends ParentController
     $this->setSss('correction', $msg);
     $this->complementCorrection($bonneReponse);
 
-    if ($this->getSss('numQuestion') >= 6)
+    if ($this->getSss('numQuestion') >= ($this->cst->getScoreMax($this->getSss('exercice'), $this->getSss('niveau'))))
     {
       $this->saveScore($this->getSss('niveau'),
                        $this->getSss('nbBonnesRep')
                       );
     }
+  }
+
+  protected function testReponseFournie(Question $question, $reponseFournie)
+  {
+    $reponseFournie = $question->getProposition($reponseFournie);
+    return ($question->getReponse()->getId() == $reponseFournie->getId());
   }
 
   protected function poserQuestion()
@@ -180,12 +186,6 @@ class ExerciceController extends ParentController
     $question->addProposition($bonneReponse);
     // et mélanger le tout.
     $question->melangerPropositions();
-    // DEBUG
-    // Il doit y avoir 6 propositions
-    if (count($question->getPropositions()) != 6)
-    {
-      throw new Exception("Erreur. ".count($question->getPropositions())." propositions au lieu de 6.");
-    }
   }
 
   protected function getNiveau()

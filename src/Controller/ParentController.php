@@ -9,8 +9,6 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
  
 class ParentController extends AbstractController
 {
-  private $listeDisciplines;  // Noms des disciplines (comme dans ScoreRepository)
-  private $maxParDisciplines; // Donne, par discipline et par niveau, le score max
   protected $cst; // Constantes
 
   public function __construct(SessionInterface $session)
@@ -21,23 +19,6 @@ class ParentController extends AbstractController
     $this->setSss('imageTrophee', '');
     // Important : pas d'appel à doctrine dans ce constructeur.
     //$this->util = $this->get("utilitaires");
-    
-    $this->listeDisciplines = array("italien","instrument","tonalite","rythme");
-    $this->maxParDisciplines = array(
-                                    [6,6,6,6], // italien
-                                    [6,6,6], // instrument
-                                    [6], // tonalite
-                                    [6,6,6]  // rythme
-                                    );
-  }
-
-  /**
-   * Donne le score maximum qui peut être obtenu pour ce niveau et cet exercice.
-   */
-  protected function getScoreMax(string $exercice, int $niveau)
-  {
-    $indiceDiscipline = array_search($exercice, $this->listeDisciplines);
-    return $this->maxParDisciplines[$indiceDiscipline][$niveau-1];
   }
 
   /**
@@ -50,7 +31,7 @@ class ParentController extends AbstractController
    */
   protected function getCodeBinaire(string $exercice)
   {
-    $indiceDiscipline = array_search($exercice, $this->listeDisciplines);
+    $indiceDiscipline = array_search($exercice, $this->cst->get_listeDisciplines());
     $code = 2;
     while ($indiceDiscipline > 0)
     {
@@ -71,9 +52,9 @@ class ParentController extends AbstractController
   {
     // Liste des id (dans Vocabulaire) des questions qui ont déjà été posées ce tour.
     $this->setSss('dejaDemande', array());
-    // Numérotation des questions (de 1 à 6)
+    // Numérotation des questions (de 1 à getScoreMax)
     $this->setSss('numQuestion', 0);
-    // Numéro de la dernière question dont la réponse a été comptée (de 1 à 6)
+    // Numéro de la dernière question dont la réponse a été comptée (de 1 à getScoreMax)
     $this->setSss('numQuestionValidee', 0);
     // Nombre de bonnes réponses obtenues ce tour
     $this->setSss('nbBonnesRep', 0);
@@ -164,12 +145,12 @@ class ParentController extends AbstractController
     $em = $this->getDoctrine()->getManager();
 
     // Ce booléen indique si le niveau en cours est réussi (score max atteint).
-    $niveauReussi = ($score >= $this->getScoreMax($exercice, $niveau));
+    $niveauReussi = ($score >= $this->cst->getScoreMax($exercice, $niveau));
 
     // Trophée 100 : niveau réussi du premier coup
     // Si le score maximum enregistré est 0, on considère que le niveau n'a
     // jamais été essayé. Dans ce cas, si le score obtenu cette fois-ci est
-    // 6, on accorde le trophée "niveau réussi du premier coup".
+    // getScoreMax, on accorde le trophée "niveau réussi du premier coup".
     if (($scoreMax == 0) && ($niveauReussi))
     {
       $this->obtentionTrophee(100);
@@ -188,11 +169,11 @@ class ParentController extends AbstractController
     if ($niveauReussi)
     {
       $nbNiveauxReussis = 1; // Celui-ci est réussi. Vérifions les autres.
-      foreach ($this->listeDisciplines as $d)
+      foreach ($this->cst->get_listeDisciplines() as $d)
       {
         $maxScore = $em->getRepository('App:Score')
                        ->getScoreDuNiveau($niveau, $d);
-        if ($maxScore->getScore() >= $this->getScoreMax($exercice, $niveau))
+        if ($maxScore->getScore() >= $this->cst->getScoreMax($exercice, $niveau))
         {
           // Le niveau max est atteint pour cette discipline.
           $nbNiveauxReussis += 1;
@@ -203,7 +184,7 @@ class ParentController extends AbstractController
 
     // Trophée 104 : avoir testé toutes les disciplines
     $nbNiveauxTestes = $this->getCodeBinaire($exercice);
-    foreach ($this->listeDisciplines as $d)
+    foreach ($this->cst->get_listeDisciplines() as $d)
     {
       $maxScore = $em->getRepository('App:Score')
                      ->getScoreDuNiveau($niveau, $d);

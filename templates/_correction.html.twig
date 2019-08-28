@@ -1,4 +1,7 @@
     <div class="col-12"><h2>{{app.session.get('correction')}}</h2></div>
+    {% if not(nbQuestions is defined) %}
+    {%   set nbQuestions = 6 %}
+    {% endif %}
     {% if app.session.get('media') is defined %}
       {% if app.session.get('media')|length > 2 %}
     <div class="positionAbsolue" style="top:150px; right : 100px;">
@@ -9,14 +12,14 @@
     </div>
       {% endif %}
     {% endif %}
-      {% if app.session.get('numQuestion') < 6  %}
-      <div class="col-3 cadreReponse">
+      {% if app.session.get('numQuestion') < nbQuestions  %}
+      <div class="col-5 cadreReponse">
         <a href="{{app.session.get('exercice')}}">Question suivante</a>
       </div>
       {% else %}
       <div class="col-12">
-        <h2>Ton score est de {{app.session.get('nbBonnesRep')}}/6.&nbsp;
-        {% if app.session.get('nbBonnesRep') >= 6 %}
+        <h2>Ton score est de {{app.session.get('nbBonnesRep')}}/{{nbQuestions}}.&nbsp;
+        {% if app.session.get('nbBonnesRep') >= nbQuestions %}
         Tu passes au niveau {{app.session.get('niveau')+1}}. Félicitations !
         {% endif %}
         </h2>

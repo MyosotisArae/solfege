@@ -60,6 +60,11 @@ class P_Elt
         return $this->figures;
     }
 
+    public function getHauteur(): ?int
+    {
+        return $this->hauteur;
+    }
+
     ///////////////////////////////////////////////////////////////////////////////
     //                              Fonctions                                    //
     ///////////////////////////////////////////////////////////////////////////////
@@ -92,7 +97,7 @@ class P_Elt
         if (strlen($nomImage) < 1) return; // Aucune altération
         $a = new P_Aplacer($nomImage, $niveau);
         $this->figures[] = $a;
-        $this->hauteur  += $this->getModificateurAlteration();
+        $this->hauteur  += $this->getModificateurAlteration($nomImage);
     }
     
     public function getModificateurAlteration(string $nomImage): ?int
