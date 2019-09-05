@@ -39,7 +39,7 @@ class InstrumentController extends ExerciceController
    * Cette fonction récupère la catégorie du niveau en cours dans la table Vocabulaire.
    * @return array d'objets Vocabulaire
    */
-  protected function getVocalulaire()
+  protected function getVocabulaire()
   {
     switch ($this->getSss('niveau'))
     {

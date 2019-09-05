@@ -4,7 +4,6 @@ namespace App\Controller;
 use App\Entity\Vocabulaire;
 use App\Objet\Question;
 use App\Objet\Portee;
-use App\Objet\P_constantes;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -40,7 +39,7 @@ class RythmeController extends ExerciceController
    * Cette fonction récupère la catégorie du niveau en cours dans la table Vocabulaire.
    * @return array d'objets Vocabulaire
    */
-  protected function getVocalulaire()
+  protected function getVocabulaire()
   {
     switch ($this->getSss('niveau'))
     {
@@ -71,12 +70,12 @@ class RythmeController extends ExerciceController
     {
       $ps = new Portee("");
       $ps->addSilence($rep->getSymbole(), $rep->getOrdre());
-      $rep->setPorteeSilence($ps);
+      $rep->setPortee1($ps);
       // Ajouter la note de même durée que ce silence
       $pn = new Portee("");
       $nomNote = $this->cst->getLettreRandom().strval(random_int(2,3));
       $pn->addNote($nomNote, "", $rep->getOrdre());
-      $rep->setPorteeNote($pn);
+      $rep->setPortee2($pn);
       $resultat[] = $rep;
     }
     return $resultat;
@@ -157,7 +156,7 @@ class RythmeController extends ExerciceController
   {
     switch ($this->getSss('niveau'))
     {
-      case 1 : parent::addFaussesReponses();; break;
+      case 1 : parent::addFaussesReponses($question,$bonneReponse,$tableau); break;
       case 2 : $this->addFaussesReponsesNiv2($question,$bonneReponse); break;
       case 3 : $this->addFaussesReponsesNiv3($question,$bonneReponse); break;
       case 4 :
@@ -198,7 +197,7 @@ class RythmeController extends ExerciceController
     $pn->addSigne("barre_mesure");                 // une barre de mesure,
     $this->addMesure($nbCrochesBonneReponse, $pn); // une dernière mesure
     $pn->addSigne("barre_mesure_fin");             // une barre de mesure de fin.
-    $bonneReponse->setPorteeSilence($pn);
+    $bonneReponse->setPortee1($pn);
     $question->setReponse($bonneReponse);
 
     // 2. Deux réponses possibles
@@ -213,10 +212,13 @@ class RythmeController extends ExerciceController
   private function addMesure(int $nbCrochesBonneReponse, Portee $p)
   {
     $nbCroches = $nbCrochesBonneReponse;
+    $dureesPossibles=[1,2,3,4,6,8]; // croche, noire, noire pointée, blanche, blanche pointée et ronde.
     while ($nbCroches > 0)
     {
       $dureeMax = min(8,$nbCroches);
-      $duree = random_int(1, $dureeMax);
+      $duree = $dureesPossibles[random_int(0, count($dureesPossibles)-1)];
+      // S'il n'est plus possible de caser cette durée dans ce qu'il reste de la mesure, reboucler.
+      if ($duree > $nbCroches) continue;
       $nomNote = $this->cst->getLettreRandom().strval(random_int(2,3));
       $p->addNote($nomNote, "", $duree);
       $nbCroches -= $duree;
@@ -263,25 +265,6 @@ class RythmeController extends ExerciceController
     return $nbCroches." croches";
   }
   
-  /* Retourne un texte retournant la durée du temps fourni.
-   * $duree : exprimée en nombre de croches.
-   */ 
-  private function getDureeSimple(int $duree)
-  {
-    switch ($duree)
-    {
-      case 1 : return "une croche";
-      case 2 : return "une noire";
-      case 3 : return "trois croches";
-      case 4 : return "une blanche";
-      case 5 : return "cinq croches";
-      case 6 : return "trois noires, soit une blanche pointée";
-      case 7 : return "sept croches";
-      case 8 : return "une ronde";
-      default : return "";
-    }
-  }
-
   protected function initNiveau()
   {
     parent::initNiveau();
@@ -308,7 +291,9 @@ class RythmeController extends ExerciceController
                $msg .= " (" . $bonneReponse->getCommentaire().").";
                break;
       case 2 :
-      case 3 : $msg .= $bonneReponse->getCommentaire(). " ".$bonneReponse->getDescription();
+      case 3 : $msg .= "  ".$bonneReponse->getCommentaire(). "  ".$bonneReponse->getDescription()."  La pulsation se divise en "
+                       .$this->calculSubdivisionPulsation($bonneReponse->getCommentaire())
+                       .", c'est donc une mesure ".$bonneReponse->getNom().".";
                break;
       case 4 :
       case 5 :
@@ -316,6 +301,24 @@ class RythmeController extends ExerciceController
     }
 
     $this->setSss('correction', $msg);
+  }
+
+  private function calculSubdivisionPulsation($commentaire)
+  {
+    $txt = "";
+    $pulsations  = array('blanche','noire pointée','noire');
+    $subDivision = array('2 noires','3 croches', '2 croches');
+    $indice = 0;
+    foreach ($pulsations as $p)
+    {
+      if (strpos($commentaire,$p) !== false)
+      {
+        return $subDivision[$indice];
+        break;
+      }
+      $indice += 1;
+    }
+    return " [erreur - réponse inconnue] ";
   }
 }
 

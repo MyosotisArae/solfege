@@ -1,0 +1,45 @@
+{% extends "page.html.twig" %}
+
+{% block entete %}
+  {{ parent() }}
+{% endblock %}
+
+{% block corps %}
+  {{ parent() }}
+{% endblock %}
+
+{% block titre %}
+  {{ app.session.get('titreExo') | capitalize }}
+{% endblock %}
+
+{% block page %}
+  {{ parent() }}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <b class="souligne">Question {{app.session.get('numQuestion')}} :</b>&nbsp;
+      <b>{{ app.session.get('texteQuestion') }}</b>
+    </div>
+    <div class="col-12"><img class="imgSymbole" src="{{img_path}}portee/{{app.session.get('question').reponse.symbole}}.gif"></div>
+    {% if app.session.get('correction')|length > 0 %}
+      {% include '_correction.html.twig' %}
+    {% else %}
+      <form method="POST" action="{{app.session.get('exercice')}}Correction1" class="col-12">
+      <div class="container-fluid">
+        <div class="row">
+      {% for p in app.session.get('question').propositions %}
+      <div class="col-3 contenantCadreReponse">
+        <div class="col-3 cadreReponse">
+          <input type="checkbox" name="reponse[]" value="{{p.ordre}}" id="cb_{{loop.index}}"><label for="cb_{{loop.index}}">{{p.nom}}</label>
+          <a href="{{app.session.get('exercice')}}Correction{{loop.index0}}">{{p.nom}}</a>
+        </div>
+      </div>
+      <div class="col-1 contenantCadreReponse">
+      </div>
+      {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

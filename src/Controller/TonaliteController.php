@@ -175,14 +175,14 @@ class TonaliteController extends ExerciceController
    * Cette fonction récupère la catégorie du niveau en cours dans la table Vocabulaire.
    * @return array d'objets Vocabulaire
    */
-  protected function getVocalulaire()
+  protected function getVocabulaire()
   {
     switch ($this->getSss('niveau'))
     {
       case 1: $this->setSss('texteQuestion', "Que signifie ce symbole ?");
               return $this->getCategorie('ton');
-      case 2: $this->constructionDesReponsesNiv2(); break;
-      case 3:
+      case 2: return array();
+      case 3: return $this->getVocabulaireNiv3();
       case 4:
       case 5: return $this->getCategorie('tempo');
       case 6: return $this->getCategorie('expression');
@@ -196,7 +196,7 @@ class TonaliteController extends ExerciceController
     {
       case 1 : $this->setSss('modele', 'QCM_symbole'); break;
       case 2 : $this->setSss('modele', 'QCM_intervalle'); break;
-      case 3 :
+      case 3 : $this->setSss('modele', 'QCM_portee'); break;
       case 5 :
       case 6 : $this->setSss('modele', 'QCM_nom'); break;
       case 4 : $this->setSss('modele', 'QCM_commentaire1'); break;
@@ -282,7 +282,7 @@ class TonaliteController extends ExerciceController
 
     // Construction de la réponse
     $bonneReponse = new Vocabulaire();
-    $bonneReponse->setPorteeNote($p);
+    $bonneReponse->setPortee2($p);
     $bonneReponse->setNom($nomComplet);
 
     $question = new Question();
@@ -291,16 +291,127 @@ class TonaliteController extends ExerciceController
 
   }
 
+  /**
+   * Niveau 3 :
+   * Question = portée avec une note altérée (ou pas)
+   * Réponse  = portée avec une autre note dont l'altération est différente (ou absente)
+   * @return array d'objets Vocabulaire
+   */
+  protected function getVocabulaireNiv3()
+  {
+    // Si c'est la première question, contruire la liste des réponses (une question par note => 7).
+    // Questions dans portee1, réponse dans portee2
+    if ($dejaDemande == null || count($dejaDemande) == 0)
+    {
+      $tableauDeReponses = [];
+      $lettres = $this->cst->get_lettres();
+
+      $transfoDiese = substr($lettres,  1) . substr($lettres, 0,  1); // Mettre la 1ère note à la fin.
+      $transfoBemol = substr($lettres, -1) . substr($lettres, 0, -1); // Mettre la dernière note au début.
+
+      $durees = [1,2,3,4,6,8];
+      shuffle($durees);
+      
+      foreach (range(0,6) as $indice)
+      {
+        $noteQuestion = $lettres[$indice];
+        $octaveQ = random_int(2,3);
+        $octaveR = $octaveQ;
+        $dureeQ = $durees[random_int(0,5)];
+        $dureeR = $durees[random_int(0,5)];
+        $bemolQ = false; // Bémol sur la question ?
+        $dieseQ = false; // Dièse sur la question ?
+        $bemolR = false; // Bémol sur la réponse ?
+        $dieseR = false; // Dièse sur la réponse ?
+        $alterationQ = "";
+        $alterationR = "";
+        $nomAlterationQ = "";
+        $nomAlterationR = "";
+        // C/F/E ou B : 1 chance sur 10 de ne pas y mettre d'altération.
+        $chances = random_int(1,10);
+        if (strpos("CFEB", $noteQuestion) !== false && $chances == 1)
+        {
+          if (strpos("CF", $noteQuestion) !== false) { $dieseR = true; }
+          else { $bemolR = true; }
+        }
+        else
+        // Dans les autres cas, on tire une altération au hazard.
+        {
+          if ($chances < 6)
+          {
+            $dieseQ = true;
+            $alterationQ = $this->cst->get_diese();
+            $nomAlterationQ = $this->cst->get_nom_diese();
+            $bemolR = ( ($indice != 2) && ($indice != 6) );
+          }
+          else
+          {
+             $bemolQ = true;
+             $alterationQ = $this->cst->get_bemol();
+             $nomAlterationQ = $this->cst->get_nom_bemol();
+             $dieseR = ( ($indice != 0) && ($indice != 3) );
+          }
+        }
+        $noteReponse = "";
+        if ($dieseR)
+        {
+          $alterationR = $this->cst->get_diese();
+          $nomAlterationR = $this->cst->get_nom_diese();
+          $noteReponse = $transfoDiese[$indice];
+          if ($noteQuestion == 'C') { $octaveR -= 1; }
+        }
+        if ($bemolR)
+        {
+          $alterationR = $this->cst->get_bemol();
+          $nomAlterationR = $this->cst->get_nom_bemol();
+          $noteReponse = $transfoBemol[$indice]; 
+          if ($noteQuestion == 'B') { $octaveQ -= 1; }
+        }
+
+        $bonneReponse = new Vocabulaire();
+        $bonneReponse->setId($indice+1);
+        $bonneReponse->setDescription("le ".$this->cst->getNomNote(0,$noteQuestion)." ".$nomAlterationQ."a la même tonalité que le ".$this->cst->getNomNote(0,$noteReponse)." ".$nomAlterationR.".");
+        // On a le nom de la réponse et on sait quelles sont les altérations.
+        // Construisons les portées.
+        // Question : portee1
+        $p1 = new Portee($this->cst->get_cle_sol());
+        $p1->addNote($noteQuestion.$octaveQ, $alterationQ, $dureeQ);
+        $bonneReponse->setPortee1($p1);
+        // Réponse : portee2
+        $p2 = new Portee($this->cst->get_cle_sol());
+        $p2->addNote($noteReponse.$octaveR, $alterationR, $dureeR);
+        $bonneReponse->setPortee2($p2);
+        $tableauDeReponses[] = $bonneReponse;
+      }
+      // Mettre ce tableau dans la session afin de le retrouver lors de la prochaine question de ce niveau.
+      $this->setSss('Vocabulaire', $tableauDeReponses);
+      return $tableauDeReponses;
+    }
+    return $this->getSss('Vocabulaire');
+  }
+
+  protected function addFaussesReponses(Question $question, Vocabulaire $bonneReponse, array $tableau = null)
+  {
+    if ($this->getSss('niveau') != 3) return parent::addFaussesReponses($question,$bonneReponse,$tableau);
+    // Ajouter la bonne réponse à cette liste,
+    $question->addProposition($bonneReponse);
+    // et mélanger le tout.
+    $question->melangerPropositions();
+  }
+
   protected function getQuestion()
   {
     switch ($this->getSss('niveau'))
     {
       case 1: parent::getQuestion(); break;
-      case 2: $this->setSss('texteQuestion', "Donne le nom de cet intervalle (2 notes + nom + qualificatif) en utilisant les boutons.");
+      case 2: $this->setSss('texteQuestion', "Donne le nom de cet intervalle (2 notes + nom) en utilisant les boutons.");
               $this->setSss('avecQualificatif', false);
               $this->getQuestionNiv2();
               break;
-      case 5: $this->setSss('texteQuestion', "Donne le nom complet (4 mots) de cet intervalle en utilisant les boutons.");
+      case3:  $this->setSss('texteQuestion', "Trouve la note de même tonalité que celle-ci (avec la même clé) :");
+              parent::getQuestion();
+              break;
+      case 5: $this->setSss('texteQuestion', "Donne le nom complet de cet intervalle (2 notes + nom + qualificatif) en utilisant les boutons.");
               $this->setSss('avecQualificatif', true);
               $this->getQuestionNiv2();
               break;
@@ -311,7 +422,8 @@ class TonaliteController extends ExerciceController
   {
     switch ($this->getSss('niveau'))
     {
-      case 1: return parent::testReponseFournie($question, $reponseFournie);
+      case 1:
+      case 3: return parent::testReponseFournie($question, $reponseFournie);
       case 2:
       case 5: return $this->testReponseFournieNiv2($question, $reponseFournie);
     }
@@ -323,15 +435,12 @@ class TonaliteController extends ExerciceController
     // Il faut trouver dans $texte (la réponse de l'utilisateur) chacun des mots de la bonne réponse.
     $nbMots = 3; // Seuls les 3 premiers mots sont demandés au niveau 2.
     if ($this->getSss('avecQualificatif') === true) $nbMots = 4;
-    print_r("  controle sur ".$nbMots." mots  ");
     // Liste des mots qui doivent figurer dans la réponse:
     $listeMots = explode(' ', trim($bonneReponse->getNom()));
     $motsTrouves = true;
     foreach ($listeMots as $mot)
     {
-      if (strpos($reponseFournie, $mot) === false) {$motsTrouves = false; 
-      print_r(" >  mot ".$mot." non trouvé dans la réponse '".$reponseFournie."'");
-      }
+      if (strpos($reponseFournie, $mot) === false) $motsTrouves = false; 
       $nbMots -= 1;
       if ($nbMots <= 0) break;
     }

@@ -16,7 +16,8 @@ class AppExtension extends AbstractExtension
     public function getFilters()
     {
         return [
-            new TwigFilter('duree', [$this, 'duree']),
+          new TwigFilter('duree', [$this, 'duree']),
+          new TwigFilter('retourChariot', [$this, 'retourChariot']),
         ];
     }
 
@@ -54,5 +55,12 @@ class AppExtension extends AbstractExtension
       return $resultat;
     }
 
+    /**
+     * Filtre pour transformer tous les doubles espaces en retour chariot.
+     */
+    public function retourChariot(string $txt)
+    {
+      return str_replace("  ","<br>",$txt);
+    }
 }
 ?>

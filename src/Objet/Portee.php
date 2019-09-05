@@ -113,7 +113,6 @@ class Portee
 
       // Ajouter la note et récupérer son niveau :
       $niveau = $elt->addNote($nom, $duree);
-
       // Ajouter l'altération éventuelle :
       $elt->addAlteration($alteration, $niveau);
 

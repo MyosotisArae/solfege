@@ -20,7 +20,7 @@
       <b class="souligne">Question {{app.session.get('numQuestion')}} :</b>
       <b>{{ app.session.get('texteQuestion') }}</b><br><br><br>
       <div class="positionRelative">
-        {% include "_portee.html.twig" with {"echelle":0.7, "y":-2, "elements":app.session.get('question').reponse.porteeSilence.elements} only %}
+        {% include "_portee.html.twig" with {"echelle":0.7,"indice":'Q', "y":-2, "elements":app.session.get('question').reponse.portee1.elements} only %}
       </div>
       <br><br><br><br><br><br>
     </div>
@@ -41,7 +41,7 @@
     <div class="col-1 contenantCadreReponse">
         <a href="{{app.session.get('exercice')}}Correction{{loop.index0}}">
           <div class="positionRelative">
-            {% include "_portee.html.twig" with {"y":5,"elements":p.porteeNote.elements} only %}
+            {% include "_portee.html.twig" with {"y":5,"indice":'R',"elements":p.portee2.elements} only %}
           </div>
         </a>
         <img src="{{img_path}}portee/vide.gif">

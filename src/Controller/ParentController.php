@@ -193,6 +193,7 @@ class ParentController extends AbstractController
         $nbNiveauxTestes |= $this->getCodeBinaire($d);
       }
     }
+    // Tous les niveaux = 2+4+8+16 = 30
     if ($nbNiveauxTestes == 30)
     {
       $this->obtentionTrophee(104);

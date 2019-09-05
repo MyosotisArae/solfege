@@ -51,10 +51,10 @@ class P_constantes {
     $this->listeDisciplines = array("italien","instrument","tonalite","rythme");
     // Nombre de questions (et donc score max) par discipline et par niveau:
     $this->maxParDisciplines = array(
-                                    [6,6,6,6], // italien
-                                    [6,6,6,8], // instrument
-                                    [7,6,8,8], // tonalite
-                                    [6,6,6,8]  // rythme
+                                    [6,6,6,6,8], // italien
+                                    [6,6,6,8,8], // instrument
+                                    [7,6,7,8,6], // tonalite
+                                    [6,6,6,8,8]  // rythme
                                     );
   }
  
@@ -95,8 +95,10 @@ class P_constantes {
   {
     return $this->maxParDisciplines[$indiceDiscipline][$niveau-1];
   }
+  public function get_lettres() { return $this->lettres; }
   public function get_becarre() { return $this->becarre; }
   public function get_bemol() { return $this->bemol; }
+  public function get_mot_bemol() { return"bémol "; }
   public function get_blanche() { return $this->blanche; }
   public function get_cle_fa() { return $this->cle_fa; }
   public function get_cle_sol() { return $this->cle_sol; }
@@ -104,6 +106,7 @@ class P_constantes {
   public function get_demi_soupir() { return $this->demi_soupir; }
   public function get_demie_pause() { return $this->demie_pause; }
   public function get_diese() { return $this->diese; }
+  public function get_mot_diese() { return "dièse "; }
   public function get_noire() { return $this->noire; }
   public function get_pause() { return $this->pause; }
   public function get_portee() { return $this->portee; }
@@ -163,7 +166,6 @@ class P_constantes {
   {
     $indice1 = strpos($this->lettres, $nomNote1[0]) - (12 * intval($nomNote1[1]));
     $indice2 = strpos($this->lettres, $nomNote2[0]) - (12 * intval($nomNote2[1]));
-    //if ($indice2 < $indice1) { $indice2 += 7; }
     $valeurIntervalle = abs($indice2 - $indice1);
     return $this->nomsIntervalles[$valeurIntervalle];
   }

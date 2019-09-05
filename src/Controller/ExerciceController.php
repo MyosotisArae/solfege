@@ -123,7 +123,7 @@ class ExerciceController extends ParentController
   protected function getQuestion()
   {
     // Récupérer les réponses possibles pour ce niveau.
-    $possibilites = $this->getVocalulaire();
+    $possibilites = $this->getVocabulaire();
     shuffle($possibilites);
     // Les questions ci-dessous ont déjà été utilisées dans ce niveau. Elles
     // ne doivent plus être posées pour le niveau en cours.
@@ -173,7 +173,7 @@ class ExerciceController extends ParentController
    *
    * @return array d'objets Vocabulaire
    */
-  protected function getVocalulaire() { return array(); }
+  protected function getVocabulaire() {}
 
   protected function addFaussesReponses(Question $question, Vocabulaire $bonneReponse, array $tableau = null)
   {

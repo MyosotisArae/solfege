@@ -27,8 +27,8 @@ class Vocabulaire
 
       // Utilis� pour stocker une liste d'images dans certains exercices,
       // comme dans rythme niveau 1 par exemple.
-      $this->porteeSilence = null;
-      $this->porteeNote = null;
+      $this->portee1 = null;
+      $this->portee2 = null;
     }
 
     /**
@@ -88,21 +88,21 @@ class Vocabulaire
      */
     private $mauvaisesReponses; // Tableau d'�l�ments de Vocabulaire
     
-    private $porteeSilence;
-    private $porteeNote;
+    private $portee1;
+    private $portee2;
 
     ///////////////////////////////////////////////////////////////////////////////
     //                              Getteurs                                     //
     ///////////////////////////////////////////////////////////////////////////////
 
-    public function getPorteeSilence(): ?Portee
+    public function getportee1(): ?Portee
     {
-        return $this->porteeSilence;
+        return $this->portee1;
     }
 
-    public function getPorteeNote(): ?Portee
+    public function getportee2(): ?Portee
     {
-        return $this->porteeNote;
+        return $this->portee2;
     }
 
     public function getId(): ?int
@@ -148,15 +148,15 @@ class Vocabulaire
     //                              Setteurs                                     //
     ///////////////////////////////////////////////////////////////////////////////
 
-    public function setPorteeSilence(Portee $p)
+    public function setPortee1(Portee $p)
     {
-        $this->porteeSilence = $p;
+        $this->portee1 = $p;
         return $this;
     }
 
-    public function setPorteeNote(Portee $p)
+    public function setPortee2(Portee $p)
     {
-        $this->porteeNote = $p;
+        $this->portee2 = $p;
         return $this;
     }
 
