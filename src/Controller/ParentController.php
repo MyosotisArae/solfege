@@ -3,6 +3,8 @@ namespace App\Controller;
 
 use App\Objet\P_constantes;
 use App\Entity\Trophee;
+use App\Entity\Musicien;
+use App\Entity\TropheeMusicien;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -121,7 +123,7 @@ class ParentController extends AbstractController
     if ($trophee->dejaObtenu()) return false;
 
     // Enregistrer l'obtention de ce trophée.
-    $trophee->setObtenu(1);
+    $tm = new TropheeMusicien($id, $this->cst->getIdMusicien());
     $em = $this->getDoctrine()->getManager();
     $em->flush();
 
@@ -168,12 +170,18 @@ class ParentController extends AbstractController
     $nbNiveauxReussis = 0;
     if ($niveauReussi)
     {
+      $this->obtentionTrophee(108);
+      // Trophées pour avoir joué dans les 3 derniers niveaux : 105 à 107
+      if ($niveau > 7)
+      {
+        $this->obtentionTrophee(105 - 8 + $niveau);
+      }
       $nbNiveauxReussis = 1; // Celui-ci est réussi. Vérifions les autres.
       foreach ($this->cst->get_listeDisciplines() as $d)
       {
         $maxScore = $em->getRepository('App:Score')
-                       ->getScoreDuNiveau($niveau, $d);
-        if ($maxScore->getScore() >= $this->cst->getScoreMax($exercice, $niveau))
+                       ->getScoreDuNiveau($niveau, $d, $this->cst->getIdMusicien());
+        if ($maxScore->getScore() >= $this->cst->getScoreMax($d, $niveau))
         {
           // Le niveau max est atteint pour cette discipline.
           $nbNiveauxReussis += 1;
@@ -187,7 +195,7 @@ class ParentController extends AbstractController
     foreach ($this->cst->get_listeDisciplines() as $d)
     {
       $maxScore = $em->getRepository('App:Score')
-                     ->getScoreDuNiveau($niveau, $d);
+                     ->getScoreDuNiveau($niveau, $d, $this->cst->getIdMusicien());
       if ($maxScore->getScore() > 0)
       {
         $nbNiveauxTestes |= $this->getCodeBinaire($d);
@@ -210,25 +218,19 @@ class ParentController extends AbstractController
     }
   }
   
-  /* Obtiens la liste de tous les trophées (Uniquement lors du premier appel)
-   * et la met dans la variable de session listeTrophees.
-   */
-  private function getTrophees()
+  protected function getTrophee(int $id)
   {
-    return $this->getDoctrine()
-                ->getManager()
-                ->getRepository('App:Trophee')
-                ->getListe();
+    $trophee = $this->getDoctrine()
+                    ->getManager()
+                    ->getRepository('App:Trophee')
+                    ->find($id);
+    $trophee = $this->getDoctrine()
+                    ->getManager()
+                    ->getRepository('App:TropheeMusicien')
+                    ->completerListeTrophee($trophee);
+    return $trophee;
   }
 
-  private function getTrophee(int $id)
-  {
-    return $this->getDoctrine()
-                ->getManager()
-                ->getRepository('App:Trophee')
-                ->find($id);
-  }
-  
   ////////////////////////////////////////////////////////////////////
   // Fonctions permettant de :                                      //
   // - vérifier si une variable de session existe et est non vide   //

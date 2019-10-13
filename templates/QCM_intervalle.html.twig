@@ -14,13 +14,13 @@
 
 {% block page %}
   {{ parent() }}
-<div class="container">
+<div class="container-fluid" style="margin-left : 17em;">
   <div class="row">
     <div class="col-3">
       <b class="souligne">Question {{app.session.get('numQuestion')}} :</b>
       <br><br><br>
       <div class="positionRelative">
-        {% include "_portee.html.twig" with {"echelle":0.7, "y":-2, "elements":app.session.get('question').reponse.porteeNote.elements} only %}
+        {% include "_portee.html.twig" with {"echelle":0.7, "y":-2, "elements":app.session.get('question').reponse.portee2.elements} only %}
       </div>
       <br><br><br><br><br><br>
     </div>
@@ -34,27 +34,19 @@
           {% set listeNotes = ['do','ré','mi','fa','sol','la','si'] %}
           {% for n in listeNotes %}
           <div class="cadreReponse">
-            <button onclick="completerTexte('{{n}}')" type="button">{{n}}</button>
+            <button onclick="completerTexte('{{n}}')" type="button" style="width : 2em;">{{n}}</button>
           </div>
           {% endfor %}
         </div>
 
+        <span class="fonteInvisible">bla</span>
         <div class="row">
-          {% set listeNoms = ['prime','seconde','tierce','quarte','quinte', 'sixte'] %}
-          {% for nom in listeNoms %}
-          <div class="cadreReponse">
-            <button onclick="completerTexte('{{nom}}')" type="button">{{nom}}</button>
-          </div>
-          {% endfor %}
-        </div>
-
-        <div class="row">
-          {% set listeNoms = ['septième','octave'] %}
-          {% for nom in listeNoms %}
-          <div class="cadreReponse">
-            <button onclick="completerTexte('{{nom}}')" type="button">{{nom}}</button>
-          </div>
-          {% endfor %}
+            {% set listeNoms = ['prime','seconde','tierce','quarte','quinte', 'sixte','septième','octave'] %}
+            {% for nom in listeNoms %}
+            <div class="cadreReponse">
+              <button onclick="completerTexte('{{nom}}')" type="button">{{nom}}</button>
+            </div>
+            {% endfor %}
         </div>
 
         {% if app.session.get('avecQualificatif') %}
@@ -90,7 +82,7 @@ function completerTexte(texte)
       <div class="container-fluid">
         <div class="row">
             <div  class="col-12">
-              <br>{{ app.session.get('texteQuestion') }}<br>
+              <h3>{{app.session.get('question').reponse.texteQuestion}}</h3>
               <b><label>Réponse:&nbsp;</label></b><input type='text' id='texteFormulaire' name='texteFormulaire' class="largeur30">
               <button onclick="effacerTexte()" type="button">Effacer</bouton>
             </div>
@@ -110,7 +102,7 @@ function completerTexte(texte)
                 </div>
               </div>
               <br><br><br>Utilise le clavier et ce brouillon pour faire tes calculs :<br>
-              <textarea class="largeur30"></textarea>
+              <textarea class="brouillon"></textarea>
               </div>
             </div>
         </div>

@@ -17,24 +17,12 @@ class P_constantes {
     */
   public function __construct()
   {
-    $this->becarre = "becarre";
-    $this->bemol = "bemol";
-    $this->blanche = "blanche";
-    $this->cle_fa = "cle_fa";
-    $this->cle_sol = "cle_sol";
-    $this->croche = "croche";
-    $this->demi_soupir = "demi_soupir";
-    $this->demie_pause = "demie_pause";
-    $this->diese = "diese";
-    $this->noire = "noire";
-    $this->pause = "pause";
     $this->point_interligne = "point_interligne";
     $this->point_ligne = "point_ligne";
-    $this->barre = "barre";
-    $this->portee = "portee";
-    $this->ronde = "ronde";
-    $this->soupir = "soupir";
     $this->nomNote_cleSol = ['do','ré','mi','fa','sol','la','si'];
+    $this->ordre_diese = ['fa','do','sol','ré','la','mi','si'];
+    $this->armature_diese = ['F3','C3','G3','D3','A2','E3','B2'];
+    $this->armature_bemol = ['B2','E3','A2','D3','G2','C3','F2'];
     $this->lettres = 'CDEFGAB';
     $this->demiTons = [0,2,4,5,7,9,11];
     $this->nomsIntervalles = array ("prime","seconde","tierce","quarte","quinte","sixte","septième","octave","neuvième","dixième","onzième","douzième");
@@ -51,11 +39,15 @@ class P_constantes {
     $this->listeDisciplines = array("italien","instrument","tonalite","rythme");
     // Nombre de questions (et donc score max) par discipline et par niveau:
     $this->maxParDisciplines = array(
-                                    [6,6,6,6,8], // italien
-                                    [6,6,6,8,8], // instrument
-                                    [7,6,7,8,6], // tonalite
-                                    [6,6,6,8,8]  // rythme
+                                    [6,6,6,6,8,1,1,1,1,1], // italien
+                                    [6,6,6,5,5,7,1,7,1,7], // instrument
+                                    [7,6,7,8,6,1,1,1,1,1], // tonalite
+                                    [6,6,6,8,8,1,1,1,1,1]  // rythme
                                     );
+    //$this->idMusicien = 1;
+    //$this->nomMusicien = "Carla";
+    $this->idMusicien = 2;
+    $this->nomMusicien = "Maël";
   }
  
   // Indices des disciplines
@@ -65,25 +57,14 @@ class P_constantes {
   // Nom des intervalles (indépendant de la clé et des altérations)
   private $nomsIntervalles;
   // Noms des fichiers image (tous implicitement .gif)
-  private $becarre;
-  private $bemol;
-  private $blanche;
-  private $cle_fa;
-  private $cle_sol;
-  private $croche;
-  private $demi_soupir;
-  private $demie_pause;
-  private $diese;
-  private $noire;
-  private $pause;
   private $point_interligne;
   private $point_ligne;
-  private $barre;
-  private $portee;
-  private $ronde;
-  private $soupir;
+  // Divers
   private $decalageGraphique;
+  private $idMusicien;
+  private $nomMusicien;
 
+  public function getIdMusicien() { return $this->idMusicien; }
   public function getIndiceDiscipline(string $discipline) { return array_search($discipline, $this->listeDisciplines); }
   public function get_listeDisciplines() { return $this->listeDisciplines; }
   public function getScoreMax(string $exercice, int $niveau)
@@ -96,22 +77,21 @@ class P_constantes {
     return $this->maxParDisciplines[$indiceDiscipline][$niveau-1];
   }
   public function get_lettres() { return $this->lettres; }
-  public function get_becarre() { return $this->becarre; }
-  public function get_bemol() { return $this->bemol; }
-  public function get_mot_bemol() { return"bémol "; }
-  public function get_blanche() { return $this->blanche; }
-  public function get_cle_fa() { return $this->cle_fa; }
-  public function get_cle_sol() { return $this->cle_sol; }
-  public function get_croche() { return $this->croche; }
-  public function get_demi_soupir() { return $this->demi_soupir; }
-  public function get_demie_pause() { return $this->demie_pause; }
-  public function get_diese() { return $this->diese; }
-  public function get_mot_diese() { return "dièse "; }
-  public function get_noire() { return $this->noire; }
-  public function get_pause() { return $this->pause; }
-  public function get_portee() { return $this->portee; }
-  public function get_ronde() { return $this->ronde; }
-  public function get_soupir() { return $this->soupir; }
+  public function get_becarre() { return "becarre"; }
+  public function get_bemol() { return "bemol"; }
+  public function get_blanche() { return "blanche"; }
+  public function get_cle_fa() { return "cle_fa"; }
+  public function get_cle_sol() { return "cle_sol"; }
+  public function get_croche() { return "croche"; }
+  public function get_demi_soupir() { return "demi_soupir"; }
+  public function get_demie_pause() { return "demie_pause"; }
+  public function get_diese() { return "diese"; }
+  public function get_noire() { return "noire"; }
+  public function get_pause() { return "pause"; }
+  public function get_portee() { return "portee"; }
+  public function get_ronde() { return "ronde"; }
+  public function get_soupir() { return "soupir"; }
+  public function get_barre() { return "barre"; }
   public function get_decalageGraphique() { return $this->decalageGraphique; }
 
   private $lettres;
@@ -124,15 +104,17 @@ class P_constantes {
     return $this->lettres[$i];
   }
 
+  public function getMotAlteration(string $alteration)
+  {
+    if ($alteration == $this->get_bemol()) return " bémol";
+    if ($alteration == $this->get_diese()) return " dièse";
+    return "";
+  }
+
   public function get_point(int $niveau)
   {
     if ($niveau % 2 == 0) return $this->point_interligne;
     return $this->point_ligne;
-  }
-
-  public function get_barre()
-  {
-    return $this->barre;
   }
 
   /**
@@ -156,6 +138,18 @@ class P_constantes {
 
     $octave= intval($nomNote[1]) - 2 + $modifOctave;
     return ($this->demiTons[$lettre] + (12 * $octave));
+  }
+
+  public function getDurees()
+  {
+    return [1,2,3,4,6,8];
+  }
+
+  public function getDureeAleatoire()
+  {
+    $durees = $this->getDurees();
+    shuffle($durees);
+    return $durees[0];
   }
 
   /**
@@ -215,12 +209,89 @@ class P_constantes {
     return "P_constantes.getQualificatifIntervalle() : hauteur ".$hauteur." non gérée.";
   }
 
-  public function getNomNote(int $modificateurCle, string $nomNote)
+  public function getNomNote(int $modificateurCle, string $lettreNote)
   {
-    $indice = strpos($this->lettres, $nomNote[0]) + $modificateurCle;
+    $indice = strpos($this->lettres, $lettreNote) + $modificateurCle;
     if ($indice < 0) { $indice += 7; }
     if ($indice > 6) { $indice -= 7; }
     return $this->nomNote_cleSol[$indice];
+  }
+
+  /**
+   * Donne l'indice d'une note dans l'armature des dièses (FA=0, DO=1...)
+   * ou des bémols (SI=0, MI=1...)
+   * ATTENTION ! Par défaut, $alteration est considérée comme un dièse, et non comme l'abscence d'altération.
+   */
+  public function getIndiceArmature(string $nomNote, string $alteration)
+  {
+    $indiceNote = array_search($nomNote, $this->ordre_diese);
+    if ($alteration == $this->get_bemol())
+    {
+      $indiceNote = 6 - $indiceNote;
+    }
+    return $indiceNote;
+  }
+
+  /**
+   * Retourne au moins autant de notes qu'il en faut pour obtenir cette note avec cette altération.
+   * Ex : pour sol#, retourne [F3,C3,G3]
+   * En l'abscence d'altération, un tableau vide est retourné.
+   * Si plus=false, on retourne juste assez d'altération pour obtenir le résultat voulu.
+   * Si plus=true,  on peut en retourner un peu plus.
+   */
+  public function getArmature(string $nomNote, string $alteration, bool $plus)
+  {
+    if ($alteration == "") return [];
+    if ($alteration == $this->get_becarre()) return [];
+    $indiceNote = $this->getIndiceArmature($nomNote, $alteration);
+    $armature = $this->armature_diese;
+    if ($alteration == $this->get_bemol()) $armature = $this->armature_bemol;
+    // Ajouter éventuellement quelques notes à l'armature pour brouiller les pistes
+    $chances = random_int(1,10);
+    if ($plus && ($chances < 7))
+    {
+      $nbEnPlus = count($armature) - $indiceNote - 1;
+      if ($nbEnPlus > 0) { $indiceNote += random_int(0,$nbEnPlus); }
+    }
+    $resultat = [];
+    $i = 0;
+    while ($i <= $indiceNote)
+    {
+      $resultat[] = $armature[$i];
+      $i += 1;
+    }
+    return $resultat;
+  }
+
+  /**
+   * Retourne un nom de fichier contenant un chiffrage suffisant pour contenir
+   * cette durée (exprimée en nb de croches).
+   */
+  public function getChiffrageAleatoire(int $dureeMin)
+  {
+    // Les chiffrages disponibles:
+    $chiffrages =
+    [
+      [4,  ["ch22"]],
+      [6,  ["ch34","ch68"]],
+      [8,  ["ch22","ch44"]],
+      [9,  ["ch98"]],
+      [12, ["ch128"]]
+    ];
+    // Etablir une liste des chiffrages qui conviennent
+    $chiffragesOk = [];
+    foreach ($chiffrages as $chiffrage)
+    {
+      if ($chiffrage[0] >= $dureeMin)
+      {
+        foreach ($chiffrage[1] as $nomFichier)
+        {
+          $chiffragesOk[] = $nomFichier;
+        }
+      }
+    }
+    // En retourner un au hazard
+    return $chiffragesOk[random_int(1,count($chiffragesOk)) - 1];
   }
 
   /**

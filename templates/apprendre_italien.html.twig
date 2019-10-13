@@ -10,11 +10,18 @@
 {% block corps %}
   {{ parent() }}
 
+<div class="sommaire">
+  <h2>Sommaire</h2><br>
+  <li><a href="#nuances">Les nuances</a></li>
+  <li><a href="#tempo">Le tempo</a></li>
+  <li><a href="#expression">L'expression</a></li>
+</div>
+
 <div class="container">
   <div class="row">
     <div class="col-12">
     <div class="listeDeroulante">
-      <div class="cadreNoir">
+      <div class="cadreNoir" id="nuances">
         <h2 class="souligne">Les nuances</h2>
         Les mots qui suivent indiquent une intensité, c'est à dire le volume sonore à utiliser pour jouer les notes. Un mot italien ainsi qu'un symbole désigne chacune d'elles. Les voici, classées dans l'ordre du son le plus faible au son le plus fort :
         <table>

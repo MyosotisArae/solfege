@@ -2,12 +2,12 @@
 {% set echelle = 1 %}
 {% endif %}
 {% if indice is not defined %}
-{% set indice = 'A' %}
+{% set indice = echelle*100 %}
 {% endif %}
   <img class="positionAbsolue imgEchelle{{ indice }}" src="{{img_path}}portee/portee.gif" style="top:0px;">
   <div class="positionAbsolue">
   {% for figure in figures %}
-    {% set y = figure.niveau * 12.4 * echelle %}
+    {% set y = figure.niveau * 12.32 * echelle %}
     {% set inverse = '' %}
     {% if figure.niveau < -2 %}
       {% if figure.image in ["croche", "noire","blanche"] %}

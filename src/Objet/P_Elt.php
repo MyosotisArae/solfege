@@ -27,25 +27,30 @@ class P_Elt
       // Liste des P_Figure à afficher pour cet élément.
       $this->figures = array();
       if ($clef != null) $this->clef = $clef;
-      else $this->clef = new P_Clef("cle_sol");
+      else $this->clef = new P_Clef($this->cst->get_cle_sol());
 
       // Lors de la création d'un P_Elt, on précise d'abord la clé, puis
-      // l'altération et la note ("F2" par exemple), et . Chacune des 3
-      // influe sur la hauteur (nombre de tons). Le niveau (position
+      // l'altération et la note ("F2" par exemple). Chacune des 3
+      // influe sur la hauteur (nombre de demi tons). Le niveau (position
       // verticale de la figure) est déterminé uniquement grâce au nom de
-      // la note. Dans un P_Elt, il y a toujours une portée est, affichée
-      // au niveau 0, mais la note, l'altération et le point utilisent ce
+      // la note. Dans un P_Elt, il y a toujours une portée, affichée au
+      // niveau 0, mais la note, l'altération et le point utilisent ce
       // niveau, qui va être calculé au fil des ajouts de figures.
-      // Ca commence par la clé :
+      // Cela commence par la clé :
       $this->hauteur = $clef->getModificateur();
 
       $this->duree = 0;
+      $this->etroit = false; // Certains éléments, comme les altération de l'armature, doivent être plus étroit.
     }
+
+    private $etroit;
 
     // Cette propriété permet d'accéder aux constantes dans P_constantes.
     private $cst;
 
-    // La hauteur permettra donc compter les tons entre deux notes.
+    // La hauteur est une valeur arbitraire : le 0 est pris au niveau F2. Elle n'est utile
+    // que dans le cadre d'une comparaison avec une autre note : elle permettra alors de
+    // compter les tons entre deux notes.
     private $hauteur;
 
     // Durée en croches (doit être accessible par P_Figure, pour le twig _figure)
@@ -65,9 +70,22 @@ class P_Elt
         return $this->hauteur;
     }
 
+    public function getEtroit()
+    {
+        return $this->etroit;
+    }
+
     ///////////////////////////////////////////////////////////////////////////////
     //                              Fonctions                                    //
     ///////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * A appeler pour les figures plus étroites (les altérations de l'armature, en particulier)
+     */
+    public function rendreEtroit()
+    {
+        $this->etroit = true;
+    }
 
     /**
       * La portée doit appeler cette fonction en premier afin de pouvoir
@@ -85,7 +103,7 @@ class P_Elt
     {
       $niveau = $this->cst->getNiveau($nomNote);
       $this->duree = $duree;
-      $this->hauteur += $this->cst->getHauteur($nomNote, $this->clef->getModificateur());
+      $this->hauteur = $this->cst->getHauteur($nomNote, $this->clef->getModificateur());
       $n = new P_Aplacer($this->cst->getImageNote($duree), $niveau);
       $this->figures[] = $n;
 

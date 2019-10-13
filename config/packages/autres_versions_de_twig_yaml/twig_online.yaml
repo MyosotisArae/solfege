@@ -1,0 +1,17 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    globals:
+        son_path: 'son/instruments/'
+        dictee_path: 'son/dictee/'
+        img_path: 'images/'
+        tro_path: 'images/trophees/'
+        symb_path: 'images/symboles/'
+        css_path: 'css/'
+        js_path : 'js/'
+        BScss_path: 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'
+        BSjs_path : 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'
+        jQuery  : 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'
+        jQuery2 : 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+        jQuery1 : 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'

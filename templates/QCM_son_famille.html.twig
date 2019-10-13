@@ -18,7 +18,7 @@
   <div class="row">
     <div class="col-12">
       <b class="souligne">Question {{app.session.get('numQuestion')}} :</b>
-      <b>Ecoute et trouve la famille de cet instrument: </b><br><br>
+      <b>{{app.session.get('question').reponse.texteQuestion}}</b><br><br>
       <audio controls controlsList="nodownload" src="{{son_path}}{{app.session.get('question').reponse.symbole}}.mp3"></audio>
       <br><br><br>
     </div>
@@ -27,14 +27,12 @@
     {% else %}
 
       {% for p in app.session.get('question').propositions %}
-    <div class="col-2 contenantCadreReponse">
+    <div class="col-3 contenantCadreReponse">
       <div class="cadreReponse">
         <a href="{{app.session.get('exercice')}}Correction{{loop.index0}}">
           {{p.commentaire}}
         </a>
       </div>
-    </div>
-    <div class="col-1 contenantCadreReponse">
     </div>
       {% endfor %}
     {% endif %}

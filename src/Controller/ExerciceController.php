@@ -90,7 +90,7 @@ class ExerciceController extends ParentController
   protected function poserQuestion()
   {
     $this->setSss('correction', '');
-    
+
     $this->setSss('numQuestion', $this->getSss('numQuestion') + 1);
 
     $this->getQuestion();
@@ -150,19 +150,18 @@ class ExerciceController extends ParentController
       }
     }
     $this->setSss('dejaDemande', $dejaDemande);
+    $this->setLibelleQuestion($bonneReponse);
     
     $question = new Question();
     $question->addReponse($bonneReponse);
 
-    // Niveau 7 et plus : plus besoin de liste de fausses réponses.
-    if ($this->getSss('niveau') < 7)
-    {
-      $this->addFaussesReponses($question, $bonneReponse, $possibilites);
-    }
+    $this->addFaussesReponses($question, $bonneReponse, $possibilites);
     
     $this->setSss('question',$question);
   }
-  
+
+  protected function setLibelleQuestion(Vocabulaire $bonneReponse) {}
+
   /**
    * Cette fonction doit être surchargée.
    * Elle récupère la catégorie du niveau en cours dans la table Vocabulaire.

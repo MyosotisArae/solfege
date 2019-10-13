@@ -3,6 +3,7 @@ namespace App\Objet;
 
 use App\Objet\P_Elt;
 use App\Objet\P_Clef;
+use App\Objet\P_Note;
 use App\Objet\P_constantes;
 
 /**
@@ -57,6 +58,118 @@ class Portee
     public function getEchelle(): ?float
     {
         return $this->echelle;
+    }
+
+    public function getHauteur(P_note $pNote)
+    {
+      $elt = new P_Elt($this->clef);
+      $niveau = $elt->addNote($pNote->getNom(),1);
+      $elt->addAlteration($pNote->getAlteration(), $niveau);
+      return $elt->getHauteur();
+    }
+
+    /**
+     * Donne une note située nbDemiTons en-dessous/au-dessus (négatif/positif)
+     * de la note, sans avoir le même nom cette note.
+     * Valeur de retour : la note suivie de son altération
+     * Exemples : "C3", "A2diese", "G1bemol"
+     */
+    public function getNoteSelonTonalite(P_Note $pNoteDepart, int $nbDemiTons)
+    {
+      $txtDebug = "";
+      // Calcul de la hauteur de la note de départ
+      $hauteurDeDepart = $this->getHauteur($pNoteDepart);
+
+      // Hauteur de la note à trouver
+      $hauteurRecherchee = $hauteurDeDepart + $nbDemiTons;
+      $txtDebug .= " H(".$pNoteDepart->getNom()." ".$pNoteDepart->getAlteration().")=".$hauteurDeDepart."+".$nbDemiTons."=".$hauteurRecherchee." : ";
+
+      // Pour ne pas chercher au hazard, on va partir de la plus basse note affichable et remonter.
+      $pNote = new P_Note();
+      $pNote->setOctave(1);
+      $lettres = $this->cst->get_lettres();
+      $nbLettres = strlen($lettres);
+      $alteration = "";
+      $indexLettre = 0;
+      $continuer = true;
+      $i = 0;
+      
+      while ($continuer)
+      {
+        $i += 1;
+        $changerDoctave = false; // Le mettre à true pour passer à l'octave suivant.
+        $passerDesNotes = 0;     // Indique de combien de notes il faut avancer.
+        $pNote->setLettre($lettres[$indexLettre]);
+        $pNote->setAlteration($alteration);
+        $alteration = "";
+        $diffHauteur = $hauteurRecherchee - $this->getHauteur($pNote);
+        $txtDebug .= " h(".$pNote->getNom()." ".$pNote->getAlteration().")=".$this->getHauteur($pNote)."/".$hauteurRecherchee."=".$diffHauteur."...";
+
+        // On essaie d'abord d'approcher du résultat en sautant plusieurs notes d'un coup.
+        if ($diffHauteur > 12) { $changerDoctave = true; }
+        else
+        {
+          if ($diffHauteur > 7) $passerDesNotes = 3; 
+          else
+          {
+            if ($diffHauteur > 1) { $passerDesNotes = 1; }
+            else
+            {
+              // Trouvé ?
+              if ($diffHauteur == 0)
+              {
+                if (($pNote->getNom() == $pNoteDepart->getNom()) && ($nbDemiTons == 0))
+                {
+                  $passerDesNotes = 1;
+                  $alteration = $this->cst->get_bemol();
+                }
+                else return $pNote;
+              }
+              // Recherche plus fine
+              if ($diffHauteur == 1)
+              {
+                // Dans les cas où la note n'est ni un mi ni un si (la touche suivante est noire)
+                if (strpos("EB",$pNote->getLettre()) === false)
+                {
+                  // Il y avait un dièse ? Passer à la note suivante.
+                  // Dans les autres cas, mettre un dièse.
+                  if ($pNote->getAlteration() == $this->cst->get_diese()) { $passerDesNotes = 1; }
+                  else if ($pNote->getAlteration() != $this->cst->get_bemol()) { $alteration = $this->cst->get_diese(); }
+                }
+                // Cas du mi et du si
+                else
+                {
+                  if ($pNote->getAlteration() == $this->cst->get_diese()) { $passerDesNotes = 1; }
+                  else { $alteration = $this->cst->get_diese(); }
+                }
+              }
+              else
+              {
+                if ($diffHauteur == -1)
+                {
+                  if (strpos("CF",$pNote->getLettre()) === false) $alteration = $this->cst->get_bemol();
+                }
+              }
+            }
+          }
+        }
+
+        if ($passerDesNotes > 0)
+        {
+          $txtDebug .= "  diff=".$diffHauteur." => passer ".$passerDesNotes." notes.  ";
+          $indexLettre += $passerDesNotes;
+          if ($indexLettre >= $nbLettres)
+          {
+            $indexLettre -= $nbLettres;
+            $changerDoctave = true;
+          }
+        }
+        if ($changerDoctave) $pNote->setOctaveSuivant();
+        //if ($changerDoctave) print_r(" changement d'octave ");
+        // Securité en cas de bug boucle infinie
+        if ($i > 50) { $continuer = false; print_r($txtDebug . "  boucle infinie:diff=".$diffHauteur.". "); }
+      }
+      return $pNote; // Ce code n'est théoriquement jamais atteint.
     }
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -128,6 +241,22 @@ class Portee
         $elt->addPoint($duree, $niveau);
         $elt->addBarres($niveau);
       }
+
+      $this->elements[] = $elt;
+    }
+
+    /**
+     * Ajouter une altération sur l'armature.
+     */
+    public function addAlteration(string $nom, string $alteration)
+    {
+      $elt = new P_Elt($this->clef); // Ceci définit la clé du P_Elt.
+
+      // Récupérer le niveau de cette note :
+      $niveau = $this->cst->getNiveau($nom);
+      // Ajouter l'altération :
+      $elt->addAlteration($alteration, $niveau);
+      $elt->rendreEtroit();
 
       $this->elements[] = $elt;
     }

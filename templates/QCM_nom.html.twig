@@ -18,7 +18,7 @@
   <div class="row">
     <div class="col-12">
       <b class="souligne">Question {{app.session.get('numQuestion')}} :</b>
-      <b>Quelle est la signification de {{app.session.get('question').reponse.nom}} ?</b><br><br>
+      <b>{{app.session.get('question').reponse.texteQuestion}}</b><br><br>
     </div>
     {% if app.session.get('correction')|length > 0 %}
       {% include '_correction.html.twig' %}

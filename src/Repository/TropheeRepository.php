@@ -2,6 +2,7 @@
 namespace App\Repository;
 
 use App\Entity\Trophee;
+use App\Entity\Musicien;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -12,12 +13,12 @@ class TropheeRepository extends ServiceEntityRepository
         parent::__construct($registry, Trophee::class);
     }
 
-    public function getListe()
+    public function getTrophees()
     {
-      $qb = $this->createQueryBuilder('t')
+        $qb = $this->createQueryBuilder('t')
                  ->orderBy('t.id');
 
-      return $qb->getQuery()
-                ->getResult();
+        return $qb->getQuery()
+                  ->getResult();
     }
 }

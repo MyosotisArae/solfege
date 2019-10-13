@@ -5,6 +5,7 @@ use App\Entity\Vocabulaire;
 use App\Objet\Question;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ItalienController extends ExerciceController
@@ -16,6 +17,17 @@ class ItalienController extends ExerciceController
   {
     $this->setSss('titreExo', 'termes italiens' );
     return $this->question('italien');
+  }
+
+  /**
+   * @Route("/italienCorrectionForm", name="italienCorrectionForm")
+   */
+  public function main4(Request $request)
+  {
+    if ($request->getMethod() == Request::METHOD_POST){
+      $texte = $request->request->get('texteFormulaire');
+      return $this->correction('italien', $texte);
+    }
   }
 
   /**
@@ -39,6 +51,13 @@ class ItalienController extends ExerciceController
                                 ]);
   }
 
+  protected function testReponseFournie(Question $question, $reponseFournie)
+  {
+    if ($this->getSss('niveau') < 5) return parent::testReponseFournie($question, $reponseFournie);
+
+    return ($reponseFournie == "12345678");
+  }
+
   /**
    * Cette fonction récupère la catégorie du niveau en cours dans la table Vocabulaire.
    * @return array d'objets Vocabulaire
@@ -48,11 +67,29 @@ class ItalienController extends ExerciceController
     switch ($this->getSss('niveau'))
     {
       case 1:
-      case 4: return $this->getCategorie('nuance'); 
-      case 2:
-      case 5: return $this->getCategorie('tempo');
+      case 4:
+      case 5: $this->setSss('valeurParDefaut', 'aaaaaaaa');
+              return $this->getCategorie('nuance'); 
+      case 2: return $this->getCategorie('tempo');
       case 3:
       case 6: return $this->getCategorie('expression');
+    }
+  }
+
+  protected function setLibelleQuestion(Vocabulaire $bonneReponse)
+  {
+    switch ($this->getSss('niveau'))
+    {
+      case 1: $bonneReponse->setTexteQuestion("Que représente ce symbole ?");
+              break;
+      case 2: 
+      case 3:
+      case 6: $bonneReponse->setTexteQuestion("Quelle est la signification de ".$bonneReponse->getNom(). "?");
+              break;
+      case 4: $bonneReponse->setTexteQuestion("Lis la définition donnée ci-dessous et trouve à quel symbole elle correspond.");
+              break;
+      case 5: $bonneReponse->setTexteQuestion("Numérote ces nuances de la plus faible (1) à la plus forte (8).");
+              break;
     }
   }
 
@@ -63,11 +100,25 @@ class ItalienController extends ExerciceController
     {
       case 1 : $this->setSss('modele', 'QCM_symbole'); break;
       case 2 :
-      case 3 : $this->setSss('modele', 'QCM_nom'); break;
-      case 4 : $this->setSss('modele', 'QCM_commentaire1'); break;
-      case 5 ://à faire
+      case 3 :
       case 6 : $this->setSss('modele', 'QCM_nom'); break;
+      case 4 : $this->setSss('modele', 'QCM_commentaire1'); break;
+      case 5 : $this->setSss('modele', 'QCM_ordre'); break;
     }
+  }
+
+  protected function addFaussesReponses(Question $question, Vocabulaire $bonneReponse, array $tableau = null)
+  {
+    if ($this->getSss('niveau') < 5) { return parent::addFaussesReponses($question,$bonneReponse,$tableau); }
+
+    // Niveau 5 :
+    $nuances = $this->getCategorie('nuance');
+    $propositions = array();
+    foreach ($nuances as $n)
+    {
+      if ($n->getOrdre() > 0) { $question->addProposition($n); }
+    }
+    $question->melangerPropositions();
   }
 
   protected function complementCorrection(Vocabulaire $bonneReponse)

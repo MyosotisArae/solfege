@@ -50,16 +50,16 @@ class Question
 
     /**
      * Ajoute au maximum 5 propossitions à $this->propositions
-     * Prend les 5 premières s'il y en a trop dans $a
+     * Prend les nbMax premières s'il y en a trop dans $a
      *
      * $a Le tableau des propositions
      */
-    public function setPropositions(array $a)
+    public function setPropositions(array $a, int $nbMax = 5)
     {
-        if (count($a) > 6)
+        if (count($a) > $nbMax)
         {
           $this->propositions = array();
-          foreach (range(1,5) as $i)
+          foreach (range(1,$nbMax) as $i)
           {
             $this->propositions[] = array_shift($a);
           }

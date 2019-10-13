@@ -30,11 +30,20 @@
 {% block corps %}
   {{ parent() }}
 
+<div class="sommaire">
+  <h2>Sommaire</h2><br>
+  <li><a href="#familles">Les familles d'instruments</a></li>
+    <span class="fonteInvisible">blabla</span><a href="#familles">Les cordes</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#vent">Les vents (bois et cuivres)</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#percussion">Les percussions</a>
+  <li><a href="#reco">Reconnaître un instrument</a></li>
+</div>
+
 <div class="container">
   <div class="row">
     <div class="col-12">
     <div class="listeDeroulante">
-      <div class="cadreNoir">
+      <div class="cadreNoir" id="familles">
         <h2 class="souligne">Les familles d'instruments</h2>
         Les orchestres symphoniques et philharmoniques se composent de trois familles d'instruments : les cordes, les vents et les percussions.<br>
         Les instruments à vent sont répartis en 2 catégories : les bois et les cuivres, ceci en raison du matériau dans lequel ils étaient fabriqués à l'origine, même si ce n'est plus le cas aujourd'hui.<br>
@@ -68,7 +77,7 @@
                 <tr><td class="enumNiv3">le contrebasson (deux fois plus grave que le basson)</td></tr>
               <tr>
                 <td class="enumNiv2">Les cuivres :
-                  {% include "_cadreConseil.html.twig" with {"texte":"A l'examen, pense à préciser bois ou cuivre (dire vent est insuffisant).", "x":"18"} %}
+                  {% include "_cadreConseil.html.twig" with {"texte":"A l'examen, pense à préciser  bois ou cuivre (dire vent est  insuffisant).", "x":"18"} %}
                 </td>
               </tr>
                 <tr><td class="enumNiv3">le trombone</td></tr>

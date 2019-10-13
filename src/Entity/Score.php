@@ -15,9 +15,11 @@ class Score
 {
     public function __construct(int $n, int $d, int $s)
     {
+      $cst = new P_constantes();
       $this->niveau = $n;
       $this->discipline = $d;
       $this->score = $s;
+      $this->musicien = $cst->getIdMusicien();
     }
 
     /**
@@ -50,6 +52,12 @@ class Score
      */
     private $score;
 
+    /**
+     * Relation vers le propriétaire du score
+     * @ORM\Column(name="musicien", type="integer", nullable=false))
+     */
+    private $musicien;
+
     ///////////////////////////////////////////////////////////////////////////////
     //                              Getteurs                                     //
     ///////////////////////////////////////////////////////////////////////////////
@@ -80,6 +88,11 @@ class Score
         return $cst->getScoreMax_int($this->getDiscipline(), $this->getNiveau());
     }
 
+    public function getMusicien()
+    {
+        return $this->musicien;
+    }
+
     ///////////////////////////////////////////////////////////////////////////////
     //                              Setteurs                                     //
     ///////////////////////////////////////////////////////////////////////////////
@@ -87,6 +100,11 @@ class Score
     public function setScore(int $s)
     {
         $this->score = $s;
+        return $this;
+    }
+    public function setMusicien(int $m)
+    {
+        $this->musicien = $m;
         return $this;
     }
 

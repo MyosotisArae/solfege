@@ -11,11 +11,42 @@
 {% block corps %}
   {{ parent() }}
 
+<div class="sommaire">
+  <h2>Sommaire</h2><br>
+  <li><a href="#bases">Les bases</a></li>
+  <li><a href="#intervalles">Les intervalles</a></li>
+    <span class="fonteInvisible">blabla</span><a href="#intervalles">Le nom</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#qualificatif">Le qualificatif</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#prime juste">La prime juste</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#secondeMajeure">La seconde majeure</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#secondeMineure">La seconde mineure</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#tierceMajeure">La tierce majeure</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#tierceMineure">La tierce mineure</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#quarteJuste">La quarte juste</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#quinteJuste">La quinte juste</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#octaveJuste">La octave juste</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#augmente">augmenté</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#secondeAugmentee">La seconde augmentée</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#tierceAugmentee">La tierce augmentée</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#quarteAugmentee">La quarte augmentée</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#ascendant">Intervalle ascendant, descendant</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#harmonique">Intervalle mélodique, harmonique</a>
+  <li><a href="#alterations">Les altérations</a></li>
+    <span class="fonteInvisible">blabla</span><a href="#alterations">Le dièse</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#bemol">Le bémol</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#becarre">Le bécarre</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#constitutive">Constitutive ou accidentelle ?</a>
+  <li><a href="#gamme">Les gammes majeures et mineures</a></li>
+    <span class="fonteInvisible">blabla</span><a href="#gamme">Gamme majeure</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#gammeMineure">Gamme mineure</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#degre">Les degrés</a><br>
+</div>
+
 <div class="container">
   <div class="row">
     <div class="col-12">
     <div class="listeDeroulante">
-      <div class="cadreNoir">
+      <div class="cadreNoir" id="bases">
         <h2 class="souligne">Les bases</h2>
           Pour comprendre les tonalités, il faut avoir en tête un clavier de piano, qui représente bien <b>l'échelle diatonique</b> (échelle musicale de 7 degrés, composée de 5 tons et 2 demi tons). Voici une <b>octave</b> (de do à do, ça fait 8 notes) :<br>
           {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false} only %}
@@ -808,7 +839,7 @@ Quand on met une altération à côté d'une note, c'est bien pour modifier cett
       </div>
 
       <div class="cadreNoir">
-        <h2 class="souligne" id="alterations">Les gammes majeures et mineures</h2>
+        <h2 class="souligne" id="gamme">Les gammes majeures et mineures</h2>
         Là, il va vraiment devenir indispensable que tu aies sur ton brouillon un clavier de piano de dessiné, éventuellement sur deux octaves, même, ça peut aider.<br>
         <table>
           <tr>

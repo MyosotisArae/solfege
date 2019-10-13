@@ -24,9 +24,11 @@ class ScoreRepository extends ServiceEntityRepository
     /**
       * @return array[Score[]]
       */
-    public function getListe()
+    public function getScores()
     {
       $qb = $this->createQueryBuilder('s')
+                 ->andwhere('s.musicien = :mus')
+                 ->setParameter('mus', $this->cst->getIdMusicien())
                  ->orderBy('s.discipline, s.niveau');
 
       $listeComplete = $qb
@@ -52,7 +54,9 @@ class ScoreRepository extends ServiceEntityRepository
     {
       $qb = $this->createQueryBuilder('s')
                  ->select('MAX(s.niveau)')
-                 ->where('s.discipline = :d')
+                 ->andwhere('s.musicien = :mus')
+                 ->andwhere('s.discipline = :d')
+                 ->setParameter('mus', $this->cst->getIdMusicien())
                  ->setParameter('d', $this->cst->getIndiceDiscipline($discipline));
 
       $niveau = $qb->getQuery()
@@ -62,7 +66,7 @@ class ScoreRepository extends ServiceEntityRepository
       else
       {
         // Un score a été enregistré pour cette discipline. Vérifier si c'est le score max.
-        $ceScore = $this->getScoreDuNiveau($niveau, $discipline);
+        $ceScore = $this->getScoreDuNiveau($niveau, $discipline, $this->cst->getIdMusicien());
         if ($ceScore->getScore() < $ceScore->getScoreMax()) { $niveau -= 1; }
       }
 
@@ -75,9 +79,11 @@ class ScoreRepository extends ServiceEntityRepository
     {
       $indiceDiscipline = $this->cst->getIndiceDiscipline($discipline);
       $qb = $this->createQueryBuilder('s')
-                 ->where('s.discipline = :d')
-                 ->setParameter('d', $indiceDiscipline)
+                 ->andwhere('s.musicien = :mus')
+                 ->andwhere('s.discipline = :d')
                  ->andWhere('s.niveau = :n')
+                 ->setParameter('mus', $this->cst->getIdMusicien())
+                 ->setParameter('d', $indiceDiscipline)
                  ->setParameter('n', $niveau);
 
       $score = $qb->getQuery()

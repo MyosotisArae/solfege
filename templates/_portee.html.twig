@@ -1,9 +1,7 @@
 {% if echelle is not defined %}
 {% set echelle = 1 %}
 {% endif %}
-{% if indice is not defined %}
-{% set indice = 'A' %}
-{% endif %}
+{% set indice = echelle*100 %}
 <style>
  .imgEchelle{{ indice }}
  {
@@ -26,9 +24,11 @@
       
       <div class="positionAbsolue" style="top : 0; left : {{x}}px;">
         {% include "_figure.html.twig" with {"echelle":echelle, "figures":figures, "indice":indice} only %}
-        {#{% include "_figure.html.twig" with {"echelle":echelle, "figures":element.figures} only %}#}
       </div>
       {% set x = x + (100*echelle) %}
+      {% if element.etroit %}
+      {%   set x = x - (70*echelle) %}
+      {% endif %}
       {% endfor %}
     </div>
   </div>

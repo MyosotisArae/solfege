@@ -1,0 +1,111 @@
+.positionFixe { position : fixed; }
+.positionRelative { position : relative; }
+.positionAbsolue { position : absolute; }
+/* Pour avoir la m�me marge � gauche et � droite sur les exercices */
+.centrerExercice
+{
+  margin-left : 5%;
+  margin-right : 5%;
+}
+.miniBtn
+{
+  height : 10vh;
+  width  : auto;
+  min-width : 10vh;
+  border-radius : 5em;
+}
+.micro
+{
+  height : 2em;
+  width : auto;
+  padding-right : 2em;
+}
+.micro2
+{
+  position : absolute;
+  display : none;
+  top : 0;
+  left : 3em;
+  height : 10em;
+  width : auto;
+}
+.doubleImage
+{
+  position : relative;
+}
+.doubleImage:hover .micro2
+{
+  display : block;
+}
+.miniBtn img
+{
+  width : 7vh;
+  left : 1em;
+  top  : 0.7em;
+}
+h1
+{
+  color : black;
+  font-size : 5em;
+  text-align : center;
+}
+h2 { text-align : center; }
+.cadreNoir
+{
+  color : black;
+  border : 1px solid black;
+  border-radius : 1em;
+  margin-top : 1em;
+  padding-left : 2em;
+  padding-right : 2em;
+}
+.sousTitre
+{
+  margin-left: auto;
+  margin-right: auto;
+}
+b { font-size : 2em; }
+.souligne
+{
+  border-bottom : 1px solid red;
+}
+.imgSymbole
+{
+  height : 12em;
+  padding : 2em;
+}
+.imgSymboleEtroit
+{
+  max-width : 150px;
+}
+.contenantCadreReponse { padding-right : 0.4em; display : inline-block; }
+.cadreReponse
+{
+  border : 2px solid black;
+  /*border-shadow : 1px 1px 3px black;*/
+  border-radius : 0.8em;
+  text-align : center;
+  margin-top : 1em;
+  margin-left : 1em;
+  font-size : 1.5em;
+  /*min-width : 3em;*/
+}
+.cadreReponse a
+{
+  font-size : 1.5em;
+  color : black;
+}
+.cadreReponse label
+{
+  width : 2em;
+  height : 2em;
+}
+.cadreReponse button
+{
+  background: transparent;
+  border : none;
+}
+.cadreReponse a:hover { font-weight : bold; }
+.fonteInvisible { color : transparent; min-height : 25vh; }
+.largeur30 { width : 30em; }
+.brouillon { width : 40em; min-height: 7em; }

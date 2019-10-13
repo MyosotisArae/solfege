@@ -22,6 +22,7 @@ class Vocabulaire
       $this->commentaire = $c;
       $this->categorie = '';
       $this->ordre = 0;
+      $this->texteQuestion = '';
 
       $this->mauvaisesReponses = array();
 
@@ -91,6 +92,8 @@ class Vocabulaire
     private $portee1;
     private $portee2;
 
+    private $texteQuestion;
+
     ///////////////////////////////////////////////////////////////////////////////
     //                              Getteurs                                     //
     ///////////////////////////////////////////////////////////////////////////////
@@ -140,9 +143,16 @@ class Vocabulaire
         return $this->ordre;
     }
 
-    public function getMauvaisesReponses(): ?array
+    public function getMauvaisesReponses()
     {
-      return $this->mauvaisesReponses->slice(0);
+        $liste = array();
+        foreach ($this->mauvaisesReponses as $mr) { $liste[] = $mr; }  
+        return $liste;
+    }
+
+    public function getTexteQuestion(): ?string
+    {
+        return $this->texteQuestion;
     }
     ///////////////////////////////////////////////////////////////////////////////
     //                              Setteurs                                     //
@@ -199,6 +209,18 @@ class Vocabulaire
     public function setId(int $id)
     {
         $this->id = $id;
+        return $this;
+    }
+
+    public function setTexteQuestion(string $t)
+    {
+        $this->texteQuestion = $t;
+        return $this;
+    }
+
+    public function addMauvaiseReponse(Vocabulaire $m)
+    {
+        $this->mauvaisesReponses[] = $m;
         return $this;
     }
 

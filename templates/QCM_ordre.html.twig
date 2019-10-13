@@ -1,0 +1,68 @@
+{% extends "page.html.twig" %}
+
+{% block entete %}
+  {{ parent() }}
+{% endblock %}
+
+{% block corps %}
+  {{ parent() }}
+{% endblock %}
+
+{% block titre %}
+  {{ app.session.get('titreExo') | capitalize }}
+{% endblock %}
+
+{% block page %}
+  {{ parent() }}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <b class="souligne">Question {{app.session.get('numQuestion')}} :</b>
+      <b>{{app.session.get('question').reponse.texteQuestion}}</b><br><br>
+    </div>
+    {% if app.session.get('correction')|length > 0 %}
+      {% include '_correction.html.twig' %}
+    {% else %}
+
+    
+<script>
+function majValeur(index,val)
+{
+  valeur = document.getElementById('texteFormulaire').value;
+  fin = (1*index)+1;
+  valeur = valeur.substr(0, index) + val + valeur.substr(fin,valeur.length);
+  document.getElementById('texteFormulaire').value = valeur;
+}
+</script>
+
+      
+      {% for p in app.session.get('question').propositions %}
+      <div class="col-3"><h2 style="text-align : right;">
+        <label>{{p.nom}}</label>&nbsp;:<input type="text" onfocus="this.value=''" onchange="javascript:majValeur({{p.ordre-1}},this.value)" style="max-width : 1em;" value='0'>
+      </h2></div>
+      {% endfor %}
+      
+  </div>
+
+  {# Bouton pour confirmer la reponse : #}
+  <div class="col-12">
+    <form action="{{app.session.get('exercice')}}CorrectionForm" method="POST">
+    <div class="col-12">
+      <div class="container-fluid">
+        <div class="row">
+            <div  class="col-8">
+              <div class="cadreReponse">
+                <button type="submit">Je confirme ma réponse</bouton>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <input type="hidden" id="texteFormulaire" name="texteFormulaire" value="{{app.session.get('valeurParDefaut')}}">
+    </form>
+  </div>
+
+    {% endif %}
+
+</div>
+{% endblock %}

@@ -44,8 +44,9 @@ class RythmeController extends ExerciceController
     switch ($this->getSss('niveau'))
     {
       case 1: return $this->constructionDesReponsesNiv1();
-      case 2: return $this->constructionDesReponsesNiv2();
-      case 3: return $this->constructionDesReponsesNiv3();
+      case 2: 
+      case 3: $this->setSss('afficherNom', '1');
+              return $this->getCategorie("chiffrage");
       case 4:
       case 5: return $this->getCategorie('tempo');
       case 6: return $this->getCategorie('expression');
@@ -54,7 +55,6 @@ class RythmeController extends ExerciceController
 
   protected function constructionDesReponsesNiv1()
   {
-    $this->setSss('texteQuestion', 'Trouve la note qui a la même durée que ce silence:');
     $listeDeReponses = $this->getCategorie('silence');
     // Dans la liste ainsi récupérée, ce qui nous intéresse est :
     // - la duree du silence
@@ -62,7 +62,7 @@ class RythmeController extends ExerciceController
     // - son nom               : nom
     // - sa description        : description
     // - son image (sans point):symbole
-    // Les propositions contiendront tous les silences trouvés en base.
+    // Les propositions contiendront toutes les silences trouvés en base.
     // Pour chacune d'elles, on va construire une portée contenant des
     // notes, et une autre contenant des silences.
     $resultat = array();
@@ -80,26 +80,6 @@ class RythmeController extends ExerciceController
     }
     return $resultat;
   }
-
-  /** Cette fonction crée une liste de questions sur le chiffrage
-   *  en montrant un chiffrage et en posant une question sur le contenu
-   *  d'une mesure. Il prépare aussi la question :
-   *  Indique quelles séries de notes on peut mettre dans ce type de mesure :
-   *  -> x croches, x' noires, x'' blanches
-   */
-  private function constructionDesReponsesNiv2()
-  {
-    $this->setSss('texteQuestion', 'Indique quelles séries de notes on peut mettre dans ce type de mesure :');
-    return $this->getCategorie("chiffrage");
-  }
-
-  protected function constructionDesReponsesNiv3()
-  {
-    $this->setSss('texteQuestion', 'Quelle est la pulsation ?');
-    $this->setSss('afficherNom', '1');
-    return $this->getCategorie("chiffrage");
-  }
-
   
   /* Retourne un texte retournant la durée du temps fourni.
    * $duree : exprimée en nombre de croches.
@@ -168,7 +148,6 @@ class RythmeController extends ExerciceController
   protected function addFaussesReponsesNiv2(Question $question, Vocabulaire $bonneReponse)
   {
     $nbCrochesBonneReponse = $bonneReponse->getOrdre();
-    $bonneReponse->setNom($this->getDureeMesure($nbCrochesBonneReponse));
     $bonneReponse->setSymbole("../portee/".$bonneReponse->getSymbole());
     $question->addReponse($bonneReponse);
     // Toutes les durees :
@@ -264,6 +243,25 @@ class RythmeController extends ExerciceController
     }
     return $nbCroches." croches";
   }
+
+  protected function setLibelleQuestion(Vocabulaire $bonneReponse)
+  {
+    switch ($this->getSss('niveau'))
+    {
+      case 1: $bonneReponse->setTexteQuestion("Trouve la note qui a la même durée que ce silence :");
+              break;
+      case 2:  $bonneReponse->setTexteQuestion("Indique quelles séries de notes on peut mettre dans ce type de mesure :");
+              break;
+      case 3: $bonneReponse->setTexteQuestion("Quelle est la pulsation ?");
+              break;
+      case 4: $bonneReponse->setTexteQuestion("Lis la définition donnée ci-dessous et trouve à quel symbole elle correspond.");
+              break;
+      case 5: $bonneReponse->setTexteQuestion("Numérote ces nuances de la plus faible (1) à la plus forte (8).");
+              break;
+      case 6: $bonneReponse->setTexteQuestion("Quelle est la signification de ".$bonneReponse->getNom(). "?");
+              break;
+    }
+  }
   
   protected function initNiveau()
   {
@@ -273,9 +271,9 @@ class RythmeController extends ExerciceController
       case 1 :
       case 3 : $this->setSss('modele', 'QCM_portee'); break;
       case 2 : $this->setSss('modele', 'QCM_symbole'); break;
+      case 4 : $this->setSss('modele', 'QCM_commentaire1'); break;
       case 5 :
       case 6 : $this->setSss('modele', 'QCM_nom'); break;
-      case 4 : $this->setSss('modele', 'QCM_commentaire1'); break;
     }
   }
 

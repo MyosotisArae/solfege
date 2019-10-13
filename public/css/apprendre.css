@@ -1,0 +1,52 @@
+b { font-size : 120%; }
+.imgSymbole
+{
+  height : 3em;
+  padding : 0.5em;
+}
+.cadreNoir { margin-right : 2em; }
+.cadreConseil
+{
+  border : 2px dashed green;
+  background : rgba(0,255,0,0.5);
+  margin : 2em;
+  min-width : 800px;
+  max-width : 900px;
+}
+h1.conseil
+{
+  color : green;
+  font-size : 8em;
+}
+.indentation
+{
+  margin-left : 1.5em;
+}
+/* Pour dessiner un tableau */
+table.tableau { border-collapse : collapse; }
+td.tableau
+{
+  border : 1px solid black; 
+  text-align : center;
+}
+.fonteInvisible { color : transparent; min-height : 25vh; }
+/* Pour que les liens (les ancres surtout) se voient bien. */
+.enGras
+{
+  font-weight: bold;
+  font-size : 1.5em;
+}
+.enGras:hover
+{
+  font-weight: bold;
+  font-size : 2em;
+  color : gold;
+}
+.sommaire
+{
+  position: absolute;
+  right : 1em;
+  top : 10em;
+  border: 1px dotted black;
+  padding : 1em;
+}

@@ -11,11 +11,27 @@
 {% block corps %}
   {{ parent() }}
 
+<div class="sommaire">
+  <h2>Sommaire</h2><br>
+  <li><a href="#chiffrage">Le chiffrage</a></li>
+    <span class="fonteInvisible">blabla</span><a href="#chiffrage">Numérateur, dénominateur</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#binaire">Mesures binaires</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#ternaire">Mesures ternaires</a><br>
+  <li><a href="#tempo">Le tempo</a></li>
+    <span class="fonteInvisible">blabla</span><a href="#tempo">La pulsation</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#rythme">le rythme</a><br>
+  <li><a href="#signes">Signes courants</a></li>
+    <span class="fonteInvisible">blabla</span><a href="#signes">Les silences</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#barre">Les barres</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#dacapo">Les reprises</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#prolongation">Prolonger une note</a><br>
+</div>
+
 <div class="container">
   <div class="row">
     <div class="col-12">
     <div class="listeDeroulante">
-      <div class="cadreNoir">
+      <div class="cadreNoir" id="chiffrage">
         <h2 class="souligne">Le chiffrage</h2>
           Les <b>mesures</b> permettent d'organiser la portée en petites portions de temps équivalents.<br>
           Le chiffrage de la mesure précise le nombre et la valeur des temps dans les mesures. Il s'agit des deux chiffres indiqués à côté de la clé sous la forme d'une fraction.<br>
@@ -167,7 +183,7 @@
       </div>
 
       <div class="cadreNoir">
-        <h2 class="souligne">Le tempo</h2>
+        <h2 class="souligne" id="tempo">Le tempo</h2>
           Le tempo se compte en nombre de <b>pulsations</b> par minute. C'est la mesure qu'on bat, les tics du métronome.<br>
           Exemples :
           <li>lento (lent) fait 52 à 68 pulsations par minute (à peu près une par seconde)</li>
@@ -238,7 +254,7 @@
       </div>
 
       <div class="cadreNoir">
-        <h2 class="souligne" id="alterations">Les signes</h2>
+        <h2 class="souligne" id="signes">Les signes</h2>
         Voici les principaux signes en rapport avec le rythme :<br>
         <table>
           <tr>
@@ -460,6 +476,18 @@
             </td>
             <td class="tableau">
               <img src="{{img_path}}symboles/prolongation.png">
+            </td>
+        </table>
+        <br>
+
+        <table>
+          <tr>
+            <td class="tableau">
+              Le <b>point d'orgue</b> sert à prolonger une note plus longtemps que ne le demande sa durée réelle. Généralement, cette note marquera la fin du morceau.<br>
+              Le musicien est libre de choisir la durée de cette note, et la façon de la jouer. Selon les possibilités de son instrument, il pourra par exemple la faire vibrer, ou la jouer decrescendo.
+            </td>
+            <td class="tableau">
+              <img src="{{img_path}}/point_d_orgue.gif">
             </td>
         </table>
         <br>

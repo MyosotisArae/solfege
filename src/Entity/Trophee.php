@@ -14,7 +14,7 @@ class Trophee
 {
     public function __construct(int $id)
     {
-      $this->id = $id;
+        $this->id = $id;
     }
 
     /**
@@ -41,18 +41,18 @@ class Trophee
     private $description;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="obtenu", type="integer", nullable=false)
-     */
-    private $obtenu;
-
-    /**
      * @var \string
      *
      * @ORM\Column(name="image", type="text", length=20, nullable=false)
      */
     private $image;
+
+    /**
+     * @var int
+     *
+     * Relation vers le propriétaire du score
+     */
+    private $musicien;
 
     ///////////////////////////////////////////////////////////////////////////////
     //                              Getteurs                                     //
@@ -78,18 +78,18 @@ class Trophee
         return $this->image;
     }
 
-    public function getObtenu()
+    public function getMusicien(): ?int
     {
-        return $this->obtenu;
+        return $this->musicien;
     }
 
     ///////////////////////////////////////////////////////////////////////////////
     //                              Setteurs                                     //
     ///////////////////////////////////////////////////////////////////////////////
 
-    public function setObtenu($obtenu)
+    public function setMusicien($m = null)
     {
-        $this->obtenu = $obtenu;
+        $this->musicien = $m;
         return $this;
     }
 
@@ -99,7 +99,7 @@ class Trophee
 
     public function dejaObtenu()
     {
-      if ($this->obtenu == 0) return false;
-      return true;
+      if ($this->musicien > 0) return true;
+      return false;
     }
 }
