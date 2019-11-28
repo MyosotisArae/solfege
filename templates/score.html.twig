@@ -14,7 +14,7 @@
           <div class='tool-tip right'>Accueil</div>
         </div>
         <div class="col-10">
-          <h1>Scores de {{app.session.get('musicien').nom}}</h1>
+          <h1>Scores de {{app.user.username}}</h1>
           {% if app.session.get('niveau') > 0 %}<h2>Niveau {{app.session.get('niveau')}}</h2>{% endif %}
         </div>
         <div class="col-1">
@@ -66,8 +66,8 @@
                 {% if trophee.musicien %}
                 <tr>
                   <td class="doubleImage">
-                    <img class="micro" src="{{img_path}}trophees/{{trophee.image}}">
-                    <img class="micro2" src="{{img_path}}trophees/{{trophee.image}}">
+                    <img class="micro"  src="{{img_path}}trophees/{{trophee.image}}.gif">
+                    <img class="micro2" src="{{img_path}}trophees/{{trophee.image}}.gif">
                   </td>
                   <td><h3>{{trophee.nom}}</h3></td>
                 </tr>

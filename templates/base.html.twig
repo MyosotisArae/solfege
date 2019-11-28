@@ -15,14 +15,27 @@
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <![endif]-->
-  
+  {% set currentPath = path(app.request.attributes.get('_route'),
+                       app.request.attributes.get('_route_params')) %}
+    {% if '/log' in currentPath %}
+    {% else %}
+      {% if app.user %}
+      {% else %}
+{# <meta http-equiv="refresh" content="0; path=/login"> #}
+{# <meta http-equiv="refresh" content="0; URL=http://solfege.local/login"> #}
+      {% endif %}
+    {% endif %}
 {% endblock %}
   </head>
 
   <body>
 {% block corps %}
+      {% if app.user %}
+            <h1 class="rouge">{{ app.user.username }}</h1> <a href="{{ path('app_logout') }}">Déconnexion</a>
+      {% endif %}
   {% block navigation %}
   {% endblock %}
+
 
   {% block page %}
   {% endblock %}

@@ -9,6 +9,14 @@ use App\Entity\Trophee;
 class MainController extends ParentController
 {
   /**
+   * @Route("/", name="parDefaut")
+   */
+  public function parDefaut()
+  {
+    return $this->main();
+  }
+
+  /**
    * @Route("/main", name="main")
    */
   public function main()

@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block page %}
+
+{% include "_barreNotes.html.twig" %}
+
+<div class="container-fluid">
+  <div class="row">
+      {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+      {% endif %}
+  </div>
+</div>
+
+    {% if app.user %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-5">
+    </div>
+    <div class="col-3">
+      <br>
+      <a href="{{ path('app_logout') }}">cliquez ici</a>
+    </div>
+  </div>
+</div>
+    {% else %}
+
+<form method="post" action="main">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-12">
+        <h1 class="h3 mb-3 font-weight-normal">Connectez-vous pour jouer sur votre compte :</h1>
+      </div>
+
+      <div class="col-12">
+        <br>
+      </div>
+      <div class="col-2">
+      </div>
+      <div class="col-2">
+        <label for="inputUsername">Nom d'utilisateur :</label>
+      </div>
+      <div class="col-4">
+        <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
+      </div>
+      <div class="col-4">
+      </div>
+
+      <div class="col-12">
+        <br>
+      </div>
+      <div class="col-2">
+      </div>
+      <div class="col-2">
+        <label for="inputPassword">Mot de passe :</label>
+      </div>
+      <div class="col-4">
+        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+      </div>
+      <div class="col-4">
+      </div>
+
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+
+      <div class="col-5">
+      </div>
+      <div class="col-2">
+        <br>
+        <button class="btn btn-lg btn-primary" type="submit">
+          Connexion
+        </button>
+      </div>
+      <div class="col-6">
+      </div>
+
+    </div>
+  </div>
+</form>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-8">
+    </div>
+    <div class="col-4">
+      <form action="/lognew">
+          <br>
+          Vous n'avez pas encore de compte ?
+          <button class="btn btn-lg btn-primary" type="submit">
+            Créez un utilisateur
+          </button>
+      </form>
+    </div>
+  </div>
+</div>
+    {% endif %}
+
+{% include "_barreNotes.html.twig" %}
+
+{% endblock %}

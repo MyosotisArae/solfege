@@ -135,9 +135,9 @@ class InstrumentController extends ExerciceController
               break;
       case 4: $bonneReponse->setTexteQuestion("Trouve le nom l'instrument qui joue la mélodie :");
               break;
-      case 5: $bonneReponse->setTexteQuestion("");
+      case 5: //$bonneReponse->setTexteQuestion("");
               break;
-      case 6: $bonneReponse->setTexteQuestion("");
+      case 6: //$bonneReponse->setTexteQuestion("");
               break;
     }
   }

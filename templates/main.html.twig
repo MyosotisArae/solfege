@@ -4,13 +4,28 @@
   
   {{ parent() }}
   <link rel="stylesheet" href="{{css_path}}main.css">
+  <style>
+   body
+   {
+     background-image : url('{{img_path}}fondMain.jpg');
+   }
+  </style>
   
 {% endblock %}
 
-{% block corps %}
-  <body class="fondCouvrant" style="background-image : url('{{img_path}}fondMain.jpg')">
+{% block page %}
 
-    <br>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12" >
+          <button class="btn btn-lg btn-primary" href="{{ path('app_logout') }}">
+            Déconnexion
+          </button>
+        </div>
+      </div>
+    </div>
+
+
     <div class="container-fluid">
       <div class="row">
         <div class="col-3 offset-1 fondEntier boutonDrapeau" style="background-image : url('{{img_path}}italien.gif')">
@@ -64,7 +79,5 @@
         </div>
       </div>
     </div>
-
-  </body>
 
 {% endblock %}
