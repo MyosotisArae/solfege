@@ -13,8 +13,9 @@
           </a>
           <div class='tool-tip right'>Accueil</div>
         </div>
+
         <div class="col-10">
-          <h1>Scores de {{app.user.username}}</h1>
+          <h1>Scores de {{app.session.get('musicien').username}}</h1>
           {% if app.session.get('niveau') > 0 %}<h2>Niveau {{app.session.get('niveau')}}</h2>{% endif %}
         </div>
         <div class="col-1">
@@ -83,6 +84,16 @@
         
       </div>
     </div>
+
+
+    <div class="col-11" >
+    </div>
+    <div class="col-1" >
+      <button class="btn btn-lg btn-primary" href="{{ path('app_logout') }}">
+        Déconnexion
+      </button>
+    </div>
+
   </div>
 </div>
 

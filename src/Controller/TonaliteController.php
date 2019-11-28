@@ -183,7 +183,7 @@ class TonaliteController extends ExerciceController
       case 1: return $this->getCategorie('ton');
       case 2: return array();
       case 3:
-      case 4: return $this->getVocabulaireNiv3et4et4();
+      case 4: return $this->getVocabulaireNiv3et4();
       case 5: return $this->getCategorie('tempo');
       case 6: return $this->getCategorie('expression');
     }
@@ -328,8 +328,8 @@ class TonaliteController extends ExerciceController
     if ($this->getSss('niveau') == 4)
     {
         // Niveau 4
-        // Nombre de demi tons à enlever ou ajouter pour obtenir la réponse :
         $chances = random_int(1,10);
+        // Nombre de demi tons à enlever ou ajouter pour obtenir la réponse :
         $nbDemiTons = random_int(1,$diffMax);
         $nbTons = (int)($nbDemiTons/2);
         if ($nbTons == 0) { $phrase = "un demi ton "; }
@@ -381,14 +381,15 @@ class TonaliteController extends ExerciceController
       $bonneReponse = new Vocabulaire();
       $bonneReponse->setId($indice);
       $nomNoteQuestion = $this->cst->getNomNote(0,$pNoteQuestion->getLettre());
-      $bonneReponse->setCommentaire("le ".$nomRaffichable);
       if ($this->getSss('niveau') == 4)
       {
+        $bonneReponse->setCommentaire("le ".$nomRaffichable);
         $bonneReponse->setDescription(" est ".$phrase." du ".$nomQaffichable.".");
         $bonneReponse->setTexteQuestion("Trouve la note située ".$phrase." de celle-ci (les notes du bas sont en clé de sol sans armature):");
       }
       else
       {
+        $bonneReponse->setCommentaire("le ".$nomQaffichable);
         $bonneReponse->setDescription(" a la même tonalité que le ".$nomRaffichable.".");
       }
 
@@ -551,9 +552,8 @@ class TonaliteController extends ExerciceController
   protected function complementCorrection(Vocabulaire $bonneReponse)
   {
     $msg = $this->getSss('correction');
-    $motAajouter = "";
     if (substr($msg,0,3) == 'Oui') { $msg = "Oui, très bien, "; }
-    else  { $msg = "Non. En vérité, c'est "; $motAajouter = " qui ";}
+    else  { $msg = "Non. En vérité, ";}
     switch ($this->getSss('niveau'))
     {
       case 1 : $msg .= "c'est un " . $bonneReponse->getnom() . ".";
@@ -563,7 +563,7 @@ class TonaliteController extends ExerciceController
                $msg .= " " . $bonneReponse->getDescription()." " . $bonneReponse->getCommentaire();
                break;
       case 3 : 
-      case 4 : $msg .= $bonneReponse->getCommentaire().$motAajouter.$bonneReponse->getDescription();
+      case 4 : $msg .= $bonneReponse->getCommentaire().$bonneReponse->getDescription();
                break;
       case 5 :
       case 6 : $msg = "";

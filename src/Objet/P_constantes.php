@@ -44,10 +44,10 @@ class P_constantes {
                                     [7,6,7,8,6,1,1,1,1,1], // tonalite
                                     [6,6,6,8,8,1,1,1,1,1]  // rythme
                                     );
-    //$this->idMusicien = 1;
-    //$this->nomMusicien = "Carla";
-    $this->idMusicien = 2;
-    $this->nomMusicien = "Maël";
+    $this->idMusicien = 1;
+    $this->nomMusicien = "Carla";
+    //$this->idMusicien = 2;
+    //$this->nomMusicien = "Maël";
   }
  
   // Indices des disciplines
