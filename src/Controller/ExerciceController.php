@@ -156,7 +156,7 @@ class ExerciceController extends ParentController
     $question->addReponse($bonneReponse);
 
     $this->addFaussesReponses($question, $bonneReponse, $possibilites);
-    
+  
     $this->setSss('question',$question);
   }
 
@@ -192,7 +192,7 @@ class ExerciceController extends ParentController
     return $this->getDoctrine()
                 ->getManager()
                 ->getRepository('App:Score')
-                ->getNiveau($this->getSss('exercice'));
+                ->getNiveau($this->getSss('exercice'), $this->getUser()->getId());
   }
 
   protected function saveScore(int $niveau, int $scoreReel)
@@ -208,14 +208,17 @@ class ExerciceController extends ParentController
                  ->getManager();
       // Comparaison avec le meilleur score enregistré.
       $maxScore = $em->getRepository('App:Score')
-                     ->getScoreDuNiveau($niveau, $this->getSss('exercice'));
+                     ->getScoreDuNiveau($niveau, $this->getSss('exercice'), $this->getUser()->getId());
       if ($maxScore->getScore() >= $score) return false;
 
       $this->verificationTropheesOnScore($this->getSss('exercice'),$niveau,$score,$maxScore->getScore());
 
-      $maxScore->setScore($score);
-      $em->persist($maxScore);
-      $em->flush();
+      if ($this->isSetUser())
+      {
+        $maxScore->setScore($score);
+        $em->persist($maxScore);
+        $em->flush();
+      }
 
       return true;
   }

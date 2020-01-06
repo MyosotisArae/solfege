@@ -5,6 +5,7 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 use App\Service\Utilitaires;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class AppExtension extends AbstractExtension
 {
@@ -21,5 +22,18 @@ class AppExtension extends AbstractExtension
     {
       return str_replace("  ","<br>",$txt);
     }
+
+    public function getFunctions()
+    {
+        return [
+            new TwigFunction('getUserName', [$this, 'getMemberConnected']),
+        ];
+    }
+
+    public function getMemberConnected(SessionInterface $session)
+    {
+        return $session->get('memberConnected')->getUsername();
+    }
+
 }
 ?>

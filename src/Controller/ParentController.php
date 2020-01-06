@@ -7,6 +7,7 @@ use App\Entity\Musicien;
 use App\Entity\TropheeMusicien;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
  
 class ParentController extends AbstractController
@@ -21,6 +22,10 @@ class ParentController extends AbstractController
     $this->setSss('imageTrophee', '');
     // Important : pas d'appel à doctrine dans ce constructeur.
     //$this->util = $this->get("utilitaires");
+    if (!$this->isSetUser())
+    {
+      $this->setUser(new Musicien);
+    }
   }
 
   /**
@@ -82,10 +87,12 @@ class ParentController extends AbstractController
   
   protected function getNiveau()
   {
+    if (!$this->isSetUser()) return 0;
+
     return $this->getDoctrine()
                 ->getManager()
                 ->getRepository('App:Score')
-                ->getNiveau($this->session->get('exercice'));
+                ->getNiveau($this->session->get('exercice'), $this->getUser()->getId());
   }
 
   private function getFileDattenteTrophees()
@@ -123,9 +130,16 @@ class ParentController extends AbstractController
     if ($trophee->dejaObtenu()) return false;
 
     // Enregistrer l'obtention de ce trophée.
-    $tm = new TropheeMusicien($id, $this->cst->getIdMusicien());
-    $em = $this->getDoctrine()->getManager();
-    $em->flush();
+    if ($this->isSetUser())
+    {
+      $tm = new TropheeMusicien($id, $this->getUser()->getId());
+      $em = $this->getDoctrine()->getManager();
+      $em->flush();
+    }
+    else
+    {
+      $this->setSss('messageErreur',"Sur ce compte de démonstration, vous ne pouvez pas enregistrer vos scores et vos trophées.");
+    }
 
     // Afficher le trophée.
     $this->setSss('nomTrophee', $trophee->getNom());
@@ -180,7 +194,7 @@ class ParentController extends AbstractController
       foreach ($this->cst->get_listeDisciplines() as $d)
       {
         $maxScore = $em->getRepository('App:Score')
-                       ->getScoreDuNiveau($niveau, $d, $this->cst->getIdMusicien());
+                       ->getScoreDuNiveau($niveau, $d, $this->getUser()->getId());
         if ($maxScore->getScore() >= $this->cst->getScoreMax($d, $niveau))
         {
           // Le niveau max est atteint pour cette discipline.
@@ -195,7 +209,7 @@ class ParentController extends AbstractController
     foreach ($this->cst->get_listeDisciplines() as $d)
     {
       $maxScore = $em->getRepository('App:Score')
-                     ->getScoreDuNiveau($niveau, $d, $this->cst->getIdMusicien());
+                     ->getScoreDuNiveau($niveau, $d, $this->getUser()->getId());
       if ($maxScore->getScore() > 0)
       {
         $nbNiveauxTestes |= $this->getCodeBinaire($d);
@@ -227,8 +241,38 @@ class ParentController extends AbstractController
     $trophee = $this->getDoctrine()
                     ->getManager()
                     ->getRepository('App:TropheeMusicien')
-                    ->completerListeTrophee($trophee);
+                    ->completerListeTrophee($trophee, $this->getUser()->getId());
     return $trophee;
+  }
+
+  ////////////////////////////////////////////////////////////////////
+  // Fonctions permettant de :                                      //
+  // - Récupérer l'utilisateur courant s'il y en a un.              //
+  // - Mettre à jour l'utilisateur connecté.                        //
+  ////////////////////////////////////////////////////////////////////
+
+  public function getUser()
+  {
+    return $this->getSss('memberConnected');
+  }
+
+  public function setUser(Musicien $m)
+  {
+    $this->setSss('memberConnected', $m);
+  }
+
+  public function resetUser()
+  {
+    $this->setUser(new Musicien());
+    return null;
+  }
+
+  public function isSetUser()
+  {
+    $user = $this->getUser();
+    if ($user == null) return $this->resetUser();
+    if ($user->getId() == 0) return false;
+    return true;
   }
 
   ////////////////////////////////////////////////////////////////////

@@ -506,7 +506,8 @@ class TonaliteController extends ExerciceController
   {
     switch ($this->getSss('niveau'))
     {
-      case 1:
+      case 1: parent::getQuestion();
+    break;
       case 2: $this->setSss('avecQualificatif', false);
               $this->getQuestionNiv2();
               break;

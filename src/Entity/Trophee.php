@@ -15,6 +15,7 @@ class Trophee
     public function __construct(int $id)
     {
         $this->id = $id;
+        $this->possede = false;
     }
 
     /**
@@ -48,11 +49,11 @@ class Trophee
     private $image;
 
     /**
-     * @var int
+     * @var bool
      *
-     * Relation vers le propriétaire du score
+     * Indique si l'utilisateur actuellement connecté possède ce trophée.
      */
-    private $musicien;
+    private $possede;
 
     ///////////////////////////////////////////////////////////////////////////////
     //                              Getteurs                                     //
@@ -78,18 +79,13 @@ class Trophee
         return $this->image;
     }
 
-    public function getMusicien(): ?int
-    {
-        return $this->musicien;
-    }
-
     ///////////////////////////////////////////////////////////////////////////////
     //                              Setteurs                                     //
     ///////////////////////////////////////////////////////////////////////////////
 
-    public function setMusicien($m = null)
+    public function setPossede()
     {
-        $this->musicien = $m;
+        $this->possede = true;
         return $this;
     }
 
@@ -99,7 +95,6 @@ class Trophee
 
     public function dejaObtenu()
     {
-      if ($this->musicien > 0) return true;
-      return false;
+      return $this->possede;
     }
 }

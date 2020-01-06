@@ -24,11 +24,11 @@ class ScoreRepository extends ServiceEntityRepository
     /**
       * @return array[Score[]]
       */
-    public function getScores()
+    public function getScores(int $id)
     {
       $qb = $this->createQueryBuilder('s')
                  ->andwhere('s.musicien = :mus')
-                 ->setParameter('mus', $this->cst->getIdMusicien())
+                 ->setParameter('mus', $id)
                  ->orderBy('s.discipline, s.niveau');
 
       $listeComplete = $qb
@@ -49,14 +49,14 @@ class ScoreRepository extends ServiceEntityRepository
       return $liste;
     }
 
-    // Retourne le numéro du prochain niveau à terminer dans cette discipline.
-    public function getNiveau($discipline)
+    // Retourne le numéro du prochain niveau à terminer dans cette discipline pour le musicien avec cet id.
+    public function getNiveau($discipline, int $id)
     {
       $qb = $this->createQueryBuilder('s')
                  ->select('MAX(s.niveau)')
                  ->andwhere('s.musicien = :mus')
                  ->andwhere('s.discipline = :d')
-                 ->setParameter('mus', $this->cst->getIdMusicien())
+                 ->setParameter('mus', $id)
                  ->setParameter('d', $this->cst->getIndiceDiscipline($discipline));
 
       $niveau = $qb->getQuery()
@@ -66,7 +66,7 @@ class ScoreRepository extends ServiceEntityRepository
       else
       {
         // Un score a été enregistré pour cette discipline. Vérifier si c'est le score max.
-        $ceScore = $this->getScoreDuNiveau($niveau, $discipline, $this->cst->getIdMusicien());
+        $ceScore = $this->getScoreDuNiveau($niveau, $discipline, $id);
         if ($ceScore->getScore() < $ceScore->getScoreMax()) { $niveau -= 1; }
       }
 
@@ -75,21 +75,21 @@ class ScoreRepository extends ServiceEntityRepository
 
     // Retourne l'entité score pour ce niveau et cette discipline,
     // une nouvelle entité si aucun score n'existe encore pour ces critères.
-    public function getScoreDuNiveau(int $niveau, string $discipline)
+    public function getScoreDuNiveau(int $niveau, string $discipline, int $id)
     {
       $indiceDiscipline = $this->cst->getIndiceDiscipline($discipline);
       $qb = $this->createQueryBuilder('s')
                  ->andwhere('s.musicien = :mus')
                  ->andwhere('s.discipline = :d')
                  ->andWhere('s.niveau = :n')
-                 ->setParameter('mus', $this->cst->getIdMusicien())
+                 ->setParameter('mus', $id)
                  ->setParameter('d', $indiceDiscipline)
                  ->setParameter('n', $niveau);
 
       $score = $qb->getQuery()
                   ->getOneOrNullResult();
 
-      if ($score == null) $score = new Score($niveau, $indiceDiscipline, 0);
+      if ($score == null) $score = new Score($niveau, $indiceDiscipline, 0, $id);
 
       return $score;
     }

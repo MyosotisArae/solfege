@@ -13,13 +13,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Score
 {
-    public function __construct(int $n, int $d, int $s)
+    public function __construct(int $n, int $d, int $s, int $id)
     {
-      $cst = new P_constantes();
       $this->niveau = $n;
       $this->discipline = $d;
       $this->score = $s;
-      $this->musicien = $cst->getIdMusicien();
+      $this->musicien = $id;
     }
 
     /**

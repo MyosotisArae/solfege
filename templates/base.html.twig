@@ -9,30 +9,12 @@
   
     <script src="{{ BSjs_path }}" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/ac0e3984ff.js"></script>
-  
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <![endif]-->
-  {% set currentPath = path(app.request.attributes.get('_route'),
-                       app.request.attributes.get('_route_params')) %}
-    {% if '/log' in currentPath %}
-    {% else %}
-      {% if app.user %}
-      {% else %}
-{# <meta http-equiv="refresh" content="0; path=/login"> #}
-{# <meta http-equiv="refresh" content="0; URL=http://solfege.local/login"> #}
-      {% endif %}
-    {% endif %}
 {% endblock %}
+
   </head>
 
   <body>
 {% block corps %}
-      {% if app.user %}
-            <h1 class="rouge">{{ app.user.username }}</h1> <a href="{{ path('app_logout') }}">Déconnexion</a>
-      {% endif %}
   {% block navigation %}
   {% endblock %}
 
@@ -43,6 +25,7 @@
 
 {% block trophee %}
   {% include '_trophee.html.twig' %}
+  {% include '_message.html.twig' %}
 {% endblock %}
 
 {% block debug %}

@@ -6,7 +6,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Musicien;
 use App\Entity\Trophee;
-use App\Objet\P_constantes;
 
 class ScoreController extends ParentController
 {
@@ -15,11 +14,11 @@ class ScoreController extends ParentController
    */
   public function main()
   {
-    $this->cst = new P_constantes();
     $this->setSss('exercice', 'score');
     $this->setSss('niveau', 0);
-    $listeTrophees = $this->getTrophees();
-    $listeScores = $this->getScores($this->getSss('musicien')->getId());
+    if ($this->isSetUser()) $listeTrophees = $this->getTrophees();
+    else $listeTrophees = [];
+    $listeScores = $this->getScores($this->getUser()->getId());
     return $this->render('/score.html.twig',["scores" => $listeScores,
                                              "trophees" => $listeTrophees]);
   }
@@ -43,11 +42,11 @@ class ScoreController extends ParentController
                   ->getRepository('App:Trophee')
                   ->getTrophees();
 
-    // On ajoute le champ musicien aux lignes dont l'id est dans trophee_musicien pour cet utilisateur
+    // On met à "true" le champ "trophée déjà acquis" sur les lignes dont l'id est dans trophee_musicien pour cet utilisateur.
     $liste = $this->getDoctrine()
                   ->getManager()
                   ->getRepository('App:TropheeMusicien')
-                  ->completerListeTrophees($liste)
+                  ->completerListeTrophees($liste, $this->getUser()->getId())
                   ;
 
     return $liste;
@@ -55,12 +54,12 @@ class ScoreController extends ParentController
   
   /* Donne la liste des scores par discipline
   */
-  private function getScores()
+  private function getScores(int $id)
   {
     $liste = $this->getDoctrine()
                   ->getManager()
                   ->getRepository('App:Score')
-                  ->getScores();
+                  ->getScores($id);
 
     return $liste;
   }

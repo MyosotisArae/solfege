@@ -21,10 +21,13 @@ class MainController extends ParentController
    */
   public function main()
   {
+    if (!$this->isSetUser()) {
+      $this->redirectToRoute('login');
+    }
     $user = $this->getDoctrine()
                  ->getManager()
                  ->getRepository('App:Musicien')
-                 ->find($this->cst->getIdMusicien());
+                 ->find($this->getUser()->getId());
     $this->setSss('musicien', $user);
 
     $this->setSss('exercice', 'main');

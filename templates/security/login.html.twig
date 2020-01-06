@@ -4,28 +4,7 @@
 
 {% include "_barreNotes.html.twig" %}
 
-<div class="container-fluid">
-  <div class="row">
-      {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-      {% endif %}
-  </div>
-</div>
-
-    {% if app.user %}
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-5">
-    </div>
-    <div class="col-3">
-      <br>
-      <a href="{{ path('app_logout') }}">cliquez ici</a>
-    </div>
-  </div>
-</div>
-    {% else %}
-
-<form method="post" action="main">
+<form method="POST" action="check">
   <div class="container">
     <div class="row">
 
@@ -42,7 +21,7 @@
         <label for="inputUsername">Nom d'utilisateur :</label>
       </div>
       <div class="col-4">
-        <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
+        <input type="text" name="inputUsername" class="form-control" placeholder="Username" required autofocus>
       </div>
       <div class="col-4">
       </div>
@@ -56,14 +35,10 @@
         <label for="inputPassword">Mot de passe :</label>
       </div>
       <div class="col-4">
-        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input type="password" name="inputPassword" class="form-control" placeholder="Password" required>
       </div>
       <div class="col-4">
       </div>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
 
       <div class="col-5">
       </div>
@@ -75,6 +50,14 @@
       </div>
       <div class="col-6">
       </div>
+      <div class="col-12">
+        {% if msgErreur is defined %}
+          {% if msgErreur|length > 0 %}
+        <span class="form-error-icon badge badge-danger text-uppercase">Erreur</span> {{msgErreur}}
+          {% endif %}
+        {% endif %}
+        <br>
+      </div>
 
     </div>
   </div>
@@ -82,20 +65,26 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-8">
+    <div class="col-7">
     </div>
-    <div class="col-4">
-      <form action="/lognew">
-          <br>
-          Vous n'avez pas encore de compte ?
-          <button class="btn btn-lg btn-primary" type="submit">
-            Créez un utilisateur
-          </button>
-      </form>
+    <div class="col-3" style='text-align : right;'>
+      Vous n'avez pas encore de compte ?
+    </div>
+    <div class="col-2" style='text-align : center;'>
+            <form action="/lognew">
+              <button class="btn btn-lg btn-primary" type="submit">
+                Créez un utilisateur
+              </button>
+            </form>
+            ou
+            <form action="main">
+              <button class="btn btn-lg btn-primary" type="submit">
+                Lancez la démo
+              </button>
+            </form>
     </div>
   </div>
 </div>
-    {% endif %}
 
 {% include "_barreNotes.html.twig" %}
 

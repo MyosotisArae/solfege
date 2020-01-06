@@ -31,13 +31,15 @@
               <h1 class="incline">Instruments</h1>
             </div>
             
-    {% if revision == 1 %}
+    {% if revision is defined %}
+      {% if revision == 1 %}
     <div>
       <a class="positionAbsolue boutonRythme" style="top : 300px; left : 70px;" href="lexique">
         <img class="cadreRouge boutonTonalites boutonScores" src="{{img_path}}revision.gif">
         <h1 class="boutonScores">Révision</h1>
       </a>
     </div>
+      {% endif %}
     {% endif %}
 
           </a>

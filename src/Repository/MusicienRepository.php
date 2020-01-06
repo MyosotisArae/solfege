@@ -12,4 +12,25 @@ class MusicienRepository extends ServiceEntityRepository
         parent::__construct($registry, Musicien::class);
     }
 
+    // Retourne le musicien ayant ce nom ou un nouveau musicien d'id 0.
+    /**
+      * @return Musicien
+      */
+      public function getMusicien(string $nom)
+      {
+        $qb = $this->createQueryBuilder('m')
+                   ->andwhere('m.nom = :mus')
+                   ->setParameter('mus', $nom);
+  
+        $listeComplete = $qb
+                         ->getQuery()
+                         ->getResult();
+  
+        if (count($listeComplete) == 0)
+        {
+            return new Musicien;
+        }
+        return $listeComplete[0];
+      }
+  
 }

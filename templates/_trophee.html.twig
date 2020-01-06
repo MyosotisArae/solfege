@@ -35,7 +35,7 @@
         <h2>"{{app.session.get('nomTrophee')}}"</h2>
         <img class="symbole" src="{{tro_path}}{{app.session.get('imageTrophee')}}">
         <br><br>
-        <h2>Bien joué, Maël !</h2>
+        <h2>Bien joué, {{getUserName(app.session)|replace({"l'invité":"cher invité"})}} !</h2>
       </div>
 
 {% endif %}

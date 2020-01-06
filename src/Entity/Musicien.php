@@ -13,11 +13,13 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass="App\Repository\MusicienRepository")
  * @UniqueEntity(fields={"username"}, message="Il existe déjà un compte avec ce nom.")
  */
-class Musicien implements UserInterface, \Serializable
+class Musicien implements UserInterface
 {
     public function __construct()
     {
-        $this->isActive = true;
+        $this->id = 0;
+        $this->nom = "l'invité";
+        $this->genre = 'M';
     }
 
     /**
@@ -34,7 +36,7 @@ class Musicien implements UserInterface, \Serializable
      *
      * @ORM\Column(name="nom", type="string", nullable=false)
      */
-    private $username;
+    private $nom;
 
     /**
      * @var string
@@ -49,13 +51,6 @@ class Musicien implements UserInterface, \Serializable
      * @ORM\Column(name="genre", type="string", nullable=false)
      */
     private $genre;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="isActive", type="boolean")
-     */
-    private $isActive;
 
     ///////////////////////////////////////////////////////////////////////////////
     //                              Getteurs                                     //
@@ -73,7 +68,7 @@ class Musicien implements UserInterface, \Serializable
 
     public function getUsername(): ?string
     {
-        return $this->username;
+        return $this->nom;
     }
 
     public function getSalt()
@@ -86,11 +81,6 @@ class Musicien implements UserInterface, \Serializable
         return $this->genre;
     }
 
-    public function getIsActive()
-    {
-        return $this->isActive;
-    }
-
     public function getRoles()
     {
         return array('ROLE_USER');
@@ -98,29 +88,6 @@ class Musicien implements UserInterface, \Serializable
 
     public function eraseCredentials()
     {
-    }
-
-    public function serialize()
-    {
-        return serialize(array(
-            $this->id,
-            $this->username,
-            $this->genre,
-            $this->password,
-            // see section on salt below
-            // $this->salt,
-        ));
-    }
-    public function unserialize($serialized)
-    {
-        list (
-            $this->id,
-            $this->username,
-            $this->genre,
-            $this->password,
-            // see section on salt below
-            // $this->salt
-        ) = unserialize($serialized, array('allowed_classes' => false));
     }
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -135,7 +102,7 @@ class Musicien implements UserInterface, \Serializable
 
     public function setUsername($n)
     {
-        $this->username = $n;
+        $this->nom = $n;
         return $this;
     }
 
@@ -148,12 +115,6 @@ class Musicien implements UserInterface, \Serializable
     public function setPassword($pwd)
     {
         $this->password = $pwd;
-        return $this;
-    }
-
-    public function setIsActive($a)
-    {
-        $this->isActive = $a;
         return $this;
     }
 }
