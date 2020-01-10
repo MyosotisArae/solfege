@@ -2,7 +2,6 @@
 
 {% block entete %}
   {{ parent() }}
-  <link rel="stylesheet" href="{{css_path}}apprendre.css">
 {% endblock %}
 
 
@@ -11,40 +10,9 @@
 {% block corps %}
   {{ parent() }}
 
-<div class="sommaire">
-  <h2>Sommaire</h2><br>
-  <li><a href="#bases">Les bases</a></li>
-  <li><a href="#intervalles">Les intervalles</a></li>
-    <span class="fonteInvisible">blabla</span><a href="#intervalles">Le nom</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#qualificatif">Le qualificatif</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#prime juste">La prime juste</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#secondeMajeure">La seconde majeure</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#secondeMineure">La seconde mineure</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#tierceMajeure">La tierce majeure</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#tierceMineure">La tierce mineure</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#quarteJuste">La quarte juste</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#quinteJuste">La quinte juste</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#octaveJuste">La octave juste</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#augmente">augmenté</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#secondeAugmentee">La seconde augmentée</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#tierceAugmentee">La tierce augmentée</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#quarteAugmentee">La quarte augmentée</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#ascendant">Intervalle ascendant, descendant</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#harmonique">Intervalle mélodique, harmonique</a>
-  <li><a href="#alterations">Les altérations</a></li>
-    <span class="fonteInvisible">blabla</span><a href="#alterations">Le dièse</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#bemol">Le bémol</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#becarre">Le bécarre</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#constitutive">Constitutive ou accidentelle ?</a>
-  <li><a href="#gamme">Les gammes majeures et mineures</a></li>
-    <span class="fonteInvisible">blabla</span><a href="#gamme">Gamme majeure</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#gammeMineure">Gamme mineure</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#degre">Les degrés</a><br>
-</div>
-
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-    <div class="col-12">
+    <div class="offset-xl-1 col-xl-9 col-lg-9 col-9">
     <div class="listeDeroulante">
       <div class="cadreNoir" id="bases">
         <h2 class="souligne">Les bases</h2>
@@ -150,28 +118,12 @@
                  {% include "_clavierPiano.html.twig" with {"nbTouches":1,"avecTon":false,"lesFleches":[0]} only %}
                </td>
                <td>
-                 <table>
-                   <tr>
-                     <td colspan=2>
-                       <b>La seconde majeure</b><br>qui est ici do-ré
-                     </td>
-                   </tr>
-                   <tr>
-                     <td class="positionRelative">
-                         {% set indice = 0 %} 
-                         {% include "_portee.html.twig" with {"elements":listePortees[0].elements, "echelle":listePortees[0].echelle, "indice":indice} only %}
-                     </td>
-                     <td>
-                       En partant du do, à gauche du clavier, il faut compter un demi ton de plus pour chaque touche rencontrée. Regarde ce bout de clavier. Il part du do. Puis on a une touche noire (appelée do dièse, ou ré bémol), ça nous fait un demi ton. Puis on a une autre touche (blanche, mais peu importe), ce qui nous fait un demi ton de plus. On est arrivé sur le ré en comptant deux demi tons.
-                     </td>
-                    </tr>
-                    <tr>
-                      <td colspan=2>
-                       Donc, do-ré = 1 ton. Ce do-ré "normal" est une seconde majeure.<br>
-                       Partir du do te donnera toujours un intervalle "normal" (c'est à dire majeur) s'il n'y a aucun dièse ni bémol. On vient de retrouver l'intervalle de la seconde, mais tu peux retrouver la tierce (2 tons) et tous les autres avec la même méthode.<br>
-                     </td>
-                   </tr>
-                 </table>
+                  <b>La seconde majeure</b><br>qui est ici do-ré<br>
+                  {% set indice = 0 %}
+                  {% include "_portee.html.twig" with {"elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice, "y":-2} only %}
+                  En partant du do, à gauche du clavier, il faut compter un demi ton de plus pour chaque touche rencontrée. Regarde ce bout de clavier. Il part du do. Puis on a une touche noire (appelée do dièse, ou ré bémol), ça nous fait un demi ton. Puis on a une autre touche (blanche, mais peu importe), ce qui nous fait un demi ton de plus. On est arrivé sur le ré en comptant deux demi tons.
+                  <br>Donc, do-ré = 1 ton. Ce do-ré "normal" est une seconde majeure.<br>
+                  Partir du do te donnera toujours un intervalle "normal" (c'est à dire majeur) s'il n'y a aucun dièse ni bémol. On vient de retrouver l'intervalle de la seconde, mais tu peux retrouver la tierce (2 tons) et tous les autres avec la même méthode.<br>
                </td>
               </tr>
             </table>
@@ -184,24 +136,12 @@
                  {% include "_clavierPiano.html.twig" with {"nbTouches":3,"avecTon":false,"lesFleches":[2]} only %}
                </td>
                <td>
-                 <table>
-                   <tr>
-                     <td colspan=2>
-                       <b>La seconde mineure</b><br>exemple avec mi-fa
-                     </td>
-                   </tr>
-                   <tr>
-                     <td class="positionRelative">
-                         {% set indice = 1 %} 
-                         {% include "_portee.html.twig" with {"elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
-                     </td>
-                     <td>
-                       Cette fois, on part du mi. La touche suivante est déjà le fa. On n'a donc compté qu'un demi ton.<br>
-                       Donc, mi-fa = ½ ton.<br>
-                       C'est une seconde mineure, puisqu'elle fait un demi ton de moins qu'une seconde majeure. Et une seconde majeure fait un ton. Et ça, tu le sais, parce que tu sais utiliser la méthode du clavier.<br>
-                     </td>
-                   </tr>
-                 </table>
+                  <b>La seconde mineure</b><br>exemple avec mi-fa<br>
+                  {% set indice = 1 %}
+                  {% include "_portee.html.twig" with {"elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice, "y":-1} only %}
+                  Cette fois, on part du mi. La touche suivante est déjà le fa. On n'a donc compté qu'un demi ton.<br>
+                  Donc, mi-fa = ½ ton.<br>
+                  C'est une seconde mineure, puisqu'elle fait un demi ton de moins qu'une seconde majeure. Et une seconde majeure fait un ton. Et ça, tu le sais, parce que tu sais utiliser la méthode du clavier.<br>
                </td>
               </tr>
             </table>
@@ -433,7 +373,7 @@
             
             <table>
               <tr>
-                <td colspan=2>
+                <td>
                   Le dièse augmente le ton de la note d'un demi ton.<br><br>
                 </td>
                 <td class="fonteInvisible">blabla</td>
@@ -444,259 +384,149 @@
               <tr>
                 <td>
                   {% set indice = 7 %} 
-                  {% include "_portee.html.twig" with {"y":-3, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
-                </td>
-                <td>
+                  {% include "_portee.html.twig" with {"y":-3, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice, "y":-2} only %}
                   Ceci est un do dièse.
                 </td>
                 <td></td>
                 <td>
                   {% set indice = 8 %} 
-                  {% include "_portee.html.twig" with {"y":-3, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
-                </td>
-                <td>
+                  {% include "_portee.html.twig" with {"y":-3, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice, "y":-2} only %}
                   Ceci est un ré bémol.
                 </td>
               </tr>
             </table>
-            <br><br><br>
+            <br>
             Remarque : si tu jettes un oeil sur le clavier, tu verras que ces deux notes correspondent à la même touche noire.<br>
             Quand on utilise un dièse ou un bémol, le nom de l'intervalle ne change pas (car les notes dessinées sur la portée sont les mêmes), mais le qualificatif change, puisque le nombre de tons entre les deux notes change.<br>
             Voici quelques exemples :<br><br>
 
-            <table id="primeJuste">
-              <tr>
-                <td>
+            <div class='container-fluid'  id="primeJuste">
+              <div class='row'>
+
+                {# Les primes #}
+                <div class='col-6 text-left'>
                   <h3>Prime juste à l'unisson<br></h3>
-                </td>
-                <td class="fonteInvisible"><h3>bla</h3></td>
-                <td>
-                  <h3>Prime augmentée<br></h3>
-                </td>
-                <td class="fonteInvisible"><h3>bla</h3></td>
-                <td>(aussi nommée : demi ton chromatique)</td>
-              </tr>
-              <tr>
-                <td>
                   {% set indice = 9 %} 
                   {% include "_portee.html.twig" with {"y":-2, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
-                </td>
-                <td></td>
-                <td>
+                  zéro ton d'écart<br><br>
+                  <div class="clavierAgauche">
+                  {% include "_clavierPiano.html.twig" with {"nbTouches":7, "avecTon":false, "lesPastilles":[0], "echelle":0.3} only %}
+                  </div>
+                </div>
+                <div class='col-1'>
+                </div>
+                <div class='col-5 text-left'>
+                  <h3>Prime augmentée<br></h3>
                   {% set indice = 10 %} 
                   {% include "_portee.html.twig" with {"y":-2, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <br>zéro ton d'écart<br><br><br><br>
-                </td>
-                <td></td>
-                <td>
-                  <br>un demi ton d'écart<br><br><br><br>
-                </td>
-              </tr>
-              <tr>
-                <td class="reduction">
-                  <div class="positionAbsolue" style="top:-10em;left:-20em;">
-                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0]} only %}
+                  un demi ton d'écart<br><br>
+                  <div class="clavierAgauche">
+                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,1], "echelle":0.3} only %}
                   </div>
-                </td>
-                <td></td>
-                <td class="reduction">
-                  <div class="positionAbsolue" style="top:-10em;left:-20em;">
-                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,1]} only %}
-                  </div>
-                </td>
-              </tr>
+                </div>
 
-              <tr>
-                <td>
-                  <h3><br><br><br><br>Seconde mineure<br></h3>
-                </td>
-                <td></td>
-                <td>
-                  <h3><br><br><br><br>Seconde majeure<br></h3>
-                </td>
-                <td></td>
-                <td id="secondeAugmentee">
-                  <h3><br><br><br><br>Seconde augmentée<br></h3>
-                </td>
-              </tr>
-              <tr>
-                <td>
+                {# Les secondes #}
+                <div class='col-12'>
+                  <hr>
+                  <h3 class='text-center'>Seconde</h3>
+                </div>
+                <div class='col-4'>
+                  <h4>mineure<br></h4>
                   {% set indice = 11 %} 
                   {% include "_portee.html.twig" with {"y":-2, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
-                </td>
-                <td></td>
-                <td>
+                  <br><br>un demi ton d'écart<br>
+                  <div class="clavierAgauche">
+                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,1], "echelle":0.3} only %}
+                  </div>
+                </div>
+                <div class='col-4'>
+                  <h4>majeure<br></h4>
                   {% set indice = 12 %} 
                   {% include "_portee.html.twig" with {"y":-2, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
-                </td>
-                <td></td>
-                <td>
+                  <br><br>un ton d'écart<br>
+                  <div class="clavierAgauche">
+                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,2], "echelle":0.3} only %}
+                  </div>
+                </div>
+                <div class='col-4' id="secondeAugmentee">
+                  <h4>augmentée<br></h4>
                   {% set indice = 13 %} 
                   {% include "_portee.html.twig" with {"y":-2, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <br>un demi ton d'écart<br><br><br>
-                </td>
-                <td></td>
-                <td>
-                  <br>un ton d'écart<br><br><br>
-                </td>
-                <td></td>
-                <td>
-                  <br>un ton et demi d'écart<br><br><br>
-                </td>
-              </tr>
-              <tr>
-                <td class="reduction">
-                  <div class="positionAbsolue" style="top:-10em;left:-20em;">
-                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,1]} only %}
+                  <br><br>un ton et demi d'écart<br>
+                  <div class="clavierAgauche">
+                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,3], "echelle":0.3} only %}
                   </div>
-                </td>
-                <td></td>
-                <td class="reduction">
-                  <div class="positionAbsolue" style="top:-10em;left:-20em;">
-                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,2]} only %}
-                  </div>
-                </td>
-                <td class="fonteInvisible">blabla</td>
-                <td class="reduction">
-                  <div class="positionAbsolue" style="top:-10em;left:-20em;">
-                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,3]} only %}
-                  </div>
-                </td>
-              </tr>
+                </div>
 
-              <tr id="tierceAugmentee">
-                <td>
-                  <br><br><br><br><h3>Tierce mineure<br></h3>
-                </td>
-                <td></td>
-                <td>
-                  <br><br><br><br><h3>Tierce majeure<br></h3>
-                </td>
-                <td></td>
-                <td>
-                  <br><br><br><br><h3>Tierce augmentée<br></h3>
-                </td>
-              </tr>
-              <tr>
-                <td>
+                {# Les tierces #}
+                <div class='col-12' id="tierceAugmentee">
+                  <hr>
+                  <h3 class='text-center'>Tierce</h3>
+                </div>
+                <div class='col-4'>
+                  <h4>mineure<br></h4>
                   {% set indice = 14 %} 
                   {% include "_portee.html.twig" with {"y":-2, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
-                </td>
-                <td></td>
-                <td>
+                  <br><br>un demi ton et demi d'écart<br>
+                  <div class="clavierAgauche">
+                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,3], "echelle":0.3} only %}
+                  </div>
+                </div>
+                <div class='col-4'>
+                  <h4>majeure<br></h4>
                   {% set indice = 15 %} 
                   {% include "_portee.html.twig" with {"y":-2, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
-                </td>
-                <td></td>
-                <td>
+                  <br><br>deux tons d'écart<br>
+                  <div class="clavierAgauche">
+                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,4], "echelle":0.3} only %}
+                  </div>
+                </div>
+                <div class='col-4'>
+                  <h4>augmentée<br></h4>
                   {% set indice = 16 %} 
                   {% include "_portee.html.twig" with {"y":-2, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <br>un demi ton et demi d'écart<br><br><br>
-                </td>
-                <td></td>
-                <td>
-                  <br>deux tons d'écart<br><br><br>
-                </td>
-                <td></td>
-                <td>
-                  <br>deux tons et demi d'écart<br><br><br>
-                </td>
-              </tr>
-              <tr>
-                <td class="reduction">
-                  <div class="positionAbsolue" style="top:-10em;left:-20em;">
-                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,3]} only %}
+                  <br><br>deux tons et demi d'écart<br>
+                  <div class="clavierAgauche">
+                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,6], "echelle":0.3} only %}
                   </div>
-                </td>
-                <td></td>
-                <td class="reduction">
-                  <div class="positionAbsolue" style="top:-10em;left:-20em;">
-                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,4]} only %}
-                  </div>
-                </td>
-                <td class="fonteInvisible">blabla</td>
-                <td class="reduction">
-                  <div class="positionAbsolue" style="top:-10em;left:-20em;">
-                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,6]} only %}
-                  </div>
-                </td>
-              </tr>
+                </div>
 
-              <tr id="quarteAugmentee">
-                <td>
-                  <br><br><br><br><h3>Quarte diminuée<br></h3>
-                </td>
-                <td></td>
-                <td>
-                  <br><br><br><br><h3>Quarte juste<br></h3>
-                </td>
-                <td></td>
-                <td>
-                  <br><br><br><br><h3>Quarte augmentée<br></h3>
-                </td>
-              </tr>
-              <tr>
-                <td>
+                {# Les quartes #}
+                <div class='col-12' id="quarteAugmentee">
+                  <hr>
+                  <h3 class='text-center'>Quarte</h3>
+                </div>
+                <div class='col-4'>
+                  <h4>diminuée<br></h4>
                   {% set indice = 17 %} 
                   {% include "_portee.html.twig" with {"y":-2, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
-                </td>
-                <td></td>
-                <td>
+                  <br><br>2 tons d'écart<br>
+                  <div class="clavierAgauche">
+                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,4], "echelle":0.3} only %}
+                  </div>
+                </div>
+                <div class='col-4'>
+                  <h4>juste<br></h4>
                   {% set indice = 18 %} 
                   {% include "_portee.html.twig" with {"y":-2, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
-                </td>
-                <td></td>
-                <td>
+                  <br><br>2 tons ½ d'écart<br>
+                  <div class="clavierAgauche">
+                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,6], "echelle":0.3} only %}
+                  </div>
+                </div>
+                <div class='col-4'>
+                  <h4>augmentée<br></h4>
                   {% set indice = 19 %} 
                   {% include "_portee.html.twig" with {"y":-2, "elements":listePortees[indice].elements, "echelle":listePortees[indice].echelle, "indice":indice} only %}
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <br>2 tons d'écart<br><br><br>
-                </td>
-                <td></td>
-                <td>
-                  <br>2 tons ½ d'écart<br><br><br>
-                </td>
-                <td></td>
-                <td>
-                  <br>3 tons d'écart<br><br><br>
-                </td>
-              </tr>
-              <tr>
-                <td class="reduction">
-                  <div class="positionAbsolue" style="top:-10em;left:-20em;">
-                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,4]} only %}
+                  <br><br>3 tons d'écart<br>
+                  <div class="clavierAgauche">
+                {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,7], "echelle":0.3} only %}
                   </div>
-                </td>
-                <td></td>
-                <td class="reduction">
-                  <div class="positionAbsolue" style="top:-10em;left:-20em;">
-                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,6]} only %}
-                  </div>
-                </td>
-                <td class="fonteInvisible">blabla</td>
-                <td class="reduction">
-                  <div class="positionAbsolue" style="top:-10em;left:-20em;">
-                  {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false, "lesPastilles":[0,7]} only %}
-                  </div>
-                </td>
-              </tr>
+                </div>
 
-            </table>
+              </div>{# fin row #}
+            </div>{# fin container-fluid #}
+
             <br><br><br><br id="ascendant">
             On va s'arrêter là. Tu sais à qui demander si tout ça n'est pas clair pour toi.<br>
             Une dernière remarque : je ne t'ai montré que des intervalles <b>ascendants</b>, c'est à dire où la deuxième note est plus haute que la première.<br>
@@ -712,7 +542,7 @@
                 </td>
               </tr>
             </table>
-            <br><br><br><br>
+            <br><br>
             De même, les intervalles que tu viens de voir sont <b>mélodiques</b>, c'est à dire que les notes sont jouées l'une après l'autre, comme ici :<br><br><br>
             <table>
               <tr>
@@ -793,10 +623,11 @@
                 <tr>
                   <td>
                     Lui aussi, s'il est à côté de la clé, s'applique à toutes les notes de la portée.<br>
-                    Les bémols s'appliquent dans l'ordre inverse des dièses :<br>
+                    Les bémols s'appliquent dans l'ordre <b>inverse</b> des dièses :<br>
                     Si on ne met qu'un seul bémol à côté de la clé, ce sera le si.<br>
                     Si on en met deux, ce sera si et mi.<br>
-                    Ordre complet : si-mi-la-ré-sol-do-fa
+                    Ordre complet : si-mi-la-ré-sol-do-fa<br>
+                    Sur la portée (dans l'armature), c'est dans cet ordre qu'on les dessine (voir si-mi-la ici, à droite).
                   </td>
                   <td>
                     <img src="{{img_path}}armature_mi_bemol_majeur.gif">
@@ -841,52 +672,28 @@ Quand on met une altération à côté d'une note, c'est bien pour modifier cett
       <div class="cadreNoir">
         <h2 class="souligne" id="gamme">Les gammes majeures et mineures</h2>
         Là, il va vraiment devenir indispensable que tu aies sur ton brouillon un clavier de piano de dessiné, éventuellement sur deux octaves, même, ça peut aider.<br>
-        <table>
-          <tr>
-            <td style="width : 48em;">
-              Une <b>gamme majeure</b>, c'est quoi ?<br>
-              C'est une gamme (8 notes consécutives) où les tons se suivent comme sur un clavier de piano :<br>
-              1 ton (do-ré), 1 (ré-mi), ½ (mi-fa), 1 (fa-sol), 1 (sol-la), 1 (la-si) et ½ (si-do).<br>
-              La gamme que je viens de citer est la gamme en do majeur : elle commence par do, et ses intervalles sont : 1,1,½,1,1,1,½<br>
-            <td class="reduction">
-              <div class="positionAbsolue" style="top : -3em;">
-            {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false,"lesFleches":[0,1,2,3,4,5,6]} only %}
-              </div>
-            </td>
-          </tr>
-        </table>
+        Une <b>gamme majeure</b>, c'est quoi ?<br>
+        <div class="clavierAdroite">
+          {% include "_clavierPiano.html.twig" with {"nbTouches":7,"avecTon":false,"lesFleches":[0,1,2,3,4,5,6], "echelle":0.3} only %}
+        </div>
+        C'est une gamme (8 notes consécutives) où les tons se suivent comme sur un clavier de piano :<br>
+        1 ton (do-ré), 1 (ré-mi), ½ (mi-fa), 1 (fa-sol), 1 (sol-la), 1 (la-si) et ½ (si-do).<br>
+        La gamme que je viens de citer est la gamme en do majeur : elle commence par do, et ses intervalles sont : 1,1,½,1,1,1,½<br>
         <br>
-        <table>
-          <tr>
-            <td style="width : 35em;">
-          <tr>
-            <td>
-              Mettons qu'on mette un dièse dans l'armature. Le fa, donc, forcément. Maintenant, mi-fa fait un ton, mais fa-sol plus qu'un demi. Si on persiste à compter à partir du do, on n'a plus les bons intervalles :
-              1,1,1,½,1,1,½<br>
-            <td class="reduction">
-              <div class="positionAbsolue" style="top : -3em;">
-            {% include "_clavierPiano.html.twig" with {"nbTouches":10,"avecTon":false,"lesPastilles":[0,2,4,7,8,10,12,14]} only %}
-              </div>
-            </td>
-          </tr>
-        </table>
-        <br>
-        <table>
-          <tr>
-            <td style="width : 35em;">
-          <tr>
-            <td>
-              Pourtant, on a bien un groupe de trois 1 consécutifs, séparés (par un demi ton) d'un groupe de deux 1 qui se suivent. Il y a moyen de faire une gamme majeure avec ça. Il suffit de décaler.<br>
-              On doit commencer par deux 1 consécutifs. Où sont-ils ? Au niveau de sol-la. Alors réécrivons ça en partant du sol :
-              1,1,½,1,1,1,½<br>
-              Ca marche ! On les bons intervalles placés dans l'ordre de la gamme majeure. Comme, maintenant, on commence par sol, on est donc en sol majeur.
-            <td class="reduction">
-              <div class="positionAbsolue" style="top : -3em;">
-            {% include "_clavierPiano.html.twig" with {"nbTouches":11,"avecTon":false,"lesPastilles":[7,21],"lesFleches":[4,5,6,7,8],"lesFlechesInversees":[9,10]} only %}
-              </div>
-            </td>
-          </tr>
-        </table>
+        <div class="clavierAdroite">
+          {% include "_clavierPiano.html.twig" with {"nbTouches":10,"avecTon":false,"lesPastilles":[0,2,4,7,8,10,12,14], "echelle":0.3} only %}
+        </div>
+        Mettons qu'on mette un dièse dans l'armature. Le fa, donc, forcément. Maintenant, mi-fa fait un ton, mais fa-sol plus qu'un demi. Si on persiste à compter à partir du do, on n'a plus les bons intervalles :
+        1,1,1,½,1,1,½<br>
+        <br>        
+        <div class="clavierAdroite">
+          {% include "_clavierPiano.html.twig" with {"nbTouches":11,"avecTon":false,"lesPastilles":[7,21],"lesFleches":[4,5,6,7,8],"lesFlechesInversees":[9,10], "echelle":0.3} only %}
+        </div>
+        Pourtant, on a bien un groupe de trois 1 consécutifs, séparés (par un demi ton) d'un groupe de deux 1 qui se suivent. Il y a moyen de faire une gamme majeure avec ça. Il suffit de décaler.<br>
+        On doit commencer par deux 1 consécutifs. Où sont-ils ? Au niveau de sol-la. Alors réécrivons ça en partant du sol :
+        1,1,½,1,1,1,½<br>
+        Ca marche ! On les bons intervalles placés dans l'ordre de la gamme majeure. Comme, maintenant, on commence par sol, on est donc en sol majeur.
+
         <br id="gammeMineure">
         Et du coup, une gamme <b>mineure</b>, qu'est_ce que c'est ? Eh bien, c'est tout le reste. Il existe des classifications, évidemment. Mais tu ne devrais par en entendre parler en cours de solfège avant plusieurs années, je pense.<br>
         <br>Bon, du coup, voilà ce qu'il faut faire :<br>
@@ -943,6 +750,43 @@ Quand on met une altération à côté d'une note, c'est bien pour modifier cett
       </div>
 
     </div>
+    </div>
+
+
+    <div class='col-xl-2 col-lg-4 col-3'>
+  <h2>Sommaire</h2>
+      <div class="listeDeroulante">
+
+<div class="">
+  <li><a href="#bases">Les bases</a></li>
+  <li><a href="#intervalles">Les intervalles</a></li>
+    <span class="fonteInvisible">blabla</span><a href="#intervalles">Le nom</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#qualificatif">Le qualificatif</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#prime juste">La prime juste</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#secondeMajeure">La seconde majeure</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#secondeMineure">La seconde mineure</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#tierceMajeure">La tierce majeure</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#tierceMineure">La tierce mineure</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#quarteJuste">La quarte juste</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#quinteJuste">La quinte juste</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#octaveJuste">La octave juste</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#augmente">augmenté</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#secondeAugmentee">La seconde augmentée</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#tierceAugmentee">La tierce augmentée</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#quarteAugmentee">La quarte augmentée</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#ascendant">Intervalle ascendant, descendant</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#harmonique">Intervalle mélodique, harmonique</a>
+  <li><a href="#alterations">Les altérations</a></li>
+    <span class="fonteInvisible">blabla</span><a href="#alterations">Le dièse</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#bemol">Le bémol</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#becarre">Le bécarre</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#constitutive">Constitutive ou accidentelle ?</a>
+  <li><a href="#gamme">Les gammes majeures et mineures</a></li>
+    <span class="fonteInvisible">blabla</span><a href="#gamme">Gamme majeure</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#gammeMineure">Gamme mineure</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#degre">Les degrés</a><br>
+</div>
+
     </div>
   </div>
 </div>

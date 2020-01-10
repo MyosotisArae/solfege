@@ -157,9 +157,9 @@ class TonaliteController extends ExerciceController
     $p->addNote("B2", "", 2);
     $p->addNote("D3", "", 2);
     $p->addNote("E3", "", 2);
-    $p->addNote("A3", "", 2);
-    $p->addNote("G3", "", 2);
-    $p->addNote("C3", "", 2);
+    $p->addNote("A3", "", 4);
+    $p->addNote("G3", "", 4);
+    $p->addNote("C3", "", 4);
     $p->setEchelle(0.4);
     $listePortees[] = $p;//21
     $p = new Portee($this->cst->get_cle_sol());

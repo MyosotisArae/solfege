@@ -1,3 +1,21 @@
+/* Pour s'adapter à des écrans plus petits */
+html
+{
+  font-size : 1vw;
+  orientation : portrait;
+}
+@media (max-width: 768px) {
+  html{font-size: 3vw;}
+}
+@media (max-width: 992px) {
+  html{font-size: 2vw;}
+}
+@media (max-width: 1200px) {
+  html{font-size: 1.9vw;}
+}
+@media (max-width: 1600px) {
+  html{font-size: 1.3vw;}
+}
 /* Pour le debug uniquement : */
 .rouge {background:red;}
 .debug
@@ -57,8 +75,15 @@ a:hover
 {
   text-decoration : none;
 }
-.reduction
+.clavierAdroite
 {
-  transform : scale(0.3);
+  float : right;
+  margin-left : 1em;
+  position : relative;
+}
+.clavierAgauche
+{
+  float : left;
+  margin-right : 1em;
   position : relative;
 }

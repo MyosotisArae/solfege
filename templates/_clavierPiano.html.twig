@@ -1,21 +1,34 @@
-{# Calculer la largeur du clavier #}
-{% set largeur = ((nbTouches + 1)*72)+50 %}
-<div class="ligne positionRelative" style="width:{{largeur}}px;">
+{# Récupérer le facteur de réduction #}
+{% set reduction = 1 %}
+{% if echelle is defined %}
+  {% set reduction = echelle %}
+{% endif %}
+{# Types d'éléments à mettre à l'échelle : #}
+{% set typeTB = 1 %} {# touche/pastille blanche #}
+{% set typeTN = 2 %} {# touche/pastille noire #}
+{% set typeTO = 3 %} {# ton/demi ton #}
+{# Calculer la largeur : #}
+{# - d'une image #}
+{% set dx = 72*reduction %}
+{% set dy = 303*reduction %} {# hauteur d'une touche #}
+{# - du clavier #}
+{% set largeur = ((nbTouches + 1)*dx)+(50*reduction) %}
+{% set largeur = ((nbTouches + 1)*dx) %}
+<div class="ligne positionRelative" style="width:{{largeur}}px; height:{{dy}}px;">
   {% set xFleche = lesFleches|default([]) %}
   {% set xFlecheInversee = lesFlechesInversees|default([]) %}
   {% set xPastille = lesPastilles|default([]) %}
   {% set numTouche = 0 %}
   {% for i in range(0,nbTouches) %}
-    {% set x = 72*i %}
-  <img class="positionAbsolue" style="left : {{x}}px;" src="{{img_path}}portee/toucheBlanchePiano.gif">
+    {% set x = dx*i %}
+  <img class="positionAbsolue" {{getStyleClavier(x, reduction, typeTB)|raw}} src="{{img_path}}portee/toucheBlanchePiano.gif">
     {% if numTouche in xPastille %}
-  <img class="positionAbsolue" style="left : {{x}}px;" src="{{img_path}}portee/pastille_blanche.gif">
+  <img class="positionAbsolue" {{getStyleClavier(x, reduction, typeTB)|raw}} src="{{img_path}}portee/pastille_blanche.gif">
     {% endif %}
     {% set numTouche = numTouche+2 %}
   {% endfor %}
-  <img src="{{img_path}}portee/ecart_double.gif">
   {# Superposer les touches noires #}
-  {% set x = 57 %}
+  {% set x = 57*reduction %}
   {% set vide = 0 %}
   {% set nextVide = 2 %}
   {% set numTouche = 1 %}
@@ -28,21 +41,19 @@
     {% else %}
       {% set demi = "" %}
       {% set demiInverse = "demi_" %}
-  <img class="positionAbsolue" style="left : {{x}}px;" src="{{img_path}}portee/toucheNoirePiano.gif">
+  <img class="positionAbsolue" {{getStyleClavier(x, reduction, typeTN)|raw}} src="{{img_path}}portee/toucheNoirePiano.gif">
       {% if numTouche in xPastille %}
-  <img class="positionAbsolue" style="left : {{x}}px;" src="{{img_path}}portee/pastille_noire.gif">
+  <img class="positionAbsolue" {{getStyleClavier(x, reduction, typeTN)|raw}} src="{{img_path}}portee/pastille_noire.gif">
       {% endif %}
     {% endif %}
     {% if (avecTon or (i in xFleche)) %}
-  <img class="positionAbsolue" style="left : {{x-25}}px; top:220px;" src="{{img_path}}portee/un_{{demi}}ton.gif">
+  <img class="positionAbsolue" {{getStyleClavier(x, reduction, typeTO)|raw}} src="{{img_path}}portee/un_{{demi}}ton.gif">
     {% endif %}
     {% if (i in xFlecheInversee) %}
-  <img class="positionAbsolue" style="left : {{x-25}}px; top:220px;" src="{{img_path}}portee/un_{{demiInverse}}ton.gif">
+  <img class="positionAbsolue" {{getStyleClavier(x, reduction, typeTO)|raw}} src="{{img_path}}portee/un_{{demiInverse}}ton.gif">
     {% endif %}
-    {% set x = x+72 %}
+    {% set x = x+dx %}
     {% set numTouche = numTouche+2 %}
   {% endfor %}
 </div>
-<br>
-<img src="{{img_path}}portee/ecart_vertical.gif">
 <br>
