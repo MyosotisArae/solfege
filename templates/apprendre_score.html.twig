@@ -35,14 +35,14 @@
             <div class="offset-1 col-11">
               <table>
               {% for trophee in trophees %}
-                <tr{{ trophee.musicien ? ' class="griser"' : ''}}>
+                <tr{{ trophee.dejaObtenu ? ' class="griser"' : ''}}>
                   <td class="doubleImage">
                     <img class="micro" src="{{img_path}}trophees/{{trophee.image}}.gif">
                     <img class="micro2" src="{{img_path}}trophees/{{trophee.image}}.gif">
                   </td>
                   <td>
                     <dl>
-                      <dt><b>{{trophee.nom}}</b></dt>
+                      <dt style="width:30vw;"><b>{{trophee.nom}}</b></dt>
                       <dd>{{trophee.description}}</dd>
                     </dl>
                   </td>

@@ -45,6 +45,7 @@ body
 }
 .cadreRouge
 {
+  position : relative;
   border : 2px solid red;
   border-radius : 1em;
 }
@@ -66,8 +67,7 @@ h1
   color : white;
   text-shadow : 1px 0px 1px black, -1px 0px 1px black, 0px 1px 1px black, 0px -1px 1px black, 2px 0px 1px black, -2px 0px 1px black, 0px 2px 1px black, 0px -2px 1px black;
   text-align : center;
-  width : 100%;
-  font-size : 5em;
+  font-size : 3.4rem;
 }
 .positionRelative { position : relative; }
 .positionAbsolue  { position : absolute; }

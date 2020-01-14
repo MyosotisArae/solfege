@@ -45,17 +45,17 @@ class AppExtension extends AbstractExtension
         if ($typeElement == 1)
         {
             // Type touche ou pastille blanche
-            $txt .= $x . "px; width:" . strval(72*$reduction) . "px; height:" .strval(303*$reduction) . "px;";
+            $txt .= $x . "rem; width:" . strval(72*$reduction) . "rem; height:" .strval(303*$reduction) . "rem;";
         }
         if ($typeElement == 2)
         {
             // Type touche ou pastille noire
-            $txt .= $x . "px; width:" . strval(30*$reduction) . "px; height:" .strval(179*$reduction) . "px;";
+            $txt .= $x . "rem; width:" . strval(30*$reduction) . "rem; height:" .strval(179*$reduction) . "rem;";
         }
         if ($typeElement == 3)
         {
             // Type ton ou demi ton
-            $txt .= strval($x-(25*$reduction)) . "px; top:" . strval(220*$reduction) . "px; width:" . strval(72*$reduction) . "px; height:" .strval(72*$reduction) . "px;";
+            $txt .= strval($x-(25*$reduction)) . "rem; top:" . strval(220*$reduction) . "rem; width:" . strval(72*$reduction) . "rem; height:" .strval(72*$reduction) . "rem;";
         }
         $txt .= "'";
         return $txt;

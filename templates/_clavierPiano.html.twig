@@ -1,7 +1,8 @@
 {# Récupérer le facteur de réduction #}
-{% set reduction = 1 %}
+{% set pxToRem = 30 %}
+{% set reduction = 0.9 / pxToRem %}
 {% if echelle is defined %}
-  {% set reduction = echelle %}
+  {% set reduction = echelle/pxToRem %}
 {% endif %}
 {# Types d'éléments à mettre à l'échelle : #}
 {% set typeTB = 1 %} {# touche/pastille blanche #}
@@ -14,7 +15,7 @@
 {# - du clavier #}
 {% set largeur = ((nbTouches + 1)*dx)+(50*reduction) %}
 {% set largeur = ((nbTouches + 1)*dx) %}
-<div class="ligne positionRelative" style="width:{{largeur}}px; height:{{dy}}px;">
+<div class="ligne positionRelative" style="width:{{largeur}}rem; height:{{dy}}rem;">
   {% set xFleche = lesFleches|default([]) %}
   {% set xFlecheInversee = lesFlechesInversees|default([]) %}
   {% set xPastille = lesPastilles|default([]) %}

@@ -38,4 +38,7 @@
 
 {% block corps %}
   {{ parent() }}
+  {% set echelleClavier=1 %}
+  <div class="col-md">{% set echelleClavier=0.9 %}</div>
+  <div class="col-xs">{% set echelleClavier=0.5 %}</div>
 {% endblock %}

@@ -1,8 +1,8 @@
 .incline
 {
   position : absolute;
-  top : 1.8em;
-  left : 0.2em;
+  top : 2.1em;
+  left : 1.2em;
   transform: rotate(-32deg);
 }
 .plusBas { top : 2em; }
@@ -16,7 +16,7 @@
   width : 30vw;
   height: auto;
 }
-.boutonTonalites
+.largeur17vw
 {
   width : 17vw;
   height: auto;
@@ -26,20 +26,30 @@
   top  : 32vh;
   left : 4vw;
 }
-.boutonScores
+h1.boutonLexique
 {
   position : absolute;
-  top  : 14vh;
-  left : 1.5vw;
-  width : 18vw;
-  height: auto;
+  right : 5px;
+  bottom : 8px;
+  text-align : center;
+  font-size : 1.6rem;
+}
+h1.boutonRevisions
+{
+  text-shadow : 1px 0px 21px black, -1px 0px 2px black, 0px 1px 2px black, 0px -1px 2px black, 2px 0px 2px black, -2px 0px 2px black, 0px 2px 2px black, 0px -2px 2px black;
+  position : absolute;
+  left : 8px;
+  top : 4px;
+  font-size : 1.8rem;
+  opacity : 1;
 }
 h1.boutonScores
 {
-  top  : 29vh;
-  left : 5vw;
-  width : 10vw;
-  font-size : 2em;
+  position : absolute;
+  width : 100%;
+  bottom : 4px;
+  text-align : center;
+  font-size : 1.6rem;
 }
 .boutonDrapeau:hover .enVert  { color : green; }
 .boutonDrapeau:hover .enRouge { color : red; }

@@ -1,9 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block entete %}
-  
   {{ parent() }}
-  <link rel="stylesheet" href="{{css_path}}general.css">
 <style>
 .cadreChoix_img
 {
@@ -19,25 +17,25 @@
 .cadreChoix_1
 {
   color : white;
-  font-size : 5em;
+  font-size : 3rem;
   text-shadow : 1px 0px 1px black, -1px 0px 1px black, 0px 1px 1px black, 0px -1px 1px black, 2px 0px 1px black, -2px 0px 1px black, 0px 2px 1px black, 0px -2px 1px black;
   text-align : center;
 }
 .cadreChoix_2
 {
-  font-size : 3em;
+  font-size : 1.7rem;
 }
 h1
 {
   color : white;
-  font-size : 1em;
+  font-size : 3rem;
   text-shadow : 1px 0px 1px black, -1px 0px 1px black, 0px 1px 1px black, 0px -1px 1px black, 2px 0px 1px black, -2px 0px 1px black, 0px 2px 1px black, 0px -2px 1px black;
   text-align : center;
 }
 h2
 {
   color : white;
-  font-size : 0.5em;
+  font-size : 2rem;
   text-shadow : 1px 0px 1px black, -1px 0px 1px black, 0px 1px 1px black, 0px -1px 1px black, 2px 0px 1px black, -2px 0px 1px black, 0px 2px 1px black, 0px -2px 1px black;
   text-align : center;
 }
@@ -51,9 +49,11 @@ h2
     <div class="container-fluid">
       <div class="row">
         <div class="offset-1 col-4 fondEntier cadreChoix_div">
+          <br>
           <a class="cadreChoix_1" href="main">
-            <img class="cadreChoix_img" src="{{img_path}}conservatoire.jpg">
-            <h1>Retour à la page d'accueil</h1>
+            <img class="cadreChoix_img" src="{{img_path}}conservatoire.jpg" style='width:100%;'>
+            <h1><br>Retour à</h1>
+            <h1>la page d'accueil</h1>
           </a>
         </div>
         <div class="offset-1 col-5">

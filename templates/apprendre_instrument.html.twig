@@ -7,19 +7,20 @@
   <style>
     .enumNiv1
     {
-      font-size : 2em;
+      font-size : 2rem;
       text-decoration : underline;
     }
     .enumNiv2
     {
-      font-size : 1.5em;
+      font-size : 1.5rem;
       text-decoration : underline;
-      padding-left : 1em;
+      padding-left : 1rem;
     }
     .enumNiv3
     {
-      font-size : 1.1em;
-      padding-left : 2.5em;
+      font-size : 1.1rem;
+      padding-left : 2.5rem;
+      text-decoration : none;
     }
   </style>
 {% endblock %}
@@ -30,90 +31,83 @@
 {% block corps %}
   {{ parent() }}
 
-<div class="sommaire">
-  <h2>Sommaire</h2><br>
-  <li><a href="#familles">Les familles d'instruments</a></li>
-    <span class="fonteInvisible">blabla</span><a href="#familles">Les cordes</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#vent">Les vents (bois et cuivres)</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#percussion">Les percussions</a>
-  <li><a href="#reco">Reconnaître un instrument</a></li>
-</div>
-
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-    <div class="col-12">
-    <div class="listeDeroulante">
-      <div class="cadreNoir" id="familles">
-        <h2 class="souligne">Les familles d'instruments</h2>
-        Les orchestres symphoniques et philharmoniques se composent de trois familles d'instruments : les cordes, les vents et les percussions.<br>
-        Les instruments à vent sont répartis en 2 catégories : les bois et les cuivres, ceci en raison du matériau dans lequel ils étaient fabriqués à l'origine, même si ce n'est plus le cas aujourd'hui.<br>
-        Voici la liste des familles et sous familles d'instruments, et quelques exemples d'instruments appartenant à ces catégories :<br>
-        <table>
-            <tr><td class="enumNiv1">Les instruments à cordes :</td></tr>
-              <tr><td class="enumNiv2">Les cordes frottées :</td></tr>
-                <tr><td class="enumNiv3">le violon</td></tr>
-                <tr><td class="enumNiv3">le violoncelle</td></tr>
-                <tr><td class="enumNiv3">l'alto</td></tr>
-                <tr><td class="enumNiv3">la contrebasse</td></tr>
-              <tr><td class="enumNiv2">Les cordes pincées ou grattées :</td></tr>
-                <tr><td class="enumNiv3">la guitare</td></tr>
-                <tr><td class="enumNiv3">la harpe</td></tr>
-                <tr><td class="enumNiv3">le clavecin (le son est produit par des sautereaux qui pincent les cordes)</td></tr>
-                <tr><td class="enumNiv3">l'épinette (même principe de fonctionnement que le clavecin)</td></tr>
-                <tr><td class="enumNiv3">le luth</td></tr>
-              <tr><td class="enumNiv2">Les cordes frappées :</td></tr>
-                <tr><td class="enumNiv3">le clavicorde</td></tr>
-                <tr><td class="enumNiv3">le piano (les touches actionnent de petits marteaux qui frappent les cordes)</td></tr>
-                <tr><td class="enumNiv3">le piano-forte</td></tr>
-                <tr><td class="enumNiv3">le pianola (instrument mécanique à rouleau de musique perforé)</td></tr>
-            <tr><td class="enumNiv1" id="vent">Les instruments à vent :</td></tr>
-              <tr><td class="enumNiv2">Les bois </td></tr>
-                <tr><td class="enumNiv3">la flûte (flûte à bec, flûte traversière, piccolo, flûte alto en sol, ...)</td></tr>
-                <tr><td class="enumNiv3">la clarinette</td></tr>
-                <tr><td class="enumNiv3">le saxophone (soprano, alto, ténor, baryton), constitué de cuivre, mais utilisé avec une anche en bois</td></tr>
-                <tr><td class="enumNiv3">le hautbois (instrument à anche double)</td></tr>
-                <tr><td class="enumNiv3">le cor anglais (similaire au hautbois, mais de sonorité plus douce)</td></tr>
-                <tr><td class="enumNiv3">le basson (instrument à anche double)</td></tr>
-                <tr><td class="enumNiv3">le contrebasson (deux fois plus grave que le basson)</td></tr>
-              <tr>
-                <td class="enumNiv2">Les cuivres :
-                  {% include "_cadreConseil.html.twig" with {"texte":"A l'examen, pense à préciser  bois ou cuivre (dire vent est  insuffisant).", "x":"18"} %}
-                </td>
-              </tr>
-                <tr><td class="enumNiv3">le trombone</td></tr>
-                <tr><td class="enumNiv3">le tuba (euphorium, saxhorn, hélicon, soubassophone, ...)</td></tr>
-                <tr><td class="enumNiv3">le cor</td></tr>
-                <tr><td class="enumNiv3">la trompette</td></tr>
-            <tr><td class="enumNiv1" id="percussion">Les percussions :</td></tr>
-              <tr><td class="enumNiv2">Instruments à son déterminé (c'est à dire qui jouent des notes précises) :</td></tr>
-                <tr><td class="enumNiv3">les timbales (la note jouée dépend de la tension de la peau)</td></tr>
-                <tr><td class="enumNiv3">le glockenspiel (clavier métallique)</td></tr>
-                <tr><td class="enumNiv3">les cloches tubulaires (ou tubular bells ; ce sont des cloches suspendues à un portique)</td></tr>
-                <tr><td class="enumNiv3">le xylophone</td></tr>
-                <tr><td class="enumNiv3">le marimba</td></tr>
-                <tr><td class="enumNiv3">le vibraphone</td></tr>
-              <tr><td class="enumNiv2">Instruments à son indéterminé :</td></tr>
-                <tr><td class="enumNiv3">les tambours en peau (tambour militaire, caisse claire, grosse caisse, bongos, tambourin, ...)</td></tr>
-                <tr><td class="enumNiv3">le triangle</td></tr>
-                <tr><td class="enumNiv3">la cymbale</td></tr>
-                <tr><td class="enumNiv3">le gong</td></tr>
-                <tr><td class="enumNiv3">les maracas</td></tr>
-                <tr><td class="enumNiv3">les castagnettes</td></tr>
-                <tr><td class="enumNiv3">les claves</td></tr>
-                <tr><td class="enumNiv3">la batterie (puisque c'est un ensemble de percussions)</td></tr>
-            <tr><td class="enumNiv1">Autres instruments :</td></tr>
-                <tr><td class="enumNiv3">l'accordéon (instrument portatif muni d'un clavier et d'un soufflet mettant des anches en vibration)</td></tr>
-                <tr><td class="enumNiv3">la cornemuse (instrument à vent constitué de plusieurs tuyaux à anches fixés à une peau ou à un sac enfermant un réservoir d'air)</td></tr>
-                <tr><td class="enumNiv3">l'harmonica (instrument à vent et à anches libres métalliques)</td></tr>
-                <tr><td class="enumNiv3">l'orgue (instrument constitué de plusieurs claviers superposés et d'un clavier à pédales ; le son provient de l'air qui passe à travers des tuyaux de longueur et de largeur différentes)</td></tr>
-                <tr><td class="enumNiv3">les instruments électriques ou électroniques (piano électrique, synthétiseur, ondes Martenot, ...)</td></tr>
-        </table>
-        <br>
-      </div>
-      <div class="cadreNoir" id="reco">
-        <h2 class="souligne">Les sons des principaux instruments</h2>
-        Pour reconnaître un instrument, il faut imaginer comment le morceau a pu être joué. Par exemple :
-        <p>
+    <div class="col-9">
+      <div class="listeDeroulante">
+        <div class="cadreNoir" id="familles">
+          <h2 class="souligne">Les familles d'instruments</h2>
+          Les orchestres symphoniques et philharmoniques se composent de trois familles d'instruments : les cordes, les vents et les percussions.<br>
+          Les instruments à vent sont répartis en 2 catégories : les bois et les cuivres, ceci en raison du matériau dans lequel ils étaient fabriqués à l'origine, même si ce n'est plus le cas aujourd'hui.<br>
+          Voici la liste des familles et sous familles d'instruments, et quelques exemples d'instruments appartenant à ces catégories :<br>
+          <div class="enumNiv1">Les instruments à cordes :</div>
+            <div class="enumNiv2">Les cordes frottées :</div>
+              <div class="enumNiv3">le violon</div>
+              <div class="enumNiv3">le violoncelle</div>
+              <div class="enumNiv3">l'alto</div>
+              <div class="enumNiv3">la contrebasse</div>
+            <div class="enumNiv2">Les cordes pincées ou grattées :</div>
+              <div class="enumNiv3">la guitare</div>
+              <div class="enumNiv3">la harpe</div>
+              <div class="enumNiv3">le clavecin (le son est produit par des sautereaux qui pincent les cordes)</div>
+              <div class="enumNiv3">l'épinette (même principe de fonctionnement que le clavecin)</div>
+              <div class="enumNiv3">le luth</div>
+            <div class="enumNiv2">Les cordes frappées :</div>
+              <div class="enumNiv3">le clavicorde</div>
+              <div class="enumNiv3">le piano (les touches actionnent de petits marteaux qui frappent les cordes)</div>
+              <div class="enumNiv3">le piano-forte</div>
+              <div class="enumNiv3">le pianola (instrument mécanique à rouleau de musique perforé)</div>
+          <div class="enumNiv1" id="vent">Les instruments à vent :</div>
+            <div class="enumNiv2">Les bois </div>
+              <div class="enumNiv3">la flûte (flûte à bec, flûte traversière, piccolo, flûte alto en sol, ...)</div>
+              <div class="enumNiv3">la clarinette</div>
+              <div class="enumNiv3">le saxophone (soprano, alto, ténor, baryton), constitué de cuivre, mais utilisé avec une anche en bois</div>
+              <div class="enumNiv3">le hautbois (instrument à anche double)</div>
+              <div class="enumNiv3">le cor anglais (similaire au hautbois, mais de sonorité plus douce)</div>                <div class="enumNiv3">le basson (instrument à anche double)</div>
+              <div class="enumNiv3">le contrebasson (deux fois plus grave que le basson)</div>
+            <div class='container-fluid' style='margin:0; padding:0;'>
+              <div class='row'>
+                <div class='col-6'>
+                  <div class='enumNiv2'>Les cuivres :</div>
+                    <div class='enumNiv3'>le trombone</div>
+                    <div class='enumNiv3'>le tuba <span class='ecrirePetit'>(euphorium, saxhorn, hélicon, soubassophone,...)</span></div>
+                    <div class='enumNiv3'>le cor</div>
+                    <div class='enumNiv3'>le trompette</div>
+                </div>  
+                <div class='col-6' style='width:40vw;'>&nbsp;
+                  {% include "_cadreConseil.html.twig" with {"texte":"A l'examen, pense à préciser bois ou cuivre (dire vent serait insuffisant)."} only %}
+                </div>  
+              </div> 
+            </div>
+            <div class="enumNiv1" id="percussion">Les percussions :</div>
+              <div class="enumNiv2">Instruments à son déterminé (c'est à dire qui jouent des notes précises) :</div>
+                <div class="enumNiv3">les timbales (la note jouée dépend de la tension de la peau)</div>
+                <div class="enumNiv3">le glockenspiel (clavier métallique)</div>
+                <div class="enumNiv3">les cloches tubulaires (ou tubular bells ; ce sont des cloches suspendues à un portique)</div>
+                <div class="enumNiv3">le xylophone</div>
+                <div class="enumNiv3">le marimba</div>
+                <div class="enumNiv3">le vibraphone</div>
+              <div class="enumNiv2">Instruments à son indéterminé :</div>
+                <div class="enumNiv3">les tambours en peau (tambour militaire, caisse claire, grosse caisse, bongos, tambourin, ...)</div>
+                <div class="enumNiv3">le triangle</div>
+                <div class="enumNiv3">la cymbale</div>
+                <div class="enumNiv3">le gong</div>
+                <div class="enumNiv3">les maracas</div>
+                <div class="enumNiv3">les castagnettes</div>
+                <div class="enumNiv3">les claves</div>
+                <div class="enumNiv3">la batterie (puisque c'est un ensemble de percussions)</div>
+            <div class="enumNiv1">Autres instruments :</div>
+                <div class="enumNiv3">l'accordéon (instrument portatif muni d'un clavier et d'un soufflet mettant des anches en vibration)</div>
+                <div class="enumNiv3">la cornemuse (instrument à vent constitué de plusieurs tuyaux à anches fixés à une peau ou à un sac enfermant un réservoir d'air)</div>
+                <div class="enumNiv3">l'harmonica (instrument à vent et à anches libres métalliques)</div>
+                <div class="enumNiv3">l'orgue (instrument constitué de plusieurs claviers superposés et d'un clavier à pédales ; le son provient de l'air qui passe à travers des tuyaux de longueur et de largeur différentes)</div>
+                <div class="enumNiv3">les instruments électriques ou électroniques (piano électrique, synthétiseur, ondes Martenot, ...)</div>
+          <br>
+        </div>
+        <div class="cadreNoir" id="reco">
+          <h2 class="souligne">Les sons des principaux instruments</h2>
+          Pour reconnaître un instrument, il faut imaginer comment le morceau a pu être joué. Par exemple :
+          <p>
           <li>un instrument à vent démarre assez doucement, car le souffle n'est pas immédiatement à son maximum.</li>
           <li>le souffle du musicien peut généralement s'entendre assez nettement (surtout avec la flûte de pan).</li>
           <li>le trombone est reconnaissable grâce au son progressif qu'il produit parfois entre deux notes, vu qu'elles ne sont pas produites par des touches, mais par la position de la coulisse.</li>
@@ -123,10 +117,10 @@
           <li>les instruments métalliques (cloches, vibraphone, glockenspiel, ...) résonnent longtemps.</li>
           <li>les touches des claviers (piano, clavecin, accordéon, ...) produisent un son plus soudain que celles des instruments à vent. </li>
           <li>les cordes frottées (guitare, harpe, ...) produisent plusieurs notes presque en même temps. On ne peut le faire avec aucun autre type d'instrument.</li>
-        </p>
-        Ecoute ces instruments et essaie de repérer leurs particularités.
-        <div class="container-fluid">
-          <div class="row">
+          </p>
+          Ecoute ces instruments et essaie de repérer leurs particularités.
+          <div class="container-fluid">
+            <div class="row">
             {% include '_instrument.html.twig' with {'image':'violon.jpg', 'son':'violon.mp3','legende':"le violon"} %}
             {% include '_instrument.html.twig' with {'image':'violon-alto.jpg', 'son':'alto.mp3','legende':"l'alto"} %}
             {% include '_instrument.html.twig' with {'image':'guitare.jpg', 'son':'guitare.mp3','legende':"la guitare"} %}
@@ -269,6 +263,16 @@
       </div>
     </div>
     </div>
+
+    <div class='col-3'>
+      <h2>Sommaire</h2><br>
+      <li><a href="#familles">Les familles d'instruments</a></li>
+        <span class="fonteInvisible">blabla</span><a href="#familles">Les cordes</a><br>
+        <span class="fonteInvisible">blabla</span><a href="#vent">Les vents (bois et cuivres)</a><br>
+        <span class="fonteInvisible">blabla</span><a href="#percussion">Les percussions</a>
+      <li><a href="#reco">Reconnaître un instrument</a></li>
+    </div>
+
   </div>
 </div>
 

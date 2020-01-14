@@ -1,26 +1,26 @@
 b { font-size : 120%; }
+.ecrirePetit { font-size : 0.7rem; }
 .imgSymbole
 {
   height : 3em;
   padding : 0.5em;
 }
-.cadreNoir { margin-right : 2em; }
+.cadreNoir { padding-right : 1rem; }
 .cadreConseil
 {
   border : 2px dashed green;
   background : rgba(0,255,0,0.5);
-  margin : 2em;
-  min-width : 800px;
-  max-width : 900px;
+  padding-right : 0.5rem;
+  width : 100%;
 }
 h1.conseil
 {
   color : green;
-  font-size : 8em;
+  font-size : 8rem;
 }
 .indentation
 {
-  margin-left : 1.5em;
+  margin-left : 1.5rem;
 }
 /* Pour dessiner un tableau */
 table.tableau { border-collapse : collapse; }
@@ -34,19 +34,11 @@ td.tableau
 .enGras
 {
   font-weight: bold;
-  font-size : 1.5em;
+  font-size : 1.5rem;
 }
 .enGras:hover
 {
   font-weight: bold;
-  font-size : 2em;
+  font-size : 2rem;
   color : gold;
-}
-.sommaire
-{
-  position: absolute;
-  right : 1em;
-  top : 10em;
-  border: 1px dotted black;
-  padding : 1em;
 }

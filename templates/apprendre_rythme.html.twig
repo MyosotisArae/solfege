@@ -10,25 +10,9 @@
 {% block corps %}
   {{ parent() }}
 
-<div class="sommaire">
-  <h2>Sommaire</h2><br>
-  <li><a href="#chiffrage">Le chiffrage</a></li>
-    <span class="fonteInvisible">blabla</span><a href="#chiffrage">Numérateur, dénominateur</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#binaire">Mesures binaires</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#ternaire">Mesures ternaires</a><br>
-  <li><a href="#tempo">Le tempo</a></li>
-    <span class="fonteInvisible">blabla</span><a href="#tempo">La pulsation</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#rythme">le rythme</a><br>
-  <li><a href="#signes">Signes courants</a></li>
-    <span class="fonteInvisible">blabla</span><a href="#signes">Les silences</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#barre">Les barres</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#dacapo">Les reprises</a><br>
-    <span class="fonteInvisible">blabla</span><a href="#prolongation">Prolonger une note</a><br>
-</div>
-
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-    <div class="col-12">
+    <div class="offset-xl-1 col-xl-9 col-lg-9 col-9">
     <div class="listeDeroulante">
       <div class="cadreNoir" id="chiffrage">
         <h2 class="souligne">Le chiffrage</h2>
@@ -82,101 +66,38 @@
             </tr>
           </table>
           <br>Et donc, voilà ce que ça signifie :
-          <table>
-            <tr>
-              <td>
-                <img src="{{img_path}}mesure44.gif">
-              </td>
-              <td>
+          <img class='clavierAgauche' src="{{img_path}}mesure44.gif">
                 Le 4 du bas indique qu'on compte des noires. La noire est l'unité de temps.<br>
                 Celui du haut indique la quantité de temps : on veut 4 unités de temps par mesure (4 noires).<br>
-                Note que la mesure 4/4, qui est la plus courante, peut être abrégée par un C.
-              </td>
-            </tr>
-          </table>
-          <table>
-            <tr>
-              <td>
-                <img src="{{img_path}}mesure34.gif">
-              </td>
-              <td>
-                On compte toujours des noires. Mais cette fois-ci, on en a 3 par mesure.
-              </td>
-            </tr>
-          </table>
-          <table id="binaire">
-            <tr>
-              <td>
-                <img src="{{img_path}}mesure24.gif">
-              </td>
-              <td>
-                Et là, on compte 2 noires par mesure.
-              </td>
-            </tr>
-          </table>
-          <table>
-            <tr>
-              <td>
-                <img src="{{img_path}}mesure38.gif">
-              </td>
-              <td>
+                Note que la mesure 4/4, qui est la plus courante, peut être abrégée par un C.<br>
+          <img class='clavierAgauche' src="{{img_path}}mesure34.gif">
+                Là, on compte toujours des noires. Mais cette fois-ci, on en a 3 par mesure.<br><br>
+          <img id="binaire" class='clavierAgauche' src="{{img_path}}mesure24.gif">
+                Et là, on compte 2 noires par mesure.<br><br>
+          <img class='clavierAgauche' src="{{img_path}}mesure38.gif">
                 Le 8 du bas indique qu'on compte des croches.<br>
                 Celui du haut indique qu'on en veut 3 par mesure (la pulsation est une croche).
-              </td>
-            </tr>
-          </table>
           Ces mesures sont dites <b>binaires</b> parce qu'on peut diviser la pulsation en deux:
           <li>1 blanche = 2 noires,</li>
           <li>1 noire = 2 croches</li>
           <li>1 croche = 2 doubles croches</li>
           <br>
           Celle-ci en est une également. C'est très similaire à la mesure 4/4 :<br>
-          <table>
-            <tr>
-              <td>
-                <img src="{{img_path}}mesure22.gif">
-              </td>
-              <td>
-                Le 2 du bas indique qu'on compte des blanches. Une blanche = 2 noires, donc c'est binaire.<br>
-                Le 2 du haut indique qu'on en veut 2. On a donc 2 blanches par mesure, et on est d'accord, c'est un peu pareil que 4 noires par mesure.<br>
-              </td>
-            </tr>
-          </table>
-          <table>
-            <tr>
-              <td>
-                Note quand même qu'il existe une abréviation pour ça. Le C barré :&nbsp;&nbsp;
-              </td>
-              <td>
-                <img src="{{img_path}}mesureCbarre.gif">
-              </td>
-            </tr>
-          </table>
+          <img src="{{img_path}}mesure22.gif" class='clavierAgauche' style='width:20vw;'>
+          Le 2 du bas indique qu'on compte des blanches. Une blanche = 2 noires, donc c'est binaire.<br>
+          Le 2 du haut indique qu'on en veut 2. On a donc 2 blanches par mesure, et on est d'accord, c'est un peu pareil que 4 noires par mesure.<br>
+          Note quand même qu'il existe une abréviation pour ça. Le C barré&nbsp;:&nbsp;&nbsp;
+          <img src="{{img_path}}mesureCbarre.gif" class='clavierAdroite' style='width:20vw;'>
+
 
           <br><br>Etudions maintenant des mesures que l'on rencontre moins fréquemment (sauf dans les questions d'examen !) : les mesures <b>ternaires</b> ou <b>composées</b>.<br>
           Le dénominateur est 8. Des croches donc. Mais ... une croche est divisible en deux doubles croches, donc pourquoi ternaire au lieu de binaire&nbsp;?<br>
           Parce qu'on va distinguer <b>l'unité de valeur</b>, qui est la croche, de <b>la pulsation</b>, qui est la noire pointée. Et une noire pointée est divisible en 3, d'où le terme ternaire.<br>
           Voyons cela de plus près:<br>
-          <table>
-            <tr>
-              <td>
-                <img src="{{img_path}}mesure68.gif">
-              </td>
-              <td>
-                On a maintenant 6 croches par mesure, donc 2 noires pointées.<br><br>
-              </td>
-            </tr>
-          </table>
-          <table>
-            <tr>
-              <td>
-                <img src="{{img_path}}mesure98.gif">
-              </td>
-              <td>
-                Ici, on peut placer 3 noires pointées par mesure.<br><br>
-              </td>
-            </tr>
-          </table>
+          <img src="{{img_path}}mesure68.gif" class='clavierAgauche'>
+          On a maintenant 6 croches par mesure, donc 2 noires pointées.<br><br>
+          <img src="{{img_path}}mesure98.gif" class='clavierAdroite'>
+          <br>Ici, à gauche, on peut placer 3 noires pointées par mesure.<br>
           <br id="ternaire">Bref, on dit qu'une mesure est <b>binaire</b> si la pulsation est divisible par 2. Si elle est divisible par 3, on appelle ça une mesure <b>ternaire</b>. Comme on bat au maximum 4 temps, demandes-toi comment battre la mesure, et tu connaîtras la valeur de la pulsation.
 
       </div>
@@ -195,39 +116,17 @@
           <li>en 3/4, c'est une noire aussi, mais on en a 3 par mesure.</li>
           <li>en 6/8, l'unité de temps est la noire pointée. On bat donc une pulsation toutes les 3 croches.</li>
           <br>Voici un exemple qui devrait te parler. Tu connais la chanson "Le bon roi Dagobert" ? Elle est en 6/8. Sur la partition ci-dessous, tu remarqueras que, dans la première mesure, il n'y a pas le compte. Ca arrive. Certains morceaux ne commencent pas au temps 1. Ce morceau&nbsp;là commence à la sixième unité de valeur (la sixième croche).<br>
-          <table>
-            <tr>
-              <td>
-                <img src="{{img_path}}Dagobert_pulsations.jpg">
-              </td>
-              <td class="fonteInvisible">
-                <h3>bla</h3>
-              </td>
-              <td>
+          <img class="clavierAgauche" src="{{img_path}}Dagobert_pulsations.jpg">
                 La pulsation se note par des traits noirs au début de chaque unité de temps, sous la portée. Tu les vois ?<br><br>
                 Essaie de chanter la chanson (au moins dans ta tête) en battant la mesure.<br>
                 Premier trait : main en haut, deuxième trait : main en bas.<br>
                 On commence à battre après le premier trait de mesure, car la toute première mesure est incomplète.<br>
-                Tu entends comme les pulsations sont bien marquées ?
-              </td>
-            </tr>
-          </table>
-          
-          <table id="rythme">
-            <tr>
-              <td>
+                Tu entends comme les pulsations sont bien marquées ?<br>
+
+          <img class="clavierAdroite" src="{{img_path}}Dagobert_rythme.jpg">
                 Les pulsations et le rythme, c'est différent. Pour battre le rythme, on tape dans ses mains à chaque note.<br>
                 Tu peux essayer aussi, si tu veux.<br>
                 Sur la partition de droite, le rythme est indiqué par des traits verts.
-              </td>
-              <td class="fonteInvisible">
-                <h3>bla</h3>
-              </td>
-              <td>
-                <img src="{{img_path}}Dagobert_rythme.jpg">
-              </td>
-            </tr>
-          </table>
 
           <br><u>Comment Battre la mesure ?</u>
           <li>Quand il y a deux temps (2/2, 2/4, ou 6/8) :</li>
@@ -235,13 +134,13 @@
             - temps 1 : main en bas<br>
             - temps 2 : main en haut
           </div>
-          <li>Dans une mesure à 3 temps (3/4, 9/8) :</li>
+          <li>Dans une mesure à 3 temps (3/4 ou 9/8) :</li>
           <div class="indentation">
             - temps 1 : main en bas<br>
             - temps 2 : main à droite (et toujours en bas), c'est à dire que tu l'éloignes de toi<br>
             - temps 3 : main en haut
           </div>
-          <li>Pour une mesure à 4 temps (4/4, 8/8) :</li>
+          <li>Pour une mesure à 4 temps (4/4 ou 8/8) :</li>
           <div class="indentation">
             - temps 1 : main en bas<br>
             - temps 2 : main à gauche (tu la rapproches de ton ventre)<br>
@@ -439,12 +338,9 @@
 
         <table>
           <tr>
-            <td class="tableau">
-              <img src="{{img_path}}symboles/repeter_2.gif">
-            </td>
-            <td class="tableau">
-              Ce signe indique qu'il faut répéter un motif.<br>
-              Exemple :
+            <td class="tableau  text-justify">
+              Le signe <img src="{{img_path}}symboles/repeter_2.gif" style='width:2vw;'> indique qu'il faut répéter un motif.<br><br>
+              <div class="clavierAdroite">Exemple :</div>
             </td>
             <td class="tableau">
               <img src="{{img_path}}symboles/repeter_2_exemple.png">
@@ -454,12 +350,9 @@
 
         <table>
           <tr>
-            <td class="tableau">
-              <img src="{{img_path}}symboles/repeter_1.gif">
-            </td>
-            <td class="tableau">
-              Ce signe indique qu'il faut répéter une mesure.<br>
-              Exemple :
+            <td class="tableau text-justify">
+              Le signe <img src="{{img_path}}symboles/repeter_1.gif" style='width:2vw;'> indique qu'il faut répéter une mesure.<br><br>
+              <div class="clavierAdroite">Exemple :</div>
             </td>
             <td class="tableau">
               <img src="{{img_path}}symboles/repeter_1_exemple.png">
@@ -469,46 +362,50 @@
 
         <table id="prolongation">
           <tr>
-            <td class="tableau">
-              La <b>liaison de prolongation</b> est un signe en forme d'arc de cercle placé entre deux notes de même hauteur.<br>
+            <td>
+              La <b>liaison de prolongation</b> est un signe en forme d'arc de cercle placé entre deux notes de même hauteur.
+              <img class="clavierAdroite" src="{{img_path}}symboles/prolongation.png">
               Elle indique qu'au lieu de jouer ces deux notes séparément, on ajoute leurs durées pour jouer cette note plus longtemps. Une note peut ainsi se prolonger sur plusieurs mesures : à droite, on joue une première note sur un temps un quart (= 5 doubles croches), puis on la joue sur 11 temps.
             </td>
-            <td class="tableau">
-              <img src="{{img_path}}symboles/prolongation.png">
-            </td>
         </table>
         <br>
 
-        <table>
-          <tr>
-            <td class="tableau">
-              Le <b>point d'orgue</b> sert à prolonger une note plus longtemps que ne le demande sa durée réelle. Généralement, cette note marquera la fin du morceau.<br>
-              Le musicien est libre de choisir la durée de cette note, et la façon de la jouer. Selon les possibilités de son instrument, il pourra par exemple la faire vibrer, ou la jouer decrescendo.
-            </td>
-            <td class="tableau">
-              <img src="{{img_path}}/point_d_orgue.gif">
-            </td>
-        </table>
-        <br>
+        Le <b>point d'orgue</b> sert à prolonger une note plus longtemps que ne le demande sa durée réelle. Généralement, cette note marquera la fin du morceau.
+        <img class="clavierAdroite" src="{{img_path}}/point_d_orgue.gif" style='width:2vw;'>
+        Le musicien est libre de choisir la durée de cette note, et la façon de la jouer. Selon les possibilités de son instrument, il pourra par exemple la faire vibrer, ou la jouer decrescendo.
+        <br><br>
 
-        <table>
-          <tr>
-            <td class="tableau">
-              <img src="{{img_path}}symboles/arpege.png">
-            </td>
-            <td class="tableau">
-              La ligne ondulée verticale symbolise un <b>arpège</b>.<br>
-              Un arpège est un accord (plusieurs notes simultanées) dont les notes sont jouées l'une après l'autre (puis maintenues ensemble comme dans un accord classique).<br>
-              Sauf indication contraire, les notes doivent être jouées du bas vers le haut.
-            </td>
-        </table>
+        La ligne ondulée verticale symbolise un <b>arpège</b>.
+        <img class="clavierAgauche" src="{{img_path}}symboles/arpege.png">
+        Un arpège est un accord (plusieurs notes simultanées) dont les notes sont jouées l'une après l'autre (puis maintenues ensemble comme dans un accord classique).<br>
+        Sauf indication contraire, les notes doivent être jouées du bas vers le haut.
         <br>
 
       </div>
     </div>
     </div>
+
+    <div class='col-xl-2 col-lg-3 col-3'>
+  <h2>Sommaire</h2><br>
+  <li><a href="#chiffrage">Le chiffrage</a></li>
+    <span class="fonteInvisible">blabla</span><a href="#chiffrage">numérateur</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#chiffrage">dénominateur</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#binaire">Mesures binaires</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#ternaire">Mesures ternaires</a><br>
+  <li><a href="#tempo">Le tempo</a></li>
+    <span class="fonteInvisible">blabla</span><a href="#tempo">La pulsation</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#rythme">le rythme</a><br>
+  <li><a href="#signes">Signes courants</a></li>
+    <span class="fonteInvisible">blabla</span><a href="#signes">Les silences</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#barre">Les barres</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#dacapo">Les reprises</a><br>
+    <span class="fonteInvisible">blabla</span><a href="#prolongation">Prolonger une note</a><br>
+</div>
+
   </div>
 </div>
+
+
 
 {% endblock %}
 

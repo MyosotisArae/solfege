@@ -26,47 +26,84 @@
         </div>
         <div class="col-2 offset-1" >
           <a class="positionRelative" href="choixinstrument_les_instruments">
-            <div class="positionAbsolue">
+            <div class="">
               <img class="cadreRouge boutonInstruments" src="{{img_path}}instruments.gif">
               <h1 class="incline">Instruments</h1>
             </div>
             
-    {% if revision is defined %}
-      {% if revision == 1 %}
-    <div>
-      <a class="positionAbsolue boutonRythme" style="top : 300px; left : 70px;" href="lexique">
-        <img class="cadreRouge boutonTonalites boutonScores" src="{{img_path}}revision.gif">
-        <h1 class="boutonScores">Révision</h1>
-      </a>
-    </div>
-      {% endif %}
-    {% endif %}
 
           </a>
         </div>
         <div class="col-2 offset-2" >
+         <br><br>
           <a class="positionRelative" href="choixtonalite_les_tonalités">
-            <div class="positionAbsolue plusBas">
-              <img class="cadreRouge boutonTonalites" src="{{img_path}}tonalites.gif">
+            <div>
+              <img class="cadreRouge largeur17vw" src="{{img_path}}tonalites.gif">
             </div>
           </a>
         </div>
+
+        <div class="col-12" >
+        <br><br>
+        </div>
+
         <div class="col-3 offset-1" >
-            <a class="positionAbsolue boutonRythme" href="choixrythme_le_rythme">
-              <img class="cadreRouge boutonTonalites" src="{{img_path}}rythme.gif">
+            <a href="choixrythme_le_rythme">
+              <img class="cadreRouge largeur17vw" src="{{img_path}}rythme.gif">
             </a>
         </div>
-        <div class="col-2 offset-1" >
-            <a class="positionAbsolue boutonRythme" href="lexique">
-              <img class="cadreRouge boutonTonalites boutonScores" src="{{img_path}}lexique.gif">
-              <h1 class="boutonScores">Lexique</h1>
-            </a>
+
+        {# Ce bloc contient, verticalement, le bouton Révisions, et le bouton Lexique, #}
+        {# le premier n'étant visible que si revision vaut 1, mais toujours affiché,   #}
+        {# avec au besoin une opacité de zéro.                                         #}   
+        {% set opaciteRevision = 'opacity:0;' %}
+        {% set lienRevision = '' %}
+        {% if revision is defined %}
+          {% if revision == 1 %}
+            {% set opaciteRevision = '' %}
+            {% set lienRevision = 'lexique' %} 
+          {% endif %}
+        {% endif %}
+        <div class="col-5">
+          <div class='container-fluid'>
+            <div class='row'>
+              <div class='col-3'>
+                <br>&nbsp;
+              </div>
+              <div class='col-9'>
+                <div class='cadreRouge largeur17vw' style='{{opaciteRevision}}'>
+                  <a href="{{lienRevision}}">
+                    <img src="{{img_path}}revision.gif" style="width:100%; border-radius : 1em;">
+                    <h1 class="boutonRevisions">Révisions</h1>
+                  </a>
+                </div>
+              </div>
+              <div class='col-12'>
+                <br>&nbsp;
+              </div>
+              <div class='col-1'>
+                <br>
+              </div>
+              <div class='col-11'>
+                <div class='cadreRouge largeur17vw'>
+                  <a href="lexique">
+                    <img src="{{img_path}}lexique.gif" style="width:100%; border-radius : 1em;">
+                    <h1 class="boutonLexique">Lexique</h1>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-3 offset-2" >
-            <a class="positionAbsolue boutonRythme" href="score">
-              <img class="cadreRouge boutonTonalites boutonScores" src="{{img_path}}scores.gif">
+
+        <div class="col-3" >
+        <br><br><br>
+          <div class='cadreRouge largeur17vw'>
+            <a href="score">
+              <img src="{{img_path}}scores.gif" style="width:100%; border-radius : 1em;">
               <h1 class="boutonScores">Mes scores</h1>
             </a>
+          </div>
         </div>
       </div>
     </div>

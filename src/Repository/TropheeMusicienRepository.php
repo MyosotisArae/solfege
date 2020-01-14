@@ -48,6 +48,7 @@ class TropheeMusicienRepository extends ServiceEntityRepository
 
       // Ceci est la liste des trophées déjà possédés par le musicien id.
       $listeTropheesMusicien = $qb->getQuery()->getResult();
+      if (count($listeTropheesMusicien) == 0) return $liste;
 
       // Les 2 listes sont triées selon l'identifiant trophee (qui est id dans liste et trophee dans listeTropheesMusicien).
       // On va parcourir chacune des listes et mettre à jour le champ "trophée possédé" quand il est dans listeTropheesMusicien.
